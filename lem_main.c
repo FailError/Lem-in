@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/11/11 22:47:05 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/11/18 16:56:02 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 int main(int argc, char **argv)
 {
 	char *str;
-	while(get_next_line(0, &str) == 1)
-	{
+	int fd;
 
+	fd = open(argv[1], O_RDONLY);
+	while(get_next_line(fd, &str) == 1)
+	{
+		ft_printf(str);
 	}
 }
