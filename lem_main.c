@@ -6,13 +6,18 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/11/18 16:56:02 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/11/20 18:20:24 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
 int main(int argc, char **argv)
+{
+	ft_parser(argc, argv);
+}
+
+void ft_parser(int argc, char **argv)
 {
 	char *str;
 	int fd;

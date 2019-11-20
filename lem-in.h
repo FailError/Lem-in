@@ -21,4 +21,6 @@ typedef	struct s_lem
 	int antnum;
 }t_lem;
 
+void	ft_parser(int argc, char **argv);
+
 #endif
