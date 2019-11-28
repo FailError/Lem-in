@@ -58,19 +58,12 @@ void	ft_isspace(char *str)
 
 void ft_parser(int argc, char **argv)
 {
-	int fd;
-	t_all all;
+
 	//t_lem *lemin = (t_lem *)malloc(sizeof(t_lem));
 
-	fd = open(argv[1], O_RDONLY);
-	ft_bzero(&all, sizeof(t_all));
-	number_of_ants(&all, fd);
+
 	//all = ft_create(&all);
 
-
-
-	if(fd < 0)
-		fd = 0;
 
 //	while (get_next_line(fd, &str) == 1)
 //	{
@@ -83,5 +76,10 @@ void ft_parser(int argc, char **argv)
 
 int main(int argc, char **argv)
 {
-	ft_parser(argc, argv);
+	int fd;
+	t_all all;
+
+	fd = open(argv[1], O_RDONLY);
+	ft_bzero(&all, sizeof(t_all));
+	number_of_ants(&all, fd);
 }
