@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/11/28 17:58:06 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/11/30 18:06:43 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,11 @@ void	ft_isspace(char *str)
 		ft_isspace(str);
 }
 
-void ft_parser(int argc, char **argv)
+void	rooms(t_all *map, int fd)
 {
 
-	//t_lem *lemin = (t_lem *)malloc(sizeof(t_lem));
-
-
-	//all = ft_create(&all);
-
-
-//	while (get_next_line(fd, &str) == 1)
-//	{
-//		ft_putstr(str);
-//		ft_isspace(str);
-//		if (ft_strcmp(str, "##start") == 0)
-//			i = 1;
-//	}
 }
+
 
 int main(int argc, char **argv)
 {
@@ -82,4 +70,5 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	ft_bzero(&all, sizeof(t_all));
 	number_of_ants(&all, fd);
+
 }

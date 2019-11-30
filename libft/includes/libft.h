@@ -99,5 +99,6 @@ void				ft_swap(int *a, int *b);
 size_t				ft_slen(const char *s1, const char *s2);
 int					ft_word_count(char *s, char c);
 int					ft_printf(const char *format, ...);
+void				ft_error1(void);
 
 #endif
