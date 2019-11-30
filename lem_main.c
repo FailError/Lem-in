@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/11/30 18:06:43 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/11/30 21:21:53 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,59 @@ t_rooms	ft_create()
 //	return (head);
 //}
 
+unsigned		ft_atoi_ants(char *str)
+{
+	unsigned	ants;
+	unsigned	i;
+
+	ants = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			ants = ants * 10 + str[i] - '0';
+			++i;
+		}
+		else
+			ft_error();
+	}
+	i == 0 || i > 10 || ants > 2147483647 ? ft_error() : 0;
+	free(str);
+	return (ants);
+}
+
+int comments(char *str)
+{
+	if (str[0] == '#' && (str[1] != '#' || !str[1]))
+	{
+		free(str);
+		return (1);
+	}
+	return (0);
+}
+
 void	number_of_ants(t_all *all, const int fd)
 {
 	char *str;
 
 	str = NULL;
 	get_next_line(fd, &str);
-	all->number_of_ants = ft_atoi(str);
-	free(str);
+	ft_putstr(str);
+	all->number_of_ants = ft_atoi_ants(str);
 }
 
-void	ft_isspace(char *str)
+void	all_rooms(t_all *all, int fd)
 {
-	if(*str == ' ' || *str == '\t' || *str == '\r' || *str == '\v' || *str == '\f')
-		ft_isspace(str);
-}
+	char	*str;
 
-void	rooms(t_all *map, int fd)
-{
-
+	str = NULL;
+	while (get_next_line(fd, &str))
+	{
+		ft_putstr(str);
+		if (comments(str))
+			continue;
+	}
 }
 
 
@@ -70,5 +104,6 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	ft_bzero(&all, sizeof(t_all));
 	number_of_ants(&all, fd);
-
+	all_rooms(&all, fd);
+	return (0);
 }
