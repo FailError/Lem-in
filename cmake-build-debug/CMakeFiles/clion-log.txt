@@ -1,4 +1,4 @@
-/Users/kbessa/Desktop/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/kbessa/Desktop/42/Lem-in
+/Users/kbessa/Desktop/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/kbessa/Desktop/42/github/Lem-in
 -- Configuring done
 -- Generating done
--- Build files have been written to: /Users/kbessa/Desktop/42/Lem-in/cmake-build-debug
+-- Build files have been written to: /Users/kbessa/Desktop/42/github/Lem-in/cmake-build-debug

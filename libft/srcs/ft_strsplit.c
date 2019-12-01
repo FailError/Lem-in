@@ -37,5 +37,6 @@ char				**ft_strsplit(char *s, char c)
 			tab[p++] = ft_strndup(s + n, i - n);
 		}
 	}
+	tab[p] = NULL;
 	return (tab);
 }

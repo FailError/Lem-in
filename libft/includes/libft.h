@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 15:45:16 by kbessa            #+#    #+#             */
-/*   Updated: 2019/10/30 13:51:01 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/01 20:30:51 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "sys/uio.h"
 # include "get_next_line.h"
 # include "ft_printf.h"
-# include "../../lem-in.h"
 
 typedef struct		s_list
 {
@@ -30,6 +29,7 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
 void				*ft_memset(void *destination, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *restrict dst, const void *restrict src,
@@ -97,7 +97,7 @@ void				ft_foreach(int *tab, int length, void (*f)(int));
 char				*ft_strndup(const char *s, size_t n);
 void				ft_swap(int *a, int *b);
 size_t				ft_slen(const char *s1, const char *s2);
-int					ft_word_count(char *s, char c);
+int					ft_word_count(char const *s, char c);
 int					ft_printf(const char *format, ...);
 void				ft_error1(void);
 

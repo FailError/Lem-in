@@ -48,10 +48,10 @@ RM = /Users/kbessa/Desktop/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/kbessa/Desktop/42/Lem-in
+CMAKE_SOURCE_DIR = /Users/kbessa/Desktop/42/github/Lem-in
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/kbessa/Desktop/42/Lem-in/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/kbessa/Desktop/42/github/Lem-in/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kbessa/Desktop/42/Lem-in/cmake-build-debug/CMakeFiles /Users/kbessa/Desktop/42/Lem-in/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kbessa/Desktop/42/github/Lem-in/cmake-build-debug/CMakeFiles /Users/kbessa/Desktop/42/github/Lem-in/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kbessa/Desktop/42/Lem-in/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/kbessa/Desktop/42/github/Lem-in/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,33 @@ Lem_in: cmake_check_build_system
 Lem_in/fast:
 	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/build
 .PHONY : Lem_in/fast
+
+ants.o: ants.c.o
+
+.PHONY : ants.o
+
+# target to build an object file
+ants.c.o:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/ants.c.o
+.PHONY : ants.c.o
+
+ants.i: ants.c.i
+
+.PHONY : ants.i
+
+# target to preprocess a source file
+ants.c.i:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/ants.c.i
+.PHONY : ants.c.i
+
+ants.s: ants.c.s
+
+.PHONY : ants.s
+
+# target to generate assembly for a file
+ants.c.s:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/ants.c.s
+.PHONY : ants.c.s
 
 help.o: help.c.o
 
@@ -2580,6 +2607,33 @@ libft/srcs/get_next_line.c.s:
 	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/libft/srcs/get_next_line.c.s
 .PHONY : libft/srcs/get_next_line.c.s
 
+rooms.o: rooms.c.o
+
+.PHONY : rooms.o
+
+# target to build an object file
+rooms.c.o:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/rooms.c.o
+.PHONY : rooms.c.o
+
+rooms.i: rooms.c.i
+
+.PHONY : rooms.i
+
+# target to preprocess a source file
+rooms.c.i:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/rooms.c.i
+.PHONY : rooms.c.i
+
+rooms.s: rooms.c.s
+
+.PHONY : rooms.s
+
+# target to generate assembly for a file
+rooms.c.s:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/rooms.c.s
+.PHONY : rooms.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -2589,6 +2643,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Lem_in"
+	@echo "... ants.o"
+	@echo "... ants.i"
+	@echo "... ants.s"
 	@echo "... help.o"
 	@echo "... help.i"
 	@echo "... help.s"
@@ -2862,6 +2919,9 @@ help:
 	@echo "... libft/srcs/get_next_line.o"
 	@echo "... libft/srcs/get_next_line.i"
 	@echo "... libft/srcs/get_next_line.s"
+	@echo "... rooms.o"
+	@echo "... rooms.i"
+	@echo "... rooms.s"
 .PHONY : help
 
 

@@ -6,13 +6,13 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 18:34:00 by kbessa            #+#    #+#             */
-/*   Updated: 2019/10/30 23:12:58 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/05/08 18:40:11 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int					ft_word_count(char *s, char c)
+int					ft_word_count(char const *s, char c)
 {
 	unsigned int	i;
 	unsigned int	cntr;
@@ -23,10 +23,10 @@ int					ft_word_count(char *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		if (s[i] != '\0' && ((s[i] >= '0' && s[i] <= '9') || s[i] == '-'))
+		if (s[i] != '\0')
 			cntr++;
 		while (s[i] && (s[i] != c))
 			i++;
 	}
-	return (int)(cntr);
+	return (cntr);
 }

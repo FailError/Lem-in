@@ -6,5 +6,5 @@ C_FLAGS = -g   -std=gnu11
 
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/kbessa/Desktop/42/Lem-in/libft/includes 
+C_INCLUDES = -I/Users/kbessa/Desktop/42/github/Lem-in/. -I/Users/kbessa/Desktop/42/github/Lem-in/libft/includes 
 

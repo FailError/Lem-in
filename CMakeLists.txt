@@ -3,6 +3,7 @@ project(Lem_in C)
 
 set(CMAKE_C_STANDARD 11)
 
+include_directories(.)
 include_directories(libft/includes)
 
 add_executable(Lem_in
@@ -97,4 +98,9 @@ add_executable(Lem_in
         libft/srcs/ft_tolower.c
         libft/srcs/ft_toupper.c
         libft/srcs/ft_word_count.c
-        libft/srcs/get_next_line.c lem-in.h lem_main.c help.c)
+        libft/srcs/get_next_line.c
+        ants.c
+        help.c
+        lem-in.h
+        lem_main.c
+        rooms.c)
