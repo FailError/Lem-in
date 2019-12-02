@@ -19,6 +19,11 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	if(!(new = ft_memalloc(sizeof(t_rooms))))
 		exit(-1);
 	new->name = room[0];
+	if (!ft_strncmp(new->name, "L", 1))
+	{
+		ft_printf("Error: not valid room name");
+		exit(-1);
+	}
 	new->x = ft_atoi_ants(room[1]);
 	new->y = ft_atoi_ants(room[2]);
 	free(room);
