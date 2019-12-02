@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:03:29 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/02 14:47:52 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/02 19:53:08 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void				ft_error_str(char *str);
 void				number_of_ants(t_all *all, int fd);
 void				check_name_coord(char **room);
 t_list				*ft_lstnew_ptr(void const *content);
-void				if_room_coord(t_all *all, char *str);
+void				room_coord(t_all *all, char *str);
+void				room_links(t_all *all, char *str);
 
 #endif

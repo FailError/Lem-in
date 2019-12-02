@@ -103,4 +103,4 @@ add_executable(Lem_in
         help.c
         lem-in.h
         lem_main.c
-        rooms.c)
+        rooms.c random.c)

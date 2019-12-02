@@ -77,14 +77,14 @@ int		start_end(t_all *map, int fd, char *str)
 	return (0);
 }
 
-void		if_room_coord(t_all *all, char *str)
+void		room_coord(t_all *all, char *str)
 {
 	char	**room;
 	t_rooms	*temp;
 
 	room = NULL;
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : ft_error_str("dont have a room");
+	room ? check_name_coord(room) : ft_error_str("NO ROOM");
 	free(str);
 	temp = ft_create(room);
 	all->numbers_of_rooms++;
@@ -99,11 +99,14 @@ void	all_rooms(t_all *all, int fd)
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
-		if (ifcomments(str))
+		//if (ifcomments(str))
+		//else if (start_end(all, fd, str) && !(ifcomments(str))
+			//continue;
+		if (ft_strchr(str, ' ') && !(ifcomments(str)))
+			room_coord(all, str);
+//		else if (ft_strchr(str, '-'))
+//			room_links(all, str);
+		else
 			continue;
-		else if (start_end(all, fd, str))
-			continue;
-		else if (ft_strchr(str, ' '))
-			if_room_coord(all, str);
 	}
 }

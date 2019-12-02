@@ -91,6 +91,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Lem_in.dir/libft/srcs/ft_toupper.c.o"
   "CMakeFiles/Lem_in.dir/libft/srcs/ft_word_count.c.o"
   "CMakeFiles/Lem_in.dir/libft/srcs/get_next_line.c.o"
+  "CMakeFiles/Lem_in.dir/random.c.o"
   "CMakeFiles/Lem_in.dir/rooms.c.o"
   "Lem_in"
   "Lem_in.pdb"

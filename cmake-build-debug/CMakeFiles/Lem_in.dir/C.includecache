@@ -6,14 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/kbessa/Desktop/42/github/Lem-in/ants.c
-lem-in.h
-/Users/kbessa/Desktop/42/github/Lem-in/lem-in.h
-
-/Users/kbessa/Desktop/42/github/Lem-in/help.c
-lem-in.h
-/Users/kbessa/Desktop/42/github/Lem-in/lem-in.h
-
 /Users/kbessa/Desktop/42/github/Lem-in/lem-in.h
 libft/includes/libft.h
 /Users/kbessa/Desktop/42/github/Lem-in/libft/includes/libft.h
@@ -21,10 +13,6 @@ libft/includes/get_next_line.h
 /Users/kbessa/Desktop/42/github/Lem-in/libft/includes/get_next_line.h
 libft/includes/ft_printf.h
 /Users/kbessa/Desktop/42/github/Lem-in/libft/includes/ft_printf.h
-
-/Users/kbessa/Desktop/42/github/Lem-in/lem_main.c
-lem-in.h
-/Users/kbessa/Desktop/42/github/Lem-in/lem-in.h
 
 /Users/kbessa/Desktop/42/github/Lem-in/libft/includes/ft_printf.h
 libft.h

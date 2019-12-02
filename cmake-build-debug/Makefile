@@ -2607,6 +2607,33 @@ libft/srcs/get_next_line.c.s:
 	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/libft/srcs/get_next_line.c.s
 .PHONY : libft/srcs/get_next_line.c.s
 
+random.o: random.c.o
+
+.PHONY : random.o
+
+# target to build an object file
+random.c.o:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/random.c.o
+.PHONY : random.c.o
+
+random.i: random.c.i
+
+.PHONY : random.i
+
+# target to preprocess a source file
+random.c.i:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/random.c.i
+.PHONY : random.c.i
+
+random.s: random.c.s
+
+.PHONY : random.s
+
+# target to generate assembly for a file
+random.c.s:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/random.c.s
+.PHONY : random.c.s
+
 rooms.o: rooms.c.o
 
 .PHONY : rooms.o
@@ -2919,6 +2946,9 @@ help:
 	@echo "... libft/srcs/get_next_line.o"
 	@echo "... libft/srcs/get_next_line.i"
 	@echo "... libft/srcs/get_next_line.s"
+	@echo "... random.o"
+	@echo "... random.i"
+	@echo "... random.s"
 	@echo "... rooms.o"
 	@echo "... rooms.i"
 	@echo "... rooms.s"

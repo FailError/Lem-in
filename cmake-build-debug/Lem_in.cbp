@@ -372,6 +372,9 @@
 		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/libft/srcs/get_next_line.c">
 			<Option target="Lem_in"/>
 		</Unit>
+		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/random.c">
+			<Option target="Lem_in"/>
+		</Unit>
 		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/rooms.c">
 			<Option target="Lem_in"/>
 		</Unit>

@@ -56,7 +56,7 @@ int						ft_atoi(const char *str)
 		i++;
 	}
 	if((i == 20 && res == 0) || (str[i] && !(str[i] >= '0' && str[i] <= '9')))
-		ft_error();
+		ft_error1();
 	atoi3(res, minus);
 	return ((int)(res * minus));
 }
