@@ -2,9 +2,9 @@ Lem-in ./generator --big-superposition
 188
 #Here is the number of lines required: 77
 ##start
-	Nag4 2 2
+Nag4 2 2
 ##end
-	Hct8 5 5
+Hct8 5 5
 Qra5 9 9
 Yv_2 11 11
 Gbz7 14 14

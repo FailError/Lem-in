@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 13:23:44 by kbessa            #+#    #+#             */
-/*   Updated: 2019/10/30 17:56:44 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/04 20:01:24 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char				**ft_strsplit(char *s, char c)
 		return (NULL);
 	i = 0;
 	p = 0;
-	if (!(tab = (char **)malloc(sizeof(char *) * (ft_word_count(s, c)))))
+	if (!(tab = (char **)malloc(sizeof(char *) * (ft_word_count(s, c) + 1))))
 		return (NULL);
 	while (s[i])
 	{
@@ -34,7 +34,8 @@ char				**ft_strsplit(char *s, char c)
 			i++;
 		if (i > n)
 		{
-			tab[p++] = ft_strndup(s + n, i - n);
+			tab[p] = ft_strndup(s + n, i - n);
+			p++;
 		}
 	}
 	tab[p] = NULL;
