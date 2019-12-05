@@ -6,7 +6,7 @@
 /*   By: kbessa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 20:14:30 by kbessa            #+#    #+#             */
-/*   Updated: 2019/10/08 14:17:48 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/05 16:24:56 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	*ft_memalloc(size_t size)
 {
 	void *ptr;
 
-	ptr = malloc(size);
-	if (ptr == '\0')
+	if(!(ptr = (void *)malloc(size)))
 		return (NULL);
-	else
-		return (ft_memset(ptr, 0, size));
+	return (ft_memset(ptr, 0, size));
 }

@@ -6,15 +6,15 @@
 #    By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/03 15:08:28 by kbessa            #+#    #+#              #
-#    Updated: 2019/11/22 20:15:27 by kbessa           ###   ########.fr        #
+#    Updated: 2019/12/05 21:21:10 by kbessa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= lem_in
 
-CFLAGS 	= #-Wall -Wextra -Werror
+CFLAGS 	= -Wall -Wextra -Werror
 
-SRC 	= lem_main.c
+SRC 	= lem_main.c help.c rooms.c ants.c
 
 RED		=	\033[0;31m
 GREEN	=	\033[0;32m

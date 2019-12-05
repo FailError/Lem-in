@@ -6,7 +6,7 @@ void	ft_error(void)
 	exit(-1);
 }
 
-t_list	*ft_lstnew_ptr(void const *content)
+t_list	*ft_lstnew2(void const *content)
 {
 	t_list	*newl;
 
