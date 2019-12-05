@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/05 21:41:29 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/05 21:42:55 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ int main(int argc, char **argv)
 	int fd;
 	t_all all;
 
-	argc += 1;
+	argc = 0;
 	fd = open(argv[1], O_RDONLY);
 	ft_bzero(&all, sizeof(t_all));
 	number_of_ants(&all, fd);
-	close(fd);
-	return (0);
 	all_rooms(&all, fd);
+	close(fd);
 	return (0);
 }
