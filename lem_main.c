@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/05 21:42:55 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/10 14:32:39 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new->name = room[0];
 	if (!ft_strncmp(new->name, "L", 1))
 	{
-		ft_printf("Error: not valid room name");
+		ft_printf("\x1B[31mError: not valid room name\033[0m");
 		exit(-1);
 	}
 	new->x = ft_atoi_ants(room[1]);
@@ -47,6 +47,7 @@ int main(int argc, char **argv)
 	ft_bzero(&all, sizeof(t_all));
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
+	bfs(&all);
 	close(fd);
 	return (0);
 }

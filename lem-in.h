@@ -6,7 +6,7 @@
 /*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:03:29 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/05 21:21:42 by kbessa           ###   ########.fr       */
+/*   Updated: 2019/12/10 14:08:08 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft/includes/libft.h"
 # include "libft/includes/get_next_line.h"
 # include "libft/includes/ft_printf.h"
+#include <stdbool.h>
 
 typedef struct		s_rooms
 {
@@ -51,8 +52,9 @@ void				struct_to_array(t_all *all);
 void				links_in_array(t_all *all, char *str);
 t_list				*next(t_list *tmp);
 void				double_name(t_all *all);
-void 				qs2(t_all *all, int first, int last);
+void 				qs2(t_all *all, unsigned first, unsigned last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
+bool 				bfs(t_all *all);
 
 #endif

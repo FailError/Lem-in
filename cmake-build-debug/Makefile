@@ -150,6 +150,33 @@ ants.c.s:
 	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/ants.c.s
 .PHONY : ants.c.s
 
+bfs.o: bfs.c.o
+
+.PHONY : bfs.o
+
+# target to build an object file
+bfs.c.o:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/bfs.c.o
+.PHONY : bfs.c.o
+
+bfs.i: bfs.c.i
+
+.PHONY : bfs.i
+
+# target to preprocess a source file
+bfs.c.i:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/bfs.c.i
+.PHONY : bfs.c.i
+
+bfs.s: bfs.c.s
+
+.PHONY : bfs.s
+
+# target to generate assembly for a file
+bfs.c.s:
+	$(MAKE) -f CMakeFiles/Lem_in.dir/build.make CMakeFiles/Lem_in.dir/bfs.c.s
+.PHONY : bfs.c.s
+
 help.o: help.c.o
 
 .PHONY : help.o
@@ -2673,6 +2700,9 @@ help:
 	@echo "... ants.o"
 	@echo "... ants.i"
 	@echo "... ants.s"
+	@echo "... bfs.o"
+	@echo "... bfs.i"
+	@echo "... bfs.s"
 	@echo "... help.o"
 	@echo "... help.i"
 	@echo "... help.s"

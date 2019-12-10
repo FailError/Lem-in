@@ -7,6 +7,12 @@ CMakeFiles/Lem_in.dir/ants.c.o: ../libft/includes/ft_printf.h
 CMakeFiles/Lem_in.dir/ants.c.o: ../libft/includes/get_next_line.h
 CMakeFiles/Lem_in.dir/ants.c.o: ../libft/includes/libft.h
 
+CMakeFiles/Lem_in.dir/bfs.c.o: ../bfs.c
+CMakeFiles/Lem_in.dir/bfs.c.o: ../lem-in.h
+CMakeFiles/Lem_in.dir/bfs.c.o: ../libft/includes/ft_printf.h
+CMakeFiles/Lem_in.dir/bfs.c.o: ../libft/includes/get_next_line.h
+CMakeFiles/Lem_in.dir/bfs.c.o: ../libft/includes/libft.h
+
 CMakeFiles/Lem_in.dir/help.c.o: ../help.c
 CMakeFiles/Lem_in.dir/help.c.o: ../lem-in.h
 CMakeFiles/Lem_in.dir/help.c.o: ../libft/includes/ft_printf.h

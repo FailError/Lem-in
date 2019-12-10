@@ -87,6 +87,9 @@
 		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/ants.c">
 			<Option target="Lem_in"/>
 		</Unit>
+		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/bfs.c">
+			<Option target="Lem_in"/>
+		</Unit>
 		<Unit filename="/Users/kbessa/Desktop/42/github/Lem-in/help.c">
 			<Option target="Lem_in"/>
 		</Unit>

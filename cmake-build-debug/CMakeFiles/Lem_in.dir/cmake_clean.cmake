@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Lem_in.dir/ants.c.o"
+  "CMakeFiles/Lem_in.dir/bfs.c.o"
   "CMakeFiles/Lem_in.dir/help.c.o"
   "CMakeFiles/Lem_in.dir/lem_main.c.o"
   "CMakeFiles/Lem_in.dir/libft/srcs/ft_atoi.c.o"
