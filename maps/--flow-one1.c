@@ -1,10 +1,10 @@
-555
-#Here is the number of lines required:
+1
+#Here is the number of lines required: 33
 ##start
 Qjs3 1 2
+Pty7 3 3
 ##end
 Zvv5 2 2
-Pty7 3 3
 Ati1 13 13
 Nm_2 16 16
 Qjs3-Pty7

@@ -52,9 +52,9 @@ void				struct_to_array(t_all *all);
 void				links_in_array(t_all *all, char *str);
 t_list				*next(t_list *tmp);
 void				double_name(t_all *all);
-void 				qs2(t_all *all, unsigned first, unsigned last);
+void 				qs2(t_all *all, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
-bool 				bfs(t_all *all);
+int 				bfs(t_all *all);
 
 #endif

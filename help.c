@@ -19,8 +19,8 @@ t_list	*ft_lstnew2(void const *content)
 	}
 	else
 	{
-		newl->content = (void*)content;
-		newl->content_size = sizeof(void*);
+		newl->content = (void *)content;
+		newl->content_size = sizeof(void *);
 	}
 	newl->next = NULL;
 	return (newl);

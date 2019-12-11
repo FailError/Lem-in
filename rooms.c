@@ -2,7 +2,7 @@
 
 int ifcomments(char *str)
 {
-	if (str[0] && str[0] == '#' && (str[1] != '#' || !str[1]))
+	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#'))
 	{
 		free(str);
 		str = NULL;
@@ -29,16 +29,15 @@ void	ft_start(t_all *all, int fd, char *str)
 
 	room = NULL;
 	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
-	while (get_next_line(fd, &str) && ifcomments(str))
-	{
-	}
+	get_next_line(fd, &str);
+	ifcomments(str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("NO ROOM\033[0m");
 	free(str);
 	all->first_room = ft_create(room);
-	all->number_of_all_rooms++;
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
+	all->number_of_all_rooms++;
 }
 
 void	ft_end(t_all *all, int fd, char *str)
@@ -47,16 +46,15 @@ void	ft_end(t_all *all, int fd, char *str)
 
 	room = NULL;
 	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
-	while (get_next_line(fd, &str) && ifcomments(str))
-	{
-	}
-	ft_printf("%s\n", str);
+	get_next_line(fd, &str);
+	ifcomments(str);
+	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
 	free(str);
 	all->last_room = ft_create(room);
-	all->number_of_all_rooms++;
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->last_room));
+	all->number_of_all_rooms++;
 }
 
 int		start_end(t_all *map, int fd, char *str)
@@ -128,7 +126,7 @@ void 	double_name(t_all *all)
 		j = i + 1;
 	}
 }
-void	qs22(t_all *all, char *tmp, unsigned *left, unsigned *right)
+void	qs22(t_all *all, char *tmp, int *left, int *right)
 {
 	tmp = all->arr_rooms[*left]->name;
 	all->arr_rooms[*left]->name = all->arr_rooms[*right]->name;
@@ -137,11 +135,11 @@ void	qs22(t_all *all, char *tmp, unsigned *left, unsigned *right)
 	*right -=1;
 }
 
-void	qs2(t_all *all, unsigned first, unsigned last)
+void	qs2(t_all *all, int first, int last)
 {
 	char *tmp;
-	unsigned left;
-	unsigned right;
+	int left;
+	int right;
 	char *middle;
 
 	tmp = NULL;
@@ -172,7 +170,7 @@ void	struct_to_array(t_all *all)
 	i = 0;
 	tmp = all->list_of_rooms;
 	!all->first_room || !all->last_room ? ft_error_str("\x1B[31mno start/finish\033[0m") : 0;
-	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * (all->number_of_all_rooms)))) //+1 ????
+	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms))) //+1 ????
 		exit(1);
 	while (tmp)
 	{
@@ -208,7 +206,7 @@ t_rooms *binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
 	char *guess;
 
 	low = 0;
-	high = all_rooms - 1;
+	high = (int)all_rooms - 1;
 
 	while (low <= high)
 	{
@@ -221,7 +219,6 @@ t_rooms *binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
 		else
 			low = mid + 1;
 	}
-	//ft_error_str("Error links");
 	return (NULL);
 }
 
@@ -283,7 +280,7 @@ void	all_rooms(t_all *all, int fd)
 		else if(ft_strchr(str, '-'))
 			links_in_array(all, str);
 		else
-			ft_error_str("Error");
+			ft_error_str("\x1B[31mError\033[0m");
 	}
 	!all->arr_rooms ? ft_error_str("\x1B[31mlinks not found\033[0m") : 0;
 }
