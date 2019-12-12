@@ -1,16 +1,22 @@
-1
-#Here is the number of lines required: 33
+555
+#Here is the number of lines required:
 ##start
-Qjs3 1 2
-Pty7 3 3
+A 1 1
+B 2 2
 ##end
-Zvv5 2 2
-Ati1 13 13
-Nm_2 16 16
-Qjs3-Pty7
-Qjs3-Ati1
-Pty7-Nm_2
-Pty7-Zvv5
-Ati1-Zvv5
-Nm_2-Zvv5
+Z 8 8
+C 3 3
+D 4 4
+E 5 5
+F 6 6
+G 7 7
+A-B
+A-D
+B-C
+B-F
+D-E
+E-C
+F-G
+C-Z
+G-Z
 #Here is the number of lines required: 33

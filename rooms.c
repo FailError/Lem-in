@@ -57,20 +57,20 @@ void	ft_end(t_all *all, int fd, char *str)
 	all->number_of_all_rooms++;
 }
 
-int		start_end(t_all *map, int fd, char *str)
+int		start_end(t_all *all, int fd, char *str)
 {
 	if (!ft_strcmp(str, "##start"))
 	{
 		free(str);
 		str = NULL;
-		ft_start(map, fd, str);
+		ft_start(all, fd, str);
 		return (1);
 	}
 	else if (!ft_strcmp(str, "##end"))
 	{
 		free(str);
 		str = NULL;
-		ft_end(map, fd, str);
+		ft_end(all, fd, str);
 		return (1);
 	}
 	return (0);
@@ -79,15 +79,15 @@ int		start_end(t_all *map, int fd, char *str)
 void		room_coord(t_all *all, char *str)
 {
 	char	**room;
-	t_rooms	*temp;
+	t_rooms	*tmp;
 
 	room = NULL;
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
 	free(str);
-	temp = ft_create(room);
+	tmp = ft_create(room);
 	all->number_of_all_rooms++;
-	ft_lstadd(&all->list_of_rooms, ft_lstnew2(temp));
+	ft_lstadd(&all->list_of_rooms, ft_lstnew2(tmp));
 }
 
 t_list	*next(t_list *tmp)
@@ -126,18 +126,18 @@ void 	double_name(t_all *all)
 		j = i + 1;
 	}
 }
-void	qs22(t_all *all, char *tmp, int *left, int *right)
+void	qs22(t_all *all, t_rooms *tmp, int *left, int *right)
 {
-	tmp = all->arr_rooms[*left]->name;
-	all->arr_rooms[*left]->name = all->arr_rooms[*right]->name;
-	all->arr_rooms[*right]->name = tmp;
+	tmp = all->arr_rooms[*left];
+	all->arr_rooms[*left] = all->arr_rooms[*right];
+	all->arr_rooms[*right] = tmp;
 	*left += 1;
 	*right -=1;
 }
 
 void	qs2(t_all *all, int first, int last)
 {
-	char *tmp;
+	t_rooms *tmp;
 	int left;
 	int right;
 	char *middle;
@@ -172,10 +172,11 @@ void	struct_to_array(t_all *all)
 	!all->first_room || !all->last_room ? ft_error_str("\x1B[31mno start/finish\033[0m") : 0;
 	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms))) //+1 ????
 		exit(1);
-	while (tmp)
+	while (all->list_of_rooms)
 	{
-		all->arr_rooms[i++] = tmp->content;
-		tmp = next(tmp);
+		all->arr_rooms[i] = all->list_of_rooms->content;
+		all->list_of_rooms = next(all->list_of_rooms);
+		i++;
 	}
 	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним
 	double_name(all); //проверка на дубликат имен комнат

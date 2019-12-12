@@ -24,6 +24,7 @@ typedef struct		s_rooms
 	t_list			*links; ///список связных комнат
 	char			*name; ///имя комнаты
 	unsigned		num; ///номер комнаты
+	int 			lvl;
 }					t_rooms;
 
 typedef	struct		s_all
@@ -35,6 +36,11 @@ typedef	struct		s_all
 	t_rooms			*last_room; ///указатель на последнюю комнату
 	t_list			*list_of_rooms; ///список комнат
 }					t_all;
+
+typedef struct		s_que
+{
+	t_rooms *room;
+}					t_queue;
 
 void				ft_error(void);
 t_rooms				*ft_create(char **room);

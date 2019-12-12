@@ -2,5 +2,8 @@
 
 int		bfs(t_all *all)
 {
+	int tmp;
 
+	tmp = 0;
+	while()
 }

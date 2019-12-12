@@ -6,7 +6,7 @@
 #    By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/03 15:08:28 by kbessa            #+#    #+#              #
-#    Updated: 2019/12/05 21:21:10 by kbessa           ###   ########.fr        #
+#    Updated: 2019/12/12 20:41:55 by kbessa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,15 +45,16 @@ $(OBJSFD)/%.o: %.c | $(OBJSFD)
 
 $(NAME): $(OBJS) $(LIBFT)
 	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       ❒"
-	@echo "$(YELLOW)▀ Compiling $@...▀$(NC)							       ❒"
+	@echo "$(YELLOW)▀ Compiling $@... ▀$(NC)							       ❒"
 	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       ❒"
 	@gcc $(CFLAGS) $(OBJS) $(LIB_BINARY) -o $@
 	@echo "✅  $(GREEN)$@ Ready!$(NC) ✅							       ❒"
 	@echo "									       ❒"
-	@echo	"			    $(ORANGE)──────▄▀▄─────▄▀▄$(NC)				       ❒"
-	@echo	"			    $(ORANGE)─────▄█░░▀▀▀▀▀░░█▄$(NC)				       ❒"
-	@echo	"			    $(ORANGE)─▄▄──█░░░░░░░░░░░█──▄▄$(NC)			       ❒"
-	@echo	"❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄$(ORANGE)█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█$(NC)❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒"
+	@echo	"			    $(ORANGE)  ▄  ▄    ▄▀$(NC)				       ❒"
+	@echo	"			    $(ORANGE)   ▀▄ █ ▄▀▄▄▄$(NC)				       ❒"
+	@echo	"			    $(ORANGE)▄██▄████▄██▄▀█▄$(NC)			               ❒"
+	@echo	"			    $(ORANGE) ▀▀─█▀█▀▄▀███▀$(NC)			               ❒"
+	@echo	"❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄$(ORANGE)  ▄▄▀ █  ▀▄▄$(NC)❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❐▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄"
 
 clean:
 	@echo "$(RED)deleting lem-in object files...$(NC) ✔"
