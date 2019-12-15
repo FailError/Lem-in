@@ -32,6 +32,8 @@ void	ft_start(t_all *all, int fd, char *str)
 	while(ifcomments(str))
 		get_next_line(fd, &str);
 	ft_putstr(str);
+	ifcomments(str);
+	ft_putstr(str); // сега если комментарий
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("NO ROOM\033[0m");
 	free(str);
