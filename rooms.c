@@ -27,10 +27,10 @@ void	ft_start(t_all *all, int fd, char *str)
 {
 	char **room;
 
-	room = NULL;
 	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
 	get_next_line(fd, &str);
-	ifcomments(str);
+	while(ifcomments(str))
+		get_next_line(fd, &str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("NO ROOM\033[0m");
@@ -44,10 +44,10 @@ void	ft_end(t_all *all, int fd, char *str)
 {
 	char **room;
 
-	room = NULL;
 	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
 	get_next_line(fd, &str);
-	ifcomments(str);
+	while(ifcomments(str))
+		get_next_line(fd, &str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
@@ -81,7 +81,6 @@ void		room_coord(t_all *all, char *str)
 	char	**room;
 	t_rooms	*tmp;
 
-	room = NULL;
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
 	free(str);
@@ -112,9 +111,9 @@ void 	double_name(t_all *all)
 
 
 	i = 0;
-	j = 1;
 	while (i < all->number_of_all_rooms)
 	{
+		j = i + 1;
 		while (j < all->number_of_all_rooms)
 		{
 			if (ft_strcmp(all->arr_rooms[i]->name, all->arr_rooms[j]->name))
@@ -123,7 +122,6 @@ void 	double_name(t_all *all)
 				ft_error_str("\x1B[31mdouble name\033[0m");
 		}
 		i++;
-		j = i + 1;
 	}
 }
 void	qs22(t_all *all, t_rooms *tmp, int *left, int *right)
@@ -167,11 +165,11 @@ void	struct_to_array(t_all *all)
 	t_list		*tmp;
 	unsigned	i;
 
-	i = 0;
 	tmp = all->list_of_rooms;
 	!all->first_room || !all->last_room ? ft_error_str("\x1B[31mno start/finish\033[0m") : 0;
 	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms))) //+1 ????
 		exit(1);
+	i = 0;
 	while (all->list_of_rooms)
 	{
 		all->arr_rooms[i] = all->list_of_rooms->content;
@@ -243,7 +241,6 @@ void				links_in_array(t_all *all, char *str)
 	t_rooms *first;
 	t_rooms *second;
 
-	tmp = NULL;
 	tmp = ft_strsplit(str, '-');
 	check_name_coord2(tmp);
 	if(!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
