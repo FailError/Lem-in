@@ -37,19 +37,31 @@ int 	ft_isempty(t_queue *queue)
 
 int		bfs(t_all *all)
 {
-	int tmp;
-	t_queue queue;
+	int start = 0;
+	int end = 1;
+	//t_queue queue;
+	t_rooms **que;
+	t_rooms *rd;
+	int i = 0;
 
-	ft_bzero(&queue, sizeof(queue));
-	tmp = 0;
-	ft_push(&queue, all->first_room);
-	ft_color(&queue, all->first_room);
-
-	while(!ft_isempty(&queue))
+	que = (t_rooms **) ft_memalloc(sizeof(t_rooms) * all->number_of_all_rooms);
+	que[start] = all->first_room;
+	while(i < all->number_of_all_rooms)
 	{
-		ft_pop(&queue, all->first_room); //regewre
-		ft_color(&queue, all->first_room);
-
+		que[end] = que[start]->links->content;
 	}
+
+
+
+
+//	ft_push(&queue, all->first_room);
+//	ft_color(&queue, all->first_room);
+
+//	while(!ft_isempty(&queue))
+//	{
+//		ft_pop(&queue, all->first_room); //regewre
+//		ft_color(&queue, all->first_room);
+//
+//	}
 	return (0);
 }
