@@ -21,6 +21,7 @@ void	check_name_coord(char **room)
 	i > 3 ? ft_error_str("\x1B[31mmore than two coordinates\033[0m") : 0;
 	i == 2 ? ft_error_str("\x1B[31monly one coordinate or wrong links\033[0m") : 0;
 	i == 1 ? ft_error_str("\x1B[31monly room\033[0m") : 0;
+	i == 0 ? ft_error_str("\x1B[31mNO ROOM\033[0m") : 0;
 }
 
 void	ft_start(t_all *all, int fd, char *str)
@@ -30,12 +31,13 @@ void	ft_start(t_all *all, int fd, char *str)
 	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
 	get_next_line(fd, &str);
 	while(ifcomments(str))
+	{
+		ft_putstr(str);
 		get_next_line(fd, &str);
-	ft_putstr(str);
-	ifcomments(str);
-	ft_putstr(str); // сега если комментарий
+	}
+	ft_putstr(str); // сега если комментарий, была...
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : ft_error_str("NO ROOM\033[0m");
+	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
 	free(str);
 	all->first_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
