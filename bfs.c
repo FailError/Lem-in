@@ -24,7 +24,6 @@ int		bfs(t_all *all)
 			que[end]->lvl = que[i]->lvl + 1;
 			read_tlist = read_tlist->next;
 		 	end++;
-
 		}
 		i++;
 	}
