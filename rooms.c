@@ -22,6 +22,7 @@ void	check_name_coord(char **room)
 	i == 2 ? ft_error_str("\x1B[31monly one coordinate or wrong links\033[0m") : 0;
 	i == 1 ? ft_error_str("\x1B[31monly room\033[0m") : 0;
 	i == 0 ? ft_error_str("\x1B[31mNO ROOM\033[0m") : 0;
+//	i != 3 ? ft_error_str("\x1B[31mError\033[0m") : 0;
 }
 
 void	ft_start(t_all *all, int fd, char *str)
