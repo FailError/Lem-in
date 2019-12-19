@@ -129,7 +129,7 @@ void 	double_name(t_all *all)
 		i++;
 	}
 }
-void	qs22(t_all *all, t_rooms *tmp, int *left, int *right)
+void	qs_swap(t_all *all, t_rooms *tmp, int *left, int *right)
 {
 	tmp = all->arr_rooms[*left];
 	all->arr_rooms[*left] = all->arr_rooms[*right];
@@ -138,7 +138,7 @@ void	qs22(t_all *all, t_rooms *tmp, int *left, int *right)
 	*right -=1;
 }
 
-void	qs2(t_all *all, int first, int last)
+void	quick_sort(t_all *all, int first, int last)
 {
 	t_rooms *tmp;
 	int left;
@@ -158,10 +158,10 @@ void	qs2(t_all *all, int first, int last)
 			while ((ft_strcmp(all->arr_rooms[right]->name, middle) > 0))
 				right--;
 			if (left <= right)
-				qs22(all, tmp, &left, &right);
+				qs_swap(all, tmp, &left, &right);
 		}
-		qs2(all, first, right);
-		qs2(all, left, last);
+		quick_sort(all, first, right);
+		quick_sort(all, left, last);
 	}
 }
 
@@ -181,9 +181,9 @@ void	struct_to_array(t_all *all)
 		all->list_of_rooms = next(all->list_of_rooms);
 		i++;
 	}
-	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним
+	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним, фришить кто будет??
 	double_name(all); //проверка на дубликат имен комнат
-	qs2(all, 0, all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
+	quick_sort(all, 0, all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
 	i = 0;
 	while (i < all->number_of_all_rooms) //присваиваем комнатам их порядковый номер
 	{
@@ -249,9 +249,9 @@ void				links_in_array(t_all *all, char *str)
 	tmp = ft_strsplit(str, '-');
 	check_name_coord2(tmp);
 	if(!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
-		ft_error_str("\x1B[31mError links\033[0m");
+		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	if(!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
-		ft_error_str("\x1B[31mError links\033[0m");
+		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	ft_lstadd(&first->links, ft_lstnew2(second));
 	ft_lstadd(&second->links, ft_lstnew2(first));
 	free(str);

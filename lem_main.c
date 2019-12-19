@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lem_main.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/12 20:51:02 by kbessa           ###   ########.fr       */
-/*                                                                            */
+/**/
+/*:::  ::::::::   */
+/*   lem_main.c :+:  :+::+:   */
+/*+:+ +:+ +:+ */
+/*   By: kbessa <kbessa@student.42.fr>  +#+  +:+   +#+*/
+/*+#+#+#+#+#+   +#+   */
+/*   Created: 2019/11/11 15:05:49 by kbessa#+##+# */
+/*   Updated: 2019/12/13 17:26:22 by kbessa   ###   ########.fr   */
+/**/
 /* ************************************************************************** */
 
 #include "lem-in.h"
@@ -39,6 +39,8 @@ int main(int argc, char **argv)
 {
 	int fd;
 	t_all all;
+	int a;
+	t_ways ways;
 
 	argc = 0;
 	ft_bzero(&all, sizeof(t_all));
@@ -48,7 +50,13 @@ int main(int argc, char **argv)
 		exit(0);
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
-	bfs(&all);
+	all.first_room->lvl = 0;
+	all.last_room->lvl = INT_MAX;;//INT_MAX; //-1;
+	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms);
+	while((a = bfs(&all)))
+	{
+		reverse_path(all.que, a, &ways);
+	}
 	close(fd);
 	return (0);
 }
