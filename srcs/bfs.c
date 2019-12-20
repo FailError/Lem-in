@@ -1,17 +1,17 @@
 #include "lem-in.h"
 
-int				bfs(t_all *all)
+int			bfs(t_all *all)
 {
-	int			i = 0;
-	int			end = 1;
+	int		i = 0;
+	int		end = 1;
 //	t_rooms	**que;
-	t_rooms		*read_trooms;
-	t_list		*read_tlist;
-	unsigned	iterator = 0;
+	t_rooms	*read_trooms;
+	t_list	*read_tlist;
+	int		iterator = 0;
 
 //	que = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms); //вынести в структуру и выделять память один раз в мейне
 	all->que[i] = all->first_room;
-	while(iterator < all->number_of_all_rooms) ///-1??? первая комната уже записана ///que[i] != NULL??
+	while(iterator < all->number_of_all_rooms)
 	{
 		read_tlist = all->que[i]->links;
 		while(read_tlist != NULL)
@@ -39,14 +39,7 @@ int				bfs(t_all *all)
 	return (0);
 }
 
-void		reverse_path(t_rooms **queue, int end, t_ways *ways)
+void		reverse_path(t_rooms **queue, int a, t_ways *ways)
 {
-	ways->length = 0;
-	while (end != 0)
-	{
-		ways->way = queue[end];
-		ways->length++;
-		end--;
 
-	}
 }

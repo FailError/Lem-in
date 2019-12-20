@@ -19,7 +19,6 @@ unsigned		ft_atoi_ants(char *str)
 	}
 	i == 0 || i > 10 || ants > INT_MAX ? ft_error_str("\x1B[31mError\033[0m") : 0;
 	free(str);
-	str = NULL;
 	return (ants);
 }
 

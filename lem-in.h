@@ -16,6 +16,7 @@
 # include "libft/includes/get_next_line.h"
 # include "libft/includes/ft_printf.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct		s_rooms
 {
@@ -25,6 +26,7 @@ typedef struct		s_rooms
 	char			*name; ///имя комнаты
 	unsigned		num; ///номер комнаты
 	int 			lvl;
+	struct s_rooms	*next;
 }					t_rooms;
 
 typedef	struct		s_all
@@ -35,12 +37,21 @@ typedef	struct		s_all
 	t_rooms			*first_room; ///указатель на 1-ую комнату
 	t_rooms			*last_room; ///указатель на последнюю комнату
 	t_list			*list_of_rooms; ///список комнат
+	t_rooms			**que;
 }					t_all;
 
 typedef struct		s_que
 {
-	t_rooms *room;
+	t_rooms			*room;
+	struct			s_que *next;
 }					t_queue;
+
+typedef	struct 		s_way
+{
+	t_rooms			*way;
+	int				length;
+	struct s_way	*next;
+}					t_ways;
 
 void				ft_error(void);
 t_rooms				*ft_create(char **room);
@@ -58,9 +69,10 @@ void				struct_to_array(t_all *all);
 void				links_in_array(t_all *all, char *str);
 t_list				*next(t_list *tmp);
 void				double_name(t_all *all);
-void 				qs2(t_all *all, int first, int last);
+void 				quick_sort(t_all *all, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
+void				reverse_path(t_rooms **queue, int a, t_ways *ways);
 
 #endif

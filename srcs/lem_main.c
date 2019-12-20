@@ -16,7 +16,8 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 {
 	t_rooms *new;
 
-	new = ft_memalloc(sizeof(t_rooms));
+	if(!(new = ft_memalloc(sizeof(t_rooms))))
+		ft_error_str("\x1B[31mMemory allocation error\033[0m");
 	new->name = room[0];
 	if (new->name[0] == 'L')
 		ft_error_str("\x1B[31mError, name cannot begin with 'L'\033[0m");
@@ -38,7 +39,7 @@ int main(int argc, char **argv)
 {
 	int fd;
 	t_all all;
-	int end;
+	int a;
 	t_ways ways;
 
 	argc = 0;
@@ -52,10 +53,9 @@ int main(int argc, char **argv)
 	all.first_room->lvl = 0;
 	all.last_room->lvl = INT_MAX;;//INT_MAX; //-1;
 	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms);
-
-	while((end = bfs(&all)))
+	while((a = bfs(&all)))
 	{
-		reverse_path(all.que, end, &ways);
+		reverse_path(all.que, a, &ways);
 	}
 	close(fd);
 	return (0);

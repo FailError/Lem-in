@@ -183,13 +183,13 @@ void	struct_to_array(t_all *all)
 	}
 	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним, фришить кто будет??
 	double_name(all); //проверка на дубликат имен комнат
-	quick_sort(all, 0, (int)all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
+	quick_sort(all, 0, all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
 	i = 0;
-//	while (i < all->number_of_all_rooms) //присваиваем комнатам их порядковый номер///нах надо???
-//	{
-//		all->arr_rooms[i]->num = i;
-//		i++;
-//	}
+	while (i < all->number_of_all_rooms) //присваиваем комнатам их порядковый номер
+	{
+		all->arr_rooms[i]->num = i;
+		i++;
+	}
 }
 
 void				check_name_coord2(char **room)
