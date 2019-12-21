@@ -4,12 +4,10 @@ int				bfs(t_all *all)
 {
 	int			i = 0;
 	int			end = 1;
-//	t_rooms	**que;
 	t_rooms		*read_trooms;
 	t_list		*read_tlist;
 	unsigned	iterator = 0;
 
-//	que = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms); //вынести в структуру и выделять память один раз в мейне
 	all->que[i] = all->first_room;
 	while(iterator < all->number_of_all_rooms) ///-1??? первая комната уже записана ///que[i] != NULL??
 	{
@@ -39,14 +37,37 @@ int				bfs(t_all *all)
 	return (0);
 }
 
-void		reverse_path(t_rooms **queue, int end, t_ways *ways)
+void		push_path(t_rooms **alst, t_rooms *new)
 {
-	ways->length = 0;
-	while (end != 0)
+	if (alst && new)
 	{
-		ways->way = queue[end];
-		ways->length++;
-		end--;
-
+		if (*alst)
+			new->next = *alst;
+		*alst = new;
 	}
+}
+
+void		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
+{
+	t_rooms *t_reader;
+	t_list	*cur_list;
+
+	t_reader = queue[end];
+	list_ways->way_t = queue[end];
+	cur_list = list_ways->way_t->links;
+	while(t_reader->lvl != 0)
+	{
+		t_reader = cur_list->content;
+		if(t_reader->lvl == list_ways->way_t->lvl - 1)
+		{
+			push_path(&list_ways->way_t, t_reader);
+			cur_list = t_reader->links;
+
+		}
+		else
+		{
+			cur_list = cur_list->next;
+		}
+	}
+
 }

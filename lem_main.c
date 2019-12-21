@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	int fd;
 	t_all all;
 	int end;
-	t_ways ways;
+	t_ways *list_ways;
 
 	argc = 0;
 	ft_bzero(&all, sizeof(t_all));
@@ -55,7 +55,9 @@ int main(int argc, char **argv)
 
 	while((end = bfs(&all)))
 	{
-		reverse_path(all.que, end, &ways);
+		list_ways = ft_memalloc(sizeof(t_ways *));
+		ft_bzero(list_ways, sizeof(t_ways));
+		reverse_path(all.que, end, list_ways);
 	}
 	close(fd);
 	return (0);
