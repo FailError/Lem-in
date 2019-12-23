@@ -37,17 +37,17 @@ int				bfs(t_all *all)
 	return (0);
 }
 
-void		push_path(t_rooms **alst, t_rooms *new)
+void		push_path(t_rooms **current, t_rooms *new)
 {
-	if (alst && new)
+	if (current && new)
 	{
-		if (*alst)
-			new->next = *alst;
-		*alst = new;
+		if (*current)
+			new->next = *current;
+		*current = new;
 	}
 }
 
-void		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
+int		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
 {
 	t_rooms *t_reader;
 	t_list	*cur_list;
@@ -61,13 +61,14 @@ void		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
 		if(t_reader->lvl == list_ways->way_t->lvl - 1)
 		{
 			push_path(&list_ways->way_t, t_reader);
+			t_reader->mark = t_reader->lvl != 0 ? 1 : 0;
+			if(list_ways->way_t->lvl == 0)
+				return (1);
 			cur_list = t_reader->links;
-
 		}
 		else
-		{
 			cur_list = cur_list->next;
-		}
+		//end--;
 	}
-
+	return (0);
 }

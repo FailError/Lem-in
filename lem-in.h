@@ -24,8 +24,8 @@ typedef struct		s_rooms
 	unsigned		y;
 	t_list			*links; ///список связных комнат
 	char			*name; ///имя комнаты
-	unsigned		num; ///номер комнаты
 	int 			lvl;
+	int 			mark;
 	struct s_rooms	*next;
 }					t_rooms;
 
@@ -37,7 +37,7 @@ typedef	struct		s_all
 	t_rooms			*first_room; ///указатель на 1-ую комнату
 	t_rooms			*last_room; ///указатель на последнюю комнату
 	t_list			*list_of_rooms; ///список комнат
-	t_rooms			**que;
+	t_rooms			**que; ///массив указателей на посещенные bfs-ом комнаты
 }					t_all;
 
 typedef struct		s_que
@@ -48,7 +48,8 @@ typedef struct		s_que
 
 typedef	struct 		s_way
 {
-	t_rooms			*way;
+	t_rooms			*way_t;
+	//t_list 			*way_l;
 	int				length;
 	struct s_way	*next;
 }					t_ways;
@@ -73,6 +74,6 @@ void 				quick_sort(t_all *all, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
-void				reverse_path(t_rooms **queue, int a, t_ways *ways);
+int					reverse_path(t_rooms **queue, int a, t_ways *list_ways);
 
 #endif

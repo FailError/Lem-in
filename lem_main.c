@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
 	all.first_room->lvl = 0;
-	all.last_room->lvl = INT_MAX;;//INT_MAX; //-1;
+	all.last_room->lvl = 0x7FFFFFFF;;//INT_MAX; //-1;
 	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms);
 
 	while((end = bfs(&all)))

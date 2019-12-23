@@ -167,10 +167,8 @@ void	quick_sort(t_all *all, int first, int last)
 
 void	struct_to_array(t_all *all)
 {
-	t_list		*tmp;
 	unsigned	i;
 
-	tmp = all->list_of_rooms;
 	!all->first_room || !all->last_room ? ft_error_str("\x1B[31mno start/finish\033[0m") : 0;
 	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms))) //+1 ????
 		exit(1);
@@ -184,12 +182,6 @@ void	struct_to_array(t_all *all)
 	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним, фришить кто будет??
 	double_name(all); //проверка на дубликат имен комнат
 	quick_sort(all, 0, (int)all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
-	i = 0;
-//	while (i < all->number_of_all_rooms) //присваиваем комнатам их порядковый номер///нах надо???
-//	{
-//		all->arr_rooms[i]->num = i;
-//		i++;
-//	}
 }
 
 void				check_name_coord2(char **room)
