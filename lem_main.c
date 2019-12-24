@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
 	argc = 0;
 	ft_bzero(&all, sizeof(t_all));
-	if(argv[1])
+	if (argv[1])
 		fd = open(argv[1], O_RDONLY);
 	else
 		exit(0);
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 	all.last_room->lvl = 0x7FFFFFFF;;//INT_MAX; //-1;
 	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms);
 
-	while((end = bfs(&all)))
+	while ((end = bfs(&all)))
 	{
 		list_ways = ft_memalloc(sizeof(t_ways *));
 		ft_bzero(list_ways, sizeof(t_ways));

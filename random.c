@@ -1,48 +1,25 @@
-//t_rooms *ft_push_back(t_rooms *head, char *str)
+//int		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
 //{
-//	t_rooms *ptr = head;
-//	while(ptr->next != NULL)
-//		ptr = ptr->next;
-//	t_rooms *newnode = ft_create();
-//	ptr->next = newnode;
-//	newnode->next = NULL;
-//	newnode->prev = ptr;
-//	head->prev = newnode;
+//	t_rooms *t_reader;
+//	t_list	*cur_list;
 //
-//	newnode->name = (char *) malloc(sizeof(char) * 5);
-//	ft_strlcat(newnode->name, str, 5);
-//	newnode->name[4] = '\0';
-//	return (head);
+//	t_reader = queue[end];
+//	list_ways->way_t = queue[end];
+//	cur_list = list_ways->way_t->links;
+//	while(t_reader->lvl != 0)
+//	{
+//		t_reader = cur_list->content;
+//		if(t_reader->lvl == list_ways->way_t->lvl - 1)
+//		{
+//			push_path(&list_ways->way_t, t_reader);
+//			t_reader->mark = t_reader->lvl != 0 ? 1 : 0;
+//			if(list_ways->way_t->lvl == 0)
+//				return (1);
+//			cur_list = t_reader->links;
+//		}
+//		else
+//			cur_list = cur_list->next;
+//		//end--;
+//	}
+//	return (0);
 //}
-
-
-
-///- work
-//5
-//#Here is the number of lines required: 33
-//##start
-//	Qjs3 1 1
-//##end
-//	Ivv5 2 2
-//Pty7 3 3
-//Qjs3-Ivv5
-//	Qjs3-Pty7
-//	Pty7-Ivv5
-//#Here is the number of lines required: 33
-
-//555
-//#Here is the number of lines required:
-//##start
-//	Qjs3 1 2
-//Pty7 3 3
-//##end
-//	Zvv5 2 2
-//Ati1 13 13
-//Nm_2 16 16
-//Qjs3-Pty7
-//	Qjs3-Ati1
-//	Pty7-Nm_2
-//	Pty7-Zvv5
-//	Ati1-Zvv5
-//	Nm_2-Zvv5
-//#Here is the number of lines required: 33
