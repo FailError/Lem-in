@@ -40,12 +40,6 @@ typedef	struct		s_all
 	t_rooms			**que; ///массив указателей на посещенные bfs-ом комнаты
 }					t_all;
 
-typedef struct		s_que
-{
-	t_rooms			*room;
-	struct			s_que *next;
-}					t_queue;
-
 typedef	struct 		s_way
 {
 	t_rooms			*way_t;
@@ -53,7 +47,6 @@ typedef	struct 		s_way
 	struct s_way	*next;
 }					t_ways;
 
-void				ft_error(void);
 t_rooms				*ft_create(char **room);
 void				all_rooms(t_all *all, int fd);
 int					ifcomments(char *str);
@@ -73,8 +66,8 @@ void 				quick_sort(t_all *all, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
-int					reverse_path(t_rooms **queue, int a, t_ways *list_ways);
+t_ways				*reverse_path(t_rooms **queue, int a);
 void				zero_lvl(t_rooms **que, int end);
-void				new_node(t_ways *list_ways);
+void				push_v_konec(t_ways **list_ways, t_ways *new);
 
 #endif

@@ -11,28 +11,34 @@ int				bfs(t_all *all)
 	all->que[i] = all->first_room;
 	while (iterator < all->number_of_all_rooms) ///-1??? первая комната уже записана ///que[i] != NULL??
 	{
-		read_tlist = all->que[i]->links;
-		while (read_tlist != NULL)
+		if (all->que[i])
 		{
-			read_trooms = read_tlist->content;
-			if (read_trooms->lvl != -1)
+			read_tlist = all->que[i]->links;
+			while (read_tlist != NULL)
 			{
-				if (read_trooms->lvl == 0x7FFFFFFF)
+				read_trooms = read_tlist->content;
+				if (read_trooms->lvl != -1)
 				{
-					all->que[end] = read_trooms;
-					all->que[end]->lvl = all->que[i]->lvl + 1;
-					return (end);
+					if (read_trooms->lvl == 0x7FFFFFFF)
+					{
+						all->que[end] = read_trooms;
+						all->que[end]->lvl = all->que[i]->lvl + 1;
+						return (end);
+					}
+					read_tlist = read_tlist->next;
+					continue;
 				}
+				all->que[end] = read_tlist->content;
+				all->que[end]->lvl = all->que[i]->lvl + 1;
+				all->que[end]->mark = 1;
 				read_tlist = read_tlist->next;
-				continue;
+				end++;
 			}
-			all->que[end] = read_tlist->content;
-			all->que[end]->lvl = all->que[i]->lvl + 1;
-			read_tlist = read_tlist->next;
-		 	end++;
+			i++;
+			iterator++;
 		}
-		i++;
-		iterator++;
+		else
+			return (0);
 	}
 	return (0);
 }
@@ -47,35 +53,6 @@ void		t_room_add(t_rooms **current, t_rooms *new)
 	}
 }
 
-int		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
-{
-	t_rooms *t_reader;
-	t_list	*cur_list;
-	int last;
-	int steps;
-
-	last = 1;
-	steps = queue[end]->lvl;
-	list_ways->way_t = queue[end];
-	cur_list = list_ways->way_t->links;
-	while (steps > 0)
-	{
-		while (cur_list->next != NULL)
-		{
-			t_reader = cur_list->content;
-			if (t_reader->lvl == list_ways->way_t->lvl - 1)
-			{
-				t_room_add(&list_ways->way_t, t_reader);
-				cur_list = t_reader->links;
-				steps--;
-				break ;
-			}
-			cur_list = cur_list->next;
-		}
-	}
-	return (0);
-}
-
 void	zero_lvl(t_rooms **que, int end)
 {
 	int i;
@@ -87,4 +64,35 @@ void	zero_lvl(t_rooms **que, int end)
 		i++;
 	}
 	que[i]->lvl = 0x7FFFFFFF;
+}
+
+t_ways		*reverse_path(t_rooms **queue, int end)
+{
+	t_rooms *t_reader;
+	t_list	*cur_list;
+	t_ways *new;
+	int steps;
+
+	new = (t_ways *) ft_memalloc(sizeof(t_ways));
+	steps = queue[end]->lvl;
+	new->way_t = queue[end];
+	new->length++;
+	cur_list = new->way_t->links;
+	while (steps > 0)
+	{
+		while (cur_list->next != NULL)
+		{
+			t_reader = cur_list->content;
+			if (t_reader->lvl == new->way_t->lvl - 1)
+			{
+				new->length++;
+				t_room_add(&new->way_t, t_reader);
+				cur_list = t_reader->links;
+				steps--;
+				break ;
+			}
+			cur_list = cur_list->next;
+		}
+	}
+	return (new);
 }

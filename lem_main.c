@@ -24,33 +24,22 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new->y = ft_atoi_ants(room[2]);
 	new->lvl = -1;
 	free(room);
-	room = NULL;
 	return (new);
 }
 
-void	ft_error_str(char *str)
+void	push_v_konec(t_ways **list_ways, t_ways *new)
 {
-	ft_putstr(str);
-	exit(-1);
-}
+	t_ways *tmp;
 
-void	new_node(t_ways *list_ways)
-{
-	t_ways *new;
-
-	if(list_ways->way_t)
+	if((*list_ways)->way_t)
 	{
-		new = (t_ways *) ft_memalloc(sizeof(t_ways));
-		new = list_ways;
-		while (new->next)
-		{
-			new = new->next;
-		}
-		list_ways->next = new;
-		ft_bzero(new, sizeof(t_ways));
+		tmp = *list_ways;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
-
-
+	else
+		*list_ways = new;
 }
 
 int main(int argc, char **argv)
@@ -59,6 +48,7 @@ int main(int argc, char **argv)
 	t_all all;
 	int end;
 	t_ways *list_ways;
+	t_ways  *new;
 
 	argc = 0;
 	ft_bzero(&all, sizeof(t_all));
@@ -74,8 +64,8 @@ int main(int argc, char **argv)
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while ((end = bfs(&all)))
 	{
-		new_node(list_ways);
-		reverse_path(all.que, end, list_ways);
+		new = reverse_path(all.que, end);
+		push_v_konec(&list_ways, new);
 		zero_lvl(all.que, end);
 	}
 	close(fd);
