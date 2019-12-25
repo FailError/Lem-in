@@ -34,6 +34,25 @@ void	ft_error_str(char *str)
 	exit(-1);
 }
 
+void	new_node(t_ways *list_ways)
+{
+	t_ways *new;
+
+	if(list_ways->way_t)
+	{
+		new = (t_ways *) ft_memalloc(sizeof(t_ways));
+		new = list_ways;
+		while (new->next)
+		{
+			new = new->next;
+		}
+		list_ways->next = new;
+		ft_bzero(new, sizeof(t_ways));
+	}
+
+
+}
+
 int main(int argc, char **argv)
 {
 	int fd;
@@ -50,14 +69,14 @@ int main(int argc, char **argv)
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
 	all.first_room->lvl = 0;
-	all.last_room->lvl = 0x7FFFFFFF;;//INT_MAX; //-1;
-	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms);
-
+	all.last_room->lvl = 0x7FFFFFFF;//INT_MAX; //-1;
+	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms + 1);
+	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while ((end = bfs(&all)))
 	{
-		list_ways = ft_memalloc(sizeof(t_ways *));
-		ft_bzero(list_ways, sizeof(t_ways));
+		new_node(list_ways);
 		reverse_path(all.que, end, list_ways);
+		zero_lvl(all.que, end);
 	}
 	close(fd);
 	return (0);

@@ -6,7 +6,7 @@ int				bfs(t_all *all)
 	int			end = 1;
 	t_rooms		*read_trooms;
 	t_list		*read_tlist;
-	unsigned	iterator = 1;
+	unsigned	iterator = 0;
 
 	all->que[i] = all->first_room;
 	while (iterator < all->number_of_all_rooms) ///-1??? первая комната уже записана ///que[i] != NULL??
@@ -74,4 +74,17 @@ int		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
 		}
 	}
 	return (0);
+}
+
+void	zero_lvl(t_rooms **que, int end)
+{
+	int i;
+
+	i = 1;
+	while(i < end)
+	{
+		que[i]->lvl = -1;
+		i++;
+	}
+	que[i]->lvl = 0x7FFFFFFF;
 }

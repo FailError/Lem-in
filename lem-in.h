@@ -49,7 +49,6 @@ typedef struct		s_que
 typedef	struct 		s_way
 {
 	t_rooms			*way_t;
-	//t_list 			*way_l;
 	int				length;
 	struct s_way	*next;
 }					t_ways;
@@ -75,5 +74,7 @@ t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
 int					reverse_path(t_rooms **queue, int a, t_ways *list_ways);
+void				zero_lvl(t_rooms **que, int end);
+void				new_node(t_ways *list_ways);
 
 #endif
