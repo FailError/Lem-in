@@ -52,7 +52,10 @@ void	ft_end(t_all *all, int fd, char *str)
 	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
 	get_next_line(fd, &str);
 	while(ifcomments(str))
+	{
+		ft_putstr(str);
 		get_next_line(fd, &str);
+	}
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");

@@ -69,5 +69,6 @@ int 				bfs(t_all *all);
 t_ways				*reverse_path(t_rooms **queue, int a);
 void				zero_lvl(t_rooms **que, int end);
 void				push_v_konec(t_ways **list_ways, t_ways *new);
+void				delete_links(t_ways *list_ways);
 
 #endif

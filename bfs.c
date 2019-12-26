@@ -28,11 +28,14 @@ int				bfs(t_all *all)
 					read_tlist = read_tlist->next;
 					continue;
 				}
-				all->que[end] = read_tlist->content;
-				all->que[end]->lvl = all->que[i]->lvl + 1;
-				all->que[end]->mark = 1;
-				read_tlist = read_tlist->next;
-				end++;
+				else
+				{
+					all->que[end] = read_tlist->content;
+					all->que[end]->lvl = all->que[i]->lvl + 1;
+					all->que[end]->mark = 1;
+					read_tlist = read_tlist->next;
+					end++;
+				}
 			}
 			i++;
 			iterator++;
@@ -96,3 +99,24 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 	}
 	return (new);
 }
+
+//void				delete_links(t_ways *list_ways)
+//{
+//	t_rooms *current;
+//	t_rooms *deleted;
+//	t_rooms *tmp;
+//
+//	current = list_ways->way_t;
+//	tmp = current->links->content;
+//	while(current->next != NULL)
+//	{
+//		deleted = current->next;
+//		while(tmp->links->next)
+//		{
+//			if(!ft_strcmp(deleted->name, tmp->name))
+//
+//		}
+//
+//		current = current->next;
+//	}
+//}

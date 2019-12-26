@@ -67,6 +67,7 @@ int main(int argc, char **argv)
 		new = reverse_path(all.que, end);
 		push_v_konec(&list_ways, new);
 		zero_lvl(all.que, end);
+//		delete_links(list_ways);
 	}
 	close(fd);
 	return (0);
