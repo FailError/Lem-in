@@ -23,3 +23,35 @@
 //	}
 //	return (0);
 //}
+
+//4
+//#Here is the number of lines required: 33
+//##start
+//A 2 2
+//B 1 1
+//##end
+//Z 8 8
+//C 3 3
+//D 4 4
+//E 5 5
+//F 6 6
+//G 7 7
+//A-D
+//A-B
+//D-A
+//D-E
+//B-A
+//B-C
+//B-G
+//E-D
+//E-C
+//G-B
+//G-F
+//C-E
+//C-B
+//C-Z
+//F-G
+//F-Z
+//Z-C
+//Z-F
+//#Here is the number of lines required: 33

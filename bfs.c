@@ -83,7 +83,7 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 	cur_list = new->way_t->links;
 	while (steps > 0)
 	{
-		while (cur_list->next != NULL)
+		while (cur_list != NULL)
 		{
 			t_reader = cur_list->content;
 			if (t_reader->lvl == new->way_t->lvl - 1)
@@ -96,6 +96,8 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 			}
 			cur_list = cur_list->next;
 		}
+//		if (cur_list->next == NULL && cur_list->content)
+
 	}
 	return (new);
 }
