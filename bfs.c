@@ -32,7 +32,6 @@ int				bfs(t_all *all)
 				{
 					all->que[end] = read_tlist->content;
 					all->que[end]->lvl = all->que[i]->lvl + 1;
-					all->que[end]->mark = 1;
 					read_tlist = read_tlist->next;
 					end++;
 				}
@@ -61,12 +60,22 @@ void	zero_lvl(t_rooms **que, int end)
 	int i;
 
 	i = 1;
-	while(i < end)
+	while (i < end)
 	{
 		que[i]->lvl = -1;
 		i++;
 	}
 	que[i]->lvl = 0x7FFFFFFF;
+}
+
+void        zero_que(t_all *all)
+{
+    int i = 0;
+    while (all->que[i])
+	{
+		all->que[i] = NULL;
+		i++;
+	}
 }
 
 t_ways		*reverse_path(t_rooms **queue, int end)
@@ -79,6 +88,7 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
 	steps = queue[end]->lvl;
 	new->way_t = queue[end];
+	new->way_t->mark = 1;
 	new->length++;
 	cur_list = new->way_t->links;
 	while (steps > 0)
@@ -88,6 +98,7 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 			t_reader = cur_list->content;
 			if (t_reader->lvl == new->way_t->lvl - 1)
 			{
+			    t_reader->mark = 1;
 				new->length++;
 				t_room_add(&new->way_t, t_reader);
 				cur_list = t_reader->links;
@@ -96,8 +107,6 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 			}
 			cur_list = cur_list->next;
 		}
-//		if (cur_list->next == NULL && cur_list->content)
-
 	}
 	return (new);
 }
