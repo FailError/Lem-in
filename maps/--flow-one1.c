@@ -1,4 +1,4 @@
-555
+4
 #Here is the number of lines required:
 ##start
 A 1 1
@@ -12,11 +12,20 @@ F 6 6
 G 7 7
 A-B
 A-D
+B-A
 B-C
-B-F
+B-G
+D-A
 D-E
+E-D
 E-C
-F-G
+C-B
+C-E
 C-Z
-G-Z
+G-B
+G-F
+F-G
+F-Z
+Z-C
+Z-F
 #Here is the number of lines required: 33

@@ -6,43 +6,33 @@ int				bfs(t_all *all)
 	int			end = 1;
 	t_rooms		*read_trooms;
 	t_list		*read_tlist;
-	unsigned	iterator = 0;
+	int			success = 0;
 
 	all->que[i] = all->first_room;
-	while (iterator < all->number_of_all_rooms) ///-1??? первая комната уже записана ///que[i] != NULL??
+	while (i < all->number_of_all_rooms)
 	{
-		if (all->que[i])
+		read_tlist = all->que[i]->links;
+		while (read_tlist != NULL)
 		{
-			read_tlist = all->que[i]->links;
-			while (read_tlist != NULL)
+			read_trooms = read_tlist->content;
+			if (read_trooms->lvl == -1 || read_trooms->lvl == INT_MAX)
 			{
-				read_trooms = read_tlist->content;
-				if (read_trooms->lvl != -1)
+				if (read_trooms->lvl == INT_MAX)
 				{
-					if (read_trooms->lvl == 0x7FFFFFFF)
-					{
-						all->que[end] = read_trooms;
-						all->que[end]->lvl = all->que[i]->lvl + 1;
-						return (end);
-					}
-					read_tlist = read_tlist->next;
-					continue;
+					success = 1;
+					all->list_of_rooms = read_tlist;
 				}
-				else
-				{
-					all->que[end] = read_tlist->content;
-					all->que[end]->lvl = all->que[i]->lvl + 1;
-					read_tlist = read_tlist->next;
-					end++;
-				}
+				all->que[end] = read_tlist->content;
+				all->que[end]->lvl = all->que[i]->lvl + 1;
+				read_tlist = read_tlist->next;
+				end++;
 			}
-			i++;
-			iterator++;
+			else
+				read_tlist = read_tlist->next;
 		}
-		else
-			return (0);
+		i++;
 	}
-	return (0);
+	return (success);
 }
 
 void		t_room_add(t_rooms **current, t_rooms *new)
@@ -78,7 +68,7 @@ void        zero_que(t_all *all)
 	}
 }
 
-t_ways		*reverse_path(t_rooms **queue, int end)
+t_ways		*reverse_path(t_rooms **queue, t_rooms *last, t_list *t_lst) //t_lst - ласт комната
 {
 	t_rooms *t_reader;
 	t_list	*cur_list;
@@ -86,8 +76,8 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 	int steps;
 
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
-	steps = queue[end]->lvl;
-	new->way_t = queue[end];
+	steps = last->lvl; //queue[end]->lvl;
+	new->way_t = last;//queue[end]; ///если реверс пути то first //[0]
 	new->way_t->mark = 1;
 	new->length++;
 	cur_list = new->way_t->links;
@@ -96,7 +86,7 @@ t_ways		*reverse_path(t_rooms **queue, int end)
 		while (cur_list != NULL)
 		{
 			t_reader = cur_list->content;
-			if (t_reader->lvl == new->way_t->lvl - 1)
+			if (t_reader->lvl == new->way_t->lvl - 1) ///если реверс пути то +1
 			{
 			    t_reader->mark = 1;
 				new->length++;

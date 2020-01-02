@@ -59,12 +59,12 @@ int main(int argc, char **argv)
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
 	all.first_room->lvl = 0;
-	all.last_room->lvl = 0x7FFFFFFF;//INT_MAX;
+	all.last_room->lvl = INT_MAX;
 	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms + 1);
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while ((end = bfs(&all)))
 	{
-		new = reverse_path(all.que, end);
+		new = reverse_path(all.que, all.last_room, all.list_of_rooms);
 		push_v_konec(&list_ways, new);
 		zero_lvl(all.que, end);
 		zero_que(&all);
