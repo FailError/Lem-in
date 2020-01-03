@@ -25,7 +25,7 @@ typedef struct		s_rooms
 	t_list			*links; ///список связных комнат
 	char			*name; ///имя комнаты
 	int 			lvl;
-	int 			mark;
+	int 			isway;
 	struct s_rooms	*next;
 }					t_rooms;
 
@@ -42,7 +42,7 @@ typedef	struct		s_all
 
 typedef	struct 		s_way
 {
-	t_rooms			*way_t;
+	t_list			*way_t;
 	int				length;
 	struct s_way	*next;
 }					t_ways;
@@ -67,8 +67,9 @@ t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
 t_ways				*reverse_path(t_rooms **queue, t_rooms *last, t_list *l_ast);
-void				zero_lvl(t_rooms **que, int end);
+void				zero_lvl(t_all *all);
 void				push_v_konec(t_ways **list_ways, t_ways *new);
+void				mark_links(t_ways  *new);
 void				delete_links(t_ways *list_ways);
 void                zero_que(t_all *all);
 

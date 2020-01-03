@@ -65,8 +65,9 @@ int main(int argc, char **argv)
 	while ((end = bfs(&all)))
 	{
 		new = reverse_path(all.que, all.last_room, all.list_of_rooms);
+//		mark_links(new); ///кажись удалить
 		push_v_konec(&list_ways, new);
-		zero_lvl(all.que, end);
+		zero_lvl(&all);
 		zero_que(&all);
 //		delete_links(list_ways);
 	}

@@ -45,17 +45,17 @@ void		t_room_add(t_rooms **current, t_rooms *new)
 	}
 }
 
-void	zero_lvl(t_rooms **que, int end)
+void	zero_lvl(t_all *all)
 {
 	int i;
 
 	i = 1;
-	while (i < end)
+	while (all->que[i])
 	{
-		que[i]->lvl = -1;
+		all->que[i]->lvl = -1;
 		i++;
 	}
-	que[i]->lvl = 0x7FFFFFFF;
+	all->last_room->lvl = INT_MAX;
 }
 
 void        zero_que(t_all *all)
@@ -70,36 +70,60 @@ void        zero_que(t_all *all)
 
 t_ways		*reverse_path(t_rooms **queue, t_rooms *last, t_list *t_lst) //t_lst - ласт комната
 {
-	t_rooms *t_reader;
+	t_rooms *t_reader = NULL;
+	t_rooms *t_reader2 = NULL;
 	t_list	*cur_list;
 	t_ways *new;
 	int steps;
 
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
 	steps = last->lvl; //queue[end]->lvl;
-	new->way_t = last;//queue[end]; ///если реверс пути то first //[0]
-	new->way_t->mark = 1;
+	ft_lstadd(&new->way_t, ft_lstnew2(last));//queue[end]; ///если реверс пути то first //[0]
 	new->length++;
-	cur_list = new->way_t->links;
-	while (steps > 0)
+
+	cur_list = last->links;
+	while (cur_list)
 	{
+		t_reader = cur_list->content;///получил *C* теперь ориентируюсь на то что в списке new =);
+		if(t_reader->lvl == last->lvl - 1)
+			break;
+		cur_list = cur_list->next;
+	}
+ ///--------------^^^закинул ласт вершину и после нее некст, теперь начинаю с предпоследней!!------
+
+	while (steps > 1)
+	{
+		t_reader2 = new->way_t->content; ///*Z*
+		cur_list = t_reader->links; ///линки из *C*
 		while (cur_list != NULL)
-		{
-			t_reader = cur_list->content;
-			if (t_reader->lvl == new->way_t->lvl - 1) ///если реверс пути то +1
+		{ //пихать сюда че?
+			if (t_reader2->lvl == t_reader->lvl + 1) ///если реверс пути то +1
 			{
-			    t_reader->mark = 1;
+				cur_list->content_size = 1;
 				new->length++;
-				t_room_add(&new->way_t, t_reader);
-				cur_list = t_reader->links;
-				steps--;
-				break ;
 			}
 			cur_list = cur_list->next;
 		}
+		ft_lstadd(&new->way_t, ft_lstnew2(t_reader)); ///что ?
+		t_reader2 = new->way_t->content;
+		steps--;
 	}
 	return (new);
 }
+
+//void				mark_links(t_ways  *new) //content size = 1 у всех вершин, кроме 1-ой
+//{
+//	t_rooms		*t_reader;
+//	t_list		*cur_list;
+//
+//	cur_list = new->way_t->next;
+//	while(cur_list)
+//	{
+//		cur_list->content_size = 1;
+//		cur_list = cur_list->next;
+//	}
+//}
+
 
 //void				delete_links(t_ways *list_ways)
 //{
