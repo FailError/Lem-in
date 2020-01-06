@@ -64,12 +64,11 @@ int main(int argc, char **argv)
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while ((end = bfs(&all)))
 	{
-		new = reverse_path(all.que, all.last_room, all.list_of_rooms);
-//		mark_links(new); ///кажись удалить
+		new = reverse_path(all.que, all.last_room);
+		mark_path(new);
 		push_v_konec(&list_ways, new);
 		zero_lvl(&all);
 		zero_que(&all);
-//		delete_links(list_ways);
 	}
 	close(fd);
 	return (0);
