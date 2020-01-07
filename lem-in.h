@@ -57,7 +57,7 @@ void				check_name_coord2(char **room);
 t_list				*ft_lstnew2(void const *content);
 void				room_coord(t_all *all, char *str);
 void				struct_to_array(t_all *all);
-void				links_in_array(t_all *all, char *str);
+void				links_add(t_all *all, char *str);
 t_list				*next(t_list *tmp);
 void				double_name(t_all *all);
 void 				quick_sort(t_all *all, int first, int last);
@@ -65,9 +65,11 @@ t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
 t_ways				*reverse_path(t_rooms **queue, t_rooms *last);
-void				zero_lvl(t_all *all);
+void				zero_lvl_que(t_all *all);
 void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways  *new);
 void                zero_que(t_all *all);
+int 				check_room_on_list(t_list *links, t_rooms *room);
+void				print_path(t_ways *ways);
 
 #endif

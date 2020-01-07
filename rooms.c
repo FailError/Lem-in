@@ -235,7 +235,28 @@ void				free_str_double_star(char **str)
 	free(str);
 }
 
-void				links_in_array(t_all *all, char *str)
+int 				check_room_on_list(t_list *links, t_rooms *room)
+{
+	t_list	*current_list;
+	t_rooms	*current_room;
+	int 	success;
+
+	current_list = links;
+	success = 0;
+	while (current_list != NULL)
+	{
+		current_room = current_list->content;
+		if(ft_strcmp(current_room->name, room->name) == 0)
+		{
+			success = 1;
+			return (success);
+		}
+		current_list = current_list->next;
+	}
+	return (success);
+}
+
+void				links_add(t_all *all, char *str)
 {
 	char **tmp;
 	t_rooms *first;
@@ -247,8 +268,10 @@ void				links_in_array(t_all *all, char *str)
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	if(!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
-	ft_lstadd(&first->links, ft_lstnew2(second));
-	ft_lstadd(&second->links, ft_lstnew2(first));
+	check_room_on_list(first->links, second) ? 0 : ft_lstadd(&first->links, ft_lstnew2(second));
+	check_room_on_list(second->links, first) ? 0 : ft_lstadd(&second->links, ft_lstnew2(first));
+	//ft_lstadd(&first->links, ft_lstnew2(second));
+	//ft_lstadd(&second->links, ft_lstnew2(first));
 	free(str);
 	free_str_double_star(tmp);
 }
@@ -264,7 +287,7 @@ void	all_rooms(t_all *all, int fd)
 	{
 		ft_putstr(str);
 		if (ifcomments(str)) ///ищем комментарий и пропускаем его
-			continue;
+			;//do nothing
 		else if (start_end(all, fd, str) && !tmp) ///ищем ##start && ##end
 			continue;
 		else if (ft_strchr(str, ' ') && !tmp) ///записываем комнату и ее координаты
@@ -273,10 +296,10 @@ void	all_rooms(t_all *all, int fd)
 		{
 			struct_to_array(all);
 			tmp = 1;
-			links_in_array(all, str);
+			links_add(all, str);
 		}
 		else if(ft_strchr(str, '-'))
-			links_in_array(all, str);
+			links_add(all, str);
 		else
 			ft_error_str("\x1B[31mError\033[0m");
 	}

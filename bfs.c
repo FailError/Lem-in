@@ -4,56 +4,75 @@ int				bfs(t_all *all)
 {
 	int			i = 0;
 	int			end = 1;
-	t_rooms		*read_trooms;
-	t_list		*read_tlist;
+	t_rooms		*read_trooms = NULL;
+	t_list		*read_tlist = NULL;
 	int			success = 0;
 
 	all->que[i] = all->first_room;
 	while (i < all->number_of_all_rooms)
 	{
-		read_tlist = all->que[i]->links;
-		while (read_tlist != NULL)
+		if (all->que[i])
 		{
-			read_trooms = read_tlist->content;
-			if (read_trooms->lvl == -1 || read_trooms->lvl == INT_MAX)
+			read_tlist = all->que[i]->links;
+			while (read_tlist != NULL)
 			{
-				if (read_trooms->lvl == INT_MAX)
-					success = 1;
-				all->que[end] = read_tlist->content;
-				all->que[end]->lvl = all->que[i]->lvl + 1;
-				read_tlist = read_tlist->next;
-				end++;
+				if (read_tlist->content_size == 1)
+				{
+					read_tlist = read_tlist->next;
+				}
+				else
+				{
+					read_trooms = read_tlist->content;
+					if (read_trooms->lvl == -1 || read_trooms->lvl == INT_MAX)
+					{
+						if (read_trooms->lvl == INT_MAX)
+							success = 1;
+						all->que[end] = read_tlist->content;
+						all->que[end]->lvl = all->que[i]->lvl + 1;
+						read_tlist = read_tlist->next;
+						end++;
+					}
+					else
+						read_tlist = read_tlist->next;
+				}
 			}
-			else
-				read_tlist = read_tlist->next;
+			i++;
 		}
-		i++;
+		else
+			return (success);
 	}
 	return (success);
 }
 
-void	zero_lvl(t_all *all)
+void	zero_lvl_que(t_all *all)
 {
 	int i;
+	int j;
 
+	j = 0;
 	i = 1;
 	while (all->que[i])
 	{
 		all->que[i]->lvl = -1;
 		i++;
 	}
+	while (all->que[j])
+	{
+		all->que[j] = NULL;
+		j++;
+	}
 	all->last_room->lvl = INT_MAX;
 }
 
-void        zero_que(t_all *all)
-{
-    int i = 0;
-    while (all->que[i])
-	{
-		all->que[i] = NULL;
-		i++;
-	}
-}
+//void        zero_que(t_all *all)
+//{
+//    int i = 0;
+//    while (all->que[i])
+//	{
+//		all->que[i] = NULL;
+//		i++;
+//	}
+//}
 
 t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 {

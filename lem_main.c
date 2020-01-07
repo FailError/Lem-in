@@ -42,6 +42,31 @@ void	push_v_konec(t_ways **list_ways, t_ways *new)
 		*list_ways = new;
 }
 
+void				print_path(t_ways *ways)
+{
+	t_list	*current_list;
+	t_rooms	*current_rooms;
+	t_ways	*current_ways;
+	int i;
+
+	i = 1;
+
+	while (ways)
+	{
+		current_list = ways->way_t;
+		while (current_list)
+		{
+			current_rooms = current_list->content;
+			ft_printf("L%d-%s ",i, current_rooms->name);
+			current_list = current_list->next;
+		}
+		ft_printf("\n");
+		ways = ways->next;
+		i++;
+	}
+
+}
+
 int main(int argc, char **argv)
 {
 	int fd;
@@ -60,16 +85,17 @@ int main(int argc, char **argv)
 	all_rooms(&all, fd);
 	all.first_room->lvl = 0;
 	all.last_room->lvl = INT_MAX;
-	all.que = ft_memalloc(sizeof(t_rooms *) * all.number_of_all_rooms + 1);
+	all.que = ft_memalloc(sizeof(t_rooms *) * (all.number_of_all_rooms + 1));
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
-	while ((end = bfs(&all)))
+	while (bfs(&all)) //while ((end = bfs(&all)))
 	{
 		new = reverse_path(all.que, all.last_room);
 		mark_path(new);
 		push_v_konec(&list_ways, new);
-		zero_lvl(&all);
-		zero_que(&all);
+		zero_lvl_que(&all);
+		//zero_que(&all);
 	}
+	print_path(list_ways);
 	close(fd);
 	return (0);
 }
