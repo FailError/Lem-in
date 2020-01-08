@@ -25,6 +25,7 @@ typedef struct		s_rooms
 	t_list			*links; ///список связных комнат
 	char			*name; ///имя комнаты
 	int 			lvl;
+	int				antnum;
 }					t_rooms;
 
 typedef	struct		s_all
@@ -68,7 +69,6 @@ t_ways				*reverse_path(t_rooms **queue, t_rooms *last);
 void				zero_lvl_que(t_all *all);
 void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways  *new);
-void                zero_que(t_all *all);
 int 				check_room_on_list(t_list *links, t_rooms *room);
 void				print_path(t_ways *ways);
 

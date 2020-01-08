@@ -24,6 +24,8 @@
 //	return (0);
 //}
 
+//ft_lstadd(&first->links, ft_lstnew2(second));
+//ft_lstadd(&second->links, ft_lstnew2(first));
 
 //t_ways		*reverse_path(t_rooms **queue, t_rooms *last, t_list *t_lst) //t_lst - ласт комната
 //{

@@ -270,8 +270,6 @@ void				links_add(t_all *all, char *str)
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	check_room_on_list(first->links, second) ? 0 : ft_lstadd(&first->links, ft_lstnew2(second));
 	check_room_on_list(second->links, first) ? 0 : ft_lstadd(&second->links, ft_lstnew2(first));
-	//ft_lstadd(&first->links, ft_lstnew2(second));
-	//ft_lstadd(&second->links, ft_lstnew2(first));
 	free(str);
 	free_str_double_star(tmp);
 }

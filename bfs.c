@@ -64,16 +64,6 @@ void	zero_lvl_que(t_all *all)
 	all->last_room->lvl = INT_MAX;
 }
 
-//void        zero_que(t_all *all)
-//{
-//    int i = 0;
-//    while (all->que[i])
-//	{
-//		all->que[i] = NULL;
-//		i++;
-//	}
-//}
-
 t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 {
 	t_rooms *t_reader = NULL;
