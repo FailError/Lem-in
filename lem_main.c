@@ -50,10 +50,10 @@ void				print_path(t_ways *ways)
 	int i;
 
 	i = 1;
-
-	while (ways)
+	current_ways = ways;
+	while (current_ways)
 	{
-		current_list = ways->way_t;
+		current_list = current_ways->way_t;
 		while (current_list)
 		{
 			current_rooms = current_list->content;
@@ -61,10 +61,28 @@ void				print_path(t_ways *ways)
 			current_list = current_list->next;
 		}
 		ft_printf("\n");
-		ways = ways->next;
+		current_ways = current_ways->next;
 		i++;
 	}
 
+}
+
+void				in_array(t_ways *new)
+{
+	t_list *current_list;
+	t_rooms *current_rooms;
+	int i;
+
+	i = 0;
+	new->in_array = ft_memalloc(sizeof(t_rooms *) * (new->length + 1));
+	current_list = new->way_t;
+	while (current_list)
+	{
+		current_rooms = current_list->content;
+		new->in_array[i] = current_rooms;
+		current_list = current_list->next;
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -83,14 +101,13 @@ int main(int argc, char **argv)
 		exit(0);
 	number_of_ants(&all, fd);
 	all_rooms(&all, fd);
-	all.first_room->lvl = 0;
-	all.last_room->lvl = INT_MAX;
 	all.que = ft_memalloc(sizeof(t_rooms *) * (all.number_of_all_rooms + 1));
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while (bfs(&all)) //while ((end = bfs(&all)))
 	{
 		new = reverse_path(all.que, all.last_room);
 		mark_path(new);
+		serch_dubl(list_ways, new);
 		push_v_konec(&list_ways, new);
 		zero_lvl_que(&all);
 		//zero_que(&all);

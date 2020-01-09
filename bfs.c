@@ -93,6 +93,7 @@ t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 		}
 		steps--;
 	}
+	in_array(new);
 	return (new);
 }
 
@@ -121,4 +122,61 @@ void				mark_path(t_ways  *new)
 		cur_list = cur_list->next;
 		i--;
 	}
+}
+
+int			serch_dubl(t_ways *list_ways, t_ways *new)
+{
+	t_ways		*w = NULL;
+	t_list		*l = NULL;
+	int 		i;
+	int			j;
+	int 		f = 0;
+	int 		tmp;
+	int 		number_of_list = 0;
+	t_rooms 	**old_arr;
+	t_rooms 	**new_arr;
+
+	t_rooms		*first = NULL;
+	t_rooms		*second = NULL;
+
+	i = 1;
+	j = 1;
+	w = list_ways;
+	l = list_ways->way_t;
+	new_arr = new->in_array;
+	old_arr = w->in_array;
+
+	if(list_ways->way_t)
+	{
+		while(w)
+		{
+			number_of_list++;
+			tmp = w->length - 1 ;
+			while (old_arr[i] && new_arr[j])
+			{
+				while (old_arr[i] && new_arr[j] && tmp != 1)
+				{
+					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !f)
+					{
+						second = new_arr[j];
+						f = 1;
+					}
+					else if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
+					{
+
+						first = new_arr[j];
+					}
+					i++;
+					tmp--;
+				}
+				tmp = w->length -1;
+				j++;
+				i = 1;
+			}
+			w = w->next;
+			i = 1;
+			j = 1;
+		}
+	}
+	return (0);
 }

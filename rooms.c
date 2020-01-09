@@ -43,6 +43,7 @@ void	ft_start(t_all *all, int fd, char *str)
 	all->first_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
 	all->number_of_all_rooms++;
+	all->first_room->lvl = 0;
 }
 
 void	ft_end(t_all *all, int fd, char *str)
@@ -63,6 +64,7 @@ void	ft_end(t_all *all, int fd, char *str)
 	all->last_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->last_room));
 	all->number_of_all_rooms++;
+	all->last_room->lvl = INT_MAX;
 }
 
 int		start_end(t_all *all, int fd, char *str)
@@ -132,16 +134,16 @@ void 	double_name(t_all *all)
 		i++;
 	}
 }
-void	qs_swap(t_all *all, t_rooms *tmp, int *left, int *right)
+void	qs_swap(t_rooms **arr_rooms, t_rooms *tmp, int *left, int *right)
 {
-	tmp = all->arr_rooms[*left];
-	all->arr_rooms[*left] = all->arr_rooms[*right];
-	all->arr_rooms[*right] = tmp;
+	tmp = arr_rooms[*left];
+	arr_rooms[*left] = arr_rooms[*right];
+	arr_rooms[*right] = tmp;
 	*left += 1;
 	*right -=1;
 }
 
-void	quick_sort(t_all *all, int first, int last)
+void	quick_sort(t_rooms **arr_rooms, int first, int last)
 {
 	t_rooms *tmp;
 	int left;
@@ -153,18 +155,18 @@ void	quick_sort(t_all *all, int first, int last)
 	{
 		left = first;
 		right = last;
-		middle = all->arr_rooms[(left + right) / 2]->name;
+		middle = arr_rooms[(left + right) / 2]->name;
 		while (left <= right)
 		{
-			while ((ft_strcmp(all->arr_rooms[left]->name, middle) < 0))
+			while ((ft_strcmp(arr_rooms[left]->name, middle) < 0))
 				left++;
-			while ((ft_strcmp(all->arr_rooms[right]->name, middle) > 0))
+			while ((ft_strcmp(arr_rooms[right]->name, middle) > 0))
 				right--;
 			if (left <= right)
-				qs_swap(all, tmp, &left, &right);
+				qs_swap(arr_rooms, tmp, &left, &right);
 		}
-		quick_sort(all, first, right);
-		quick_sort(all, left, last);
+		quick_sort(arr_rooms, first, right);
+		quick_sort(arr_rooms, left, last);
 	}
 }
 
@@ -184,7 +186,7 @@ void	struct_to_array(t_all *all)
 	}
 	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним, фришить кто будет??
 	double_name(all); //проверка на дубликат имен комнат
-	quick_sort(all, 0, (int)all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
+	quick_sort(all->arr_rooms, 0, (int)all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
 }
 
 void				check_name_coord2(char **room)

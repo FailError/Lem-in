@@ -43,6 +43,7 @@ typedef	struct 		s_way
 {
 	t_list			*way_t;
 	int				length;
+	t_rooms 		**in_array;
 	struct s_way	*next;
 }					t_ways;
 
@@ -61,7 +62,7 @@ void				struct_to_array(t_all *all);
 void				links_add(t_all *all, char *str);
 t_list				*next(t_list *tmp);
 void				double_name(t_all *all);
-void 				quick_sort(t_all *all, int first, int last);
+void 				quick_sort(t_rooms **arr_rooms, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
@@ -71,5 +72,7 @@ void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways  *new);
 int 				check_room_on_list(t_list *links, t_rooms *room);
 void				print_path(t_ways *ways);
+void				in_array(t_ways *new);
+int				serch_dubl(t_ways *ways, t_ways *new);
 
 #endif
