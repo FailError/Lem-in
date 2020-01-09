@@ -133,8 +133,8 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 	int 		f = 0;
 	int 		tmp;
 	int 		number_of_list = 0;
-	t_rooms 	**old_arr;
-	t_rooms 	**new_arr;
+	t_rooms 	**old_arr = NULL;
+	t_rooms 	**new_arr = NULL;
 
 	t_rooms		*first = NULL;
 	t_rooms		*second = NULL;
@@ -144,12 +144,12 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 	w = list_ways;
 	l = list_ways->way_t;
 	new_arr = new->in_array;
-	old_arr = w->in_array;
 
 	if(list_ways->way_t)
 	{
 		while(w)
 		{
+			old_arr = w->in_array;
 			number_of_list++;
 			tmp = w->length - 1 ;
 			while (old_arr[i] && new_arr[j])
