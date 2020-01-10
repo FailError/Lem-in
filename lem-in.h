@@ -44,12 +44,20 @@ typedef	struct 		s_way
 	t_list			*way_t;
 	int				length;
 	t_rooms 		**in_array;
+	int				fake;
 	struct s_way	*next;
 }					t_ways;
 
+typedef	struct 		s_arr
+{
+	t_rooms		*first;
+	t_rooms		*second;
+	int 		number_of_list;
+}					t_point;
+
 t_rooms				*ft_create(char **room);
 void				all_rooms(t_all *all, int fd);
-int					ifcomments(char *str);
+int					comments(char *str);
 unsigned			ft_atoi_ants(char *str);
 int					start_end(t_all *all, int fd, char *str);
 void				ft_error_str(char *str);
@@ -73,6 +81,9 @@ void				mark_path(t_ways  *new);
 int 				check_room_on_list(t_list *links, t_rooms *room);
 void				print_path(t_ways *ways);
 void				in_array(t_ways *new);
-int				serch_dubl(t_ways *ways, t_ways *new);
+int					serch_dubl(t_ways *ways, t_ways *new);
+void 				obmen(t_ways *list_ways, t_ways *new, t_point *points);
+void 				push_v_list(t_ways *list_ways, t_ways *new, t_point *points);
+
 
 #endif

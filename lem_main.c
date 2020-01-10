@@ -85,11 +85,37 @@ void				in_array(t_ways *new)
 	}
 }
 
+void obmen(t_ways *list_ways, t_ways *new, t_point *points)
+{
+
+
+}
+
+void push_v_list(t_ways *list_ways, t_ways *new, t_point *points)
+{
+	t_ways *new_path;
+	t_list *list;
+	t_rooms *read_n;
+	char *read_o;
+
+	list = list_ways->way_t;
+
+	read_o = points->second->name;
+	while(list)
+	{
+		read_n = new->way_t->content;
+		if(ft_strcmp(read_n->name, read_o) == 0)
+		{
+
+		}
+		list = list->next;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	int fd;
 	t_all all;
-	int end;
 	t_ways *list_ways;
 	t_ways  *new;
 
@@ -103,14 +129,13 @@ int main(int argc, char **argv)
 	all_rooms(&all, fd);
 	all.que = ft_memalloc(sizeof(t_rooms *) * (all.number_of_all_rooms + 1));
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
-	while (bfs(&all)) //while ((end = bfs(&all)))
+	while (bfs(&all))
 	{
 		new = reverse_path(all.que, all.last_room);
 		mark_path(new);
 		serch_dubl(list_ways, new);
 		push_v_konec(&list_ways, new);
 		zero_lvl_que(&all);
-		//zero_que(&all);
 	}
 	print_path(list_ways);
 	close(fd);

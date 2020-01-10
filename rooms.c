@@ -1,6 +1,6 @@
 #include "lem-in.h"
 
-int ifcomments(char *str)
+int				comments(char *str)
 {
 	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#'))
 	{
@@ -11,9 +11,9 @@ int ifcomments(char *str)
 	return (0);
 }
 
-void	check_name_coord(char **room)
+void			check_name_coord(char **room)
 {
-	unsigned i;
+	unsigned	i;
 
 	i = 0;
 	while (room[i])
@@ -25,13 +25,13 @@ void	check_name_coord(char **room)
 //	i != 3 ? ft_error_str("\x1B[31mError\033[0m") : 0;
 }
 
-void	ft_start(t_all *all, int fd, char *str)
+void		ft_start(t_all *all, int fd, char *str)
 {
-	char **room;
+	char	**room;
 
 	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
 	get_next_line(fd, &str);
-	while(ifcomments(str))
+	while (comments(str))
 	{
 		ft_putstr(str);
 		get_next_line(fd, &str);
@@ -46,13 +46,13 @@ void	ft_start(t_all *all, int fd, char *str)
 	all->first_room->lvl = 0;
 }
 
-void	ft_end(t_all *all, int fd, char *str)
+void		ft_end(t_all *all, int fd, char *str)
 {
-	char **room;
+	char	**room;
 
 	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
 	get_next_line(fd, &str);
-	while(ifcomments(str))
+	while (comments(str))
 	{
 		ft_putstr(str);
 		get_next_line(fd, &str);
@@ -99,9 +99,9 @@ void		room_coord(t_all *all, char *str)
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(tmp));
 }
 
-t_list	*next(t_list *tmp)
+t_list		*next(t_list *tmp)
 {
-	t_list *next;
+	t_list	*next;
 
 	next = NULL;
 	if (tmp)
@@ -114,10 +114,10 @@ t_list	*next(t_list *tmp)
 
 }
 
-void 	double_name(t_all *all)
+void			double_name(t_all *all)
 {
-	unsigned i;
-	unsigned  j;
+	unsigned	i;
+	unsigned 	j;
 
 
 	i = 0;
@@ -143,12 +143,12 @@ void	qs_swap(t_rooms **arr_rooms, t_rooms *tmp, int *left, int *right)
 	*right -=1;
 }
 
-void	quick_sort(t_rooms **arr_rooms, int first, int last)
+void		quick_sort(t_rooms **arr_rooms, int first, int last)
 {
-	t_rooms *tmp;
-	int left;
-	int right;
-	char *middle;
+	t_rooms	*tmp;
+	int		left;
+	int		right;
+	char	*middle;
 
 	tmp = NULL;
 	if (first < last)
@@ -170,7 +170,7 @@ void	quick_sort(t_rooms **arr_rooms, int first, int last)
 	}
 }
 
-void	struct_to_array(t_all *all)
+void			struct_to_array(t_all *all)
 {
 	unsigned	i;
 
@@ -199,12 +199,12 @@ void				check_name_coord2(char **room)
 	i != 2 ? ft_error_str("\x1B[31mError links\033[0m") : 0;
 }
 
-t_rooms *binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
+t_rooms		*binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
 {
-	int low;
-	int high;
-	int mid;
-	char *guess;
+	int		low;
+	int		high;
+	int		mid;
+	char	*guess;
 
 	low = 0;
 	high = (int)all_rooms - 1;
@@ -260,15 +260,15 @@ int 				check_room_on_list(t_list *links, t_rooms *room)
 
 void				links_add(t_all *all, char *str)
 {
-	char **tmp;
-	t_rooms *first;
-	t_rooms *second;
+	char	**tmp;
+	t_rooms	*first;
+	t_rooms	*second;
 
 	tmp = ft_strsplit(str, '-');
 	check_name_coord2(tmp);
-	if(!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
+	if (!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
-	if(!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
+	if (!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	check_room_on_list(first->links, second) ? 0 : ft_lstadd(&first->links, ft_lstnew2(second));
 	check_room_on_list(second->links, first) ? 0 : ft_lstadd(&second->links, ft_lstnew2(first));
@@ -278,7 +278,7 @@ void				links_add(t_all *all, char *str)
 
 void	all_rooms(t_all *all, int fd)
 {
-	char	*str;
+	char 			*str;
 	unsigned char	tmp;
 
 	tmp = 0;
@@ -286,7 +286,7 @@ void	all_rooms(t_all *all, int fd)
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
-		if (ifcomments(str)) ///ищем комментарий и пропускаем его
+		if (comments(str)) ///ищем комментарий и пропускаем его
 			;//do nothing
 		else if (start_end(all, fd, str) && !tmp) ///ищем ##start && ##end
 			continue;
@@ -298,7 +298,7 @@ void	all_rooms(t_all *all, int fd)
 			tmp = 1;
 			links_add(all, str);
 		}
-		else if(ft_strchr(str, '-'))
+		else if (ft_strchr(str, '-'))
 			links_add(all, str);
 		else
 			ft_error_str("\x1B[31mError\033[0m");

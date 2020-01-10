@@ -17,9 +17,7 @@ int				bfs(t_all *all)
 			while (read_tlist != NULL)
 			{
 				if (read_tlist->content_size == 1)
-				{
 					read_tlist = read_tlist->next;
-				}
 				else
 				{
 					read_trooms = read_tlist->content;
@@ -107,7 +105,7 @@ void				mark_path(t_ways  *new)
 	t_list		*linki;
 
 	cur_list = new->way_t;
-	while(i > 1)
+	while (i > 1)
 	{
 		t_readerFirst = cur_list->content;
 		t_readerSecond = cur_list->next->content;
@@ -115,7 +113,7 @@ void				mark_path(t_ways  *new)
 		while (linki != NULL)
 		{
 			read = linki->content;
-			if(strcmp(read->name, t_readerSecond->name) == 0)
+			if (strcmp(read->name, t_readerSecond->name) == 0)
 				linki->content_size = 1;
 			linki = linki->next;
 		}
@@ -130,14 +128,16 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 	t_list		*l = NULL;
 	int 		i;
 	int			j;
-	int 		f = 0;
 	int 		tmp;
-	int 		number_of_list = 0;
 	t_rooms 	**old_arr = NULL;
 	t_rooms 	**new_arr = NULL;
+	t_point		points;
+	points.first = NULL;
+	points.second = NULL;
+	points.number_of_list = 0;
 
-	t_rooms		*first = NULL;
-	t_rooms		*second = NULL;
+//	t_rooms		*first = NULL;
+//	t_rooms		*second = NULL;
 
 	i = 1;
 	j = 1;
@@ -145,37 +145,40 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 	l = list_ways->way_t;
 	new_arr = new->in_array;
 
-	if(list_ways->way_t)
+	if (list_ways->way_t)
 	{
-		while(w)
+		while (w)
 		{
 			old_arr = w->in_array;
-			number_of_list++;
+			points.number_of_list++;
 			tmp = w->length - 1 ;
 			while (old_arr[i] && new_arr[j])
 			{
 				while (old_arr[i] && new_arr[j] && tmp != 1)
 				{
-					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !f)
-					{
-						second = new_arr[j];
-						f = 1;
-					}
+					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !points.second)
+						points.second = new_arr[j];
 					else if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
-					{
-
-						first = new_arr[j];
-					}
+						points.first = new_arr[j];
 					i++;
 					tmp--;
 				}
-				tmp = w->length -1;
+				tmp = w->length - 1;
 				j++;
 				i = 1;
 			}
-			w = w->next;
-			i = 1;
-			j = 1;
+			if (points.first && points.second)
+			{
+				push_v_list(list_ways, new, &points);
+				obmen(list_ways, new, &points);
+				break;
+			}
+			else
+			{
+				w = w->next;
+				i = 1;
+				j = 1;
+			}
 		}
 	}
 	return (0);
