@@ -92,6 +92,7 @@ t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 		steps--;
 	}
 	in_array(new);
+	mark_path(new);
 	return (new);
 }
 
@@ -122,7 +123,7 @@ void				mark_path(t_ways  *new)
 	}
 }
 
-int			serch_dubl(t_ways *list_ways, t_ways *new)
+int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 {
 	t_ways		*w = NULL;
 	t_list		*l = NULL;
@@ -141,14 +142,19 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 
 	i = 1;
 	j = 1;
-	w = list_ways;
-	l = list_ways->way_t;
+	w = ways;
+	l = ways->way_t;
 	new_arr = new->in_array;
 
-	if (list_ways->way_t)
+	if (ways->way_t)
 	{
 		while (w)
 		{
+			if(w->fake)///hmmmmmm....
+			{
+				w = w->next;
+				continue;
+			}
 			old_arr = w->in_array;
 			points.number_of_list++;
 			tmp = w->length - 1 ;
@@ -169,9 +175,8 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 			}
 			if (points.first && points.second)
 			{
-				push_v_list(list_ways, new, &points);
-				obmen(list_ways, new, &points);
-				break;
+				push_v_list(w, new, &points, calc);
+				return 1;
 			}
 			else
 			{
@@ -180,6 +185,28 @@ int			serch_dubl(t_ways *list_ways, t_ways *new)
 				j = 1;
 			}
 		}
+		///return1 если выгодно и пушнул;
+		if(new_calc(calc, new))
+			return (1);
 	}
 	return (0);
 }
+
+int		new_calc(t_calc *calc, t_ways *new)
+{
+	int a;
+	int b;
+	int newresult;
+	int success;
+
+	a = calc->number_of_ants + calc->sum_steps_all_ways + new->length - 1;
+	b = calc->number_of_ways + 1;
+
+	if (a % b == 0)
+		newresult = a / b - 1;
+	else
+		newresult = a / b;
+	success =  newresult > calc->result ? 1 : 0;
+	return (success);
+}
+

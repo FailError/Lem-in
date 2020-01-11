@@ -1,3 +1,32 @@
+//	i = 0;
+//	while(ft_strcmp(w->in_array[i]->name, points->second->name))
+//		i++;
+//	i += 1;
+//	while(w->in_array[i++])
+//		a++;
+
+//void push_v_list(t_ways *list_ways, t_ways *new, t_point *points)
+//{
+//	t_ways *new_path;
+//	t_list *list;
+//	t_rooms *read_n;
+//	char *read_o;
+//
+//	list = list_ways->way_t;
+//
+//	read_o = points->second->name;
+//	while(list)
+//	{
+//		read_n = new->way_t->content;
+//		if(ft_strcmp(read_n->name, read_o) == 0)
+//		{
+//
+//		}
+//		list = list->next;
+//	}
+//}
+
+
 //int		reverse_path(t_rooms **queue, int end, t_ways *list_ways)
 //{
 //	t_rooms *t_reader;

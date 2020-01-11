@@ -55,13 +55,21 @@ typedef	struct 		s_arr
 	int 		number_of_list;
 }					t_point;
 
+typedef struct 		s_sum
+{
+	int 			number_of_ants;
+	int 			sum_steps_all_ways;
+	int				number_of_ways;
+	int 			result;
+}					t_calc;
+
 t_rooms				*ft_create(char **room);
 void				all_rooms(t_all *all, int fd);
 int					comments(char *str);
 unsigned			ft_atoi_ants(char *str);
 int					start_end(t_all *all, int fd, char *str);
 void				ft_error_str(char *str);
-void				number_of_ants(t_all *all, int fd);
+void				number_of_ants(t_all *all, int fd, t_calc *calc);
 void				check_name_coord(char **room);
 void				check_name_coord2(char **room);
 t_list				*ft_lstnew2(void const *content);
@@ -76,14 +84,17 @@ void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
 t_ways				*reverse_path(t_rooms **queue, t_rooms *last);
 void				zero_lvl_que(t_all *all);
-void				push_v_konec(t_ways **list_ways, t_ways *new);
+void				push_v_konec(t_ways **list_ways, t_ways *new, t_calc *calc);
 void				mark_path(t_ways  *new);
 int 				check_room_on_list(t_list *links, t_rooms *room);
-void				print_path(t_ways *ways);
+void				print_path(t_ways *ways, t_calc *calc);
 void				in_array(t_ways *new);
-int					serch_dubl(t_ways *ways, t_ways *new);
+int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
 void 				obmen(t_ways *list_ways, t_ways *new, t_point *points);
-void 				push_v_list(t_ways *list_ways, t_ways *new, t_point *points);
+void 				push_v_list(t_ways *w, t_ways *new, t_point *points, t_calc *calc);
+void				calculated(t_calc *calc, t_ways *ways);
+void				lst_add_konec(t_list **lst, t_list *newlist);
+int 				new_calc(t_calc *calc, t_ways *new);
 
 
 #endif
