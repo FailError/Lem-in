@@ -83,6 +83,8 @@ int		start_end(t_all *all, int fd, char *str)
 		ft_end(all, fd, str);
 		return (1);
 	}
+	else if(str[0] == '#' && str[1] == '#')
+		return(1);
 	return (0);
 }
 
@@ -126,6 +128,12 @@ void			double_name(t_all *all)
 		j = i + 1;
 		while (j < all->number_of_all_rooms)
 		{
+			if(all->arr_rooms[i]->x == all->arr_rooms[j]->x && all->arr_rooms[i]->y == all->arr_rooms[j]->y)
+			{
+//				ft_putstr("\x1B[31mdouble coord \033[0m");
+				ft_printf("\x1B[31mdouble coord \033[0m%s[%d;%d] && %s[%d;%d]", all->arr_rooms[i]->name, all->arr_rooms[i]->x, all->arr_rooms[i]->y,   all->arr_rooms[j]->name, all->arr_rooms[j]->x, all->arr_rooms[j]->y);
+				exit(1);
+			}
 			if (ft_strcmp(all->arr_rooms[i]->name, all->arr_rooms[j]->name))
 				j++;
 			else

@@ -62,17 +62,18 @@ void	zero_lvl_que(t_all *all)
 	all->last_room->lvl = INT_MAX;
 }
 
-t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
+t_ways		*reverse_path(t_rooms *last)
 {
 	t_rooms *t_reader = NULL;
 	t_rooms *t_reader2 = NULL;
 	t_list	*cur_list;
 	t_ways *new;
 	int steps;
+	static int num = 1;
 
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
-	steps = last->lvl; //queue[end]->lvl;
-	ft_lstadd(&new->way_t, ft_lstnew2(last));//queue[end]; ///если реверс пути то first //[0]
+	steps = last->lvl;
+	ft_lstadd(&new->way_t, ft_lstnew2(last));
 	new->length++;
 	while (steps > 0)
 	{
@@ -81,7 +82,7 @@ t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 		while (cur_list != NULL)
 		{
 			t_reader2 = cur_list->content;
-			if (t_reader2->lvl == t_reader->lvl - 1) ///если реверс пути то +1
+			if (t_reader2->lvl == t_reader->lvl - 1)
 			{
 				ft_lstadd(&new->way_t, ft_lstnew2(t_reader2));
 				new->length++;
@@ -91,6 +92,7 @@ t_ways		*reverse_path(t_rooms **queue, t_rooms *last)
 		}
 		steps--;
 	}
+	num++;
 	in_array(new);
 	mark_path(new);
 	return (new);
@@ -126,35 +128,23 @@ void				mark_path(t_ways  *new)
 int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 {
 	t_ways		*w = NULL;
-	t_list		*l = NULL;
 	int 		i;
 	int			j;
 	int 		tmp;
 	t_rooms 	**old_arr = NULL;
 	t_rooms 	**new_arr = NULL;
 	t_point		points;
-	points.first = NULL;
-	points.second = NULL;
-	points.number_of_list = 0;
-
-//	t_rooms		*first = NULL;
-//	t_rooms		*second = NULL;
+	ft_bzero(&points, sizeof(t_point));
 
 	i = 1;
 	j = 1;
 	w = ways;
-	l = ways->way_t;
 	new_arr = new->in_array;
 
 	if (ways->way_t)
 	{
 		while (w)
 		{
-			if(w->fake)///hmmmmmm....
-			{
-				w = w->next;
-				continue;
-			}
 			old_arr = w->in_array;
 			points.number_of_list++;
 			tmp = w->length - 1 ;
@@ -164,7 +154,7 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 				{
 					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !points.second)
 						points.second = new_arr[j];
-					else if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
+					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && points.second)
 						points.first = new_arr[j];
 					i++;
 					tmp--;
@@ -173,19 +163,14 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 				j++;
 				i = 1;
 			}
-			if (points.first && points.second)
-			{
-				push_v_list(w, new, &points, calc);
+			if(points.first || points.second)
 				return 1;
-			}
-			else
 			{
 				w = w->next;
 				i = 1;
 				j = 1;
 			}
 		}
-		///return1 если выгодно и пушнул;
 		if(new_calc(calc, new))
 			return (1);
 	}
@@ -201,12 +186,27 @@ int		new_calc(t_calc *calc, t_ways *new)
 
 	a = calc->number_of_ants + calc->sum_steps_all_ways + new->length - 1;
 	b = calc->number_of_ways + 1;
-
 	if (a % b == 0)
 		newresult = a / b - 1;
 	else
 		newresult = a / b;
 	success =  newresult > calc->result ? 1 : 0;
 	return (success);
+}
+
+void 				print_pathq(t_all *all, t_ways *ways)
+{
+	t_ways *w;
+	unsigned ants = all->number_of_ants;
+
+	w = ways;
+	int i = 0;
+	while(all->last_room->ant_n != all->number_of_ants)
+	{
+		while(w)
+		{
+			w = w->next;
+		}
+	}
 }
 

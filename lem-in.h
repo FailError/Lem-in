@@ -25,17 +25,17 @@ typedef struct		s_rooms
 	t_list			*links; ///список связных комнат
 	char			*name; ///имя комнаты
 	int 			lvl;
-	int				antnum;
+	int 			ant_n;
 }					t_rooms;
 
 typedef	struct		s_all
 {
-	t_rooms			**arr_rooms; ///массив указателей на комнаты из списка
 	unsigned		number_of_ants;
 	unsigned		number_of_all_rooms; ///общее кол-во комнат
+	t_list			*list_of_rooms; ///список комнат
+	t_rooms			**arr_rooms; ///массив указателей на комнаты из списка
 	t_rooms			*first_room; ///указатель на 1-ую комнату
 	t_rooms			*last_room; ///указатель на последнюю комнату
-	t_list			*list_of_rooms; ///список комнат
 	t_rooms			**que; ///массив указателей на посещенные bfs-ом комнаты
 }					t_all;
 
@@ -43,16 +43,16 @@ typedef	struct 		s_way
 {
 	t_list			*way_t;
 	int				length;
+	int 			path_no;
 	t_rooms 		**in_array;
-	int				fake;
 	struct s_way	*next;
 }					t_ways;
 
 typedef	struct 		s_arr
 {
-	t_rooms		*first;
-	t_rooms		*second;
-	int 		number_of_list;
+	t_rooms			*first;
+	t_rooms			*second;
+	int				number_of_list;
 }					t_point;
 
 typedef struct 		s_sum
@@ -82,19 +82,16 @@ void 				quick_sort(t_rooms **arr_rooms, int first, int last);
 t_rooms				*binary_search(char *current, unsigned all_rooms, t_rooms **rooms);
 void				free_str_double_star(char **str);
 int 				bfs(t_all *all);
-t_ways				*reverse_path(t_rooms **queue, t_rooms *last);
+t_ways				*reverse_path(t_rooms *last);
 void				zero_lvl_que(t_all *all);
-void				push_v_konec(t_ways **list_ways, t_ways *new, t_calc *calc);
+void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways  *new);
 int 				check_room_on_list(t_list *links, t_rooms *room);
 void				print_path(t_ways *ways, t_calc *calc);
 void				in_array(t_ways *new);
 int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
-void 				obmen(t_ways *list_ways, t_ways *new, t_point *points);
-void 				push_v_list(t_ways *w, t_ways *new, t_point *points, t_calc *calc);
 void				calculated(t_calc *calc, t_ways *ways);
-void				lst_add_konec(t_list **lst, t_list *newlist);
 int 				new_calc(t_calc *calc, t_ways *new);
-
+void 				print_pathq(t_all *all, t_ways *ways);
 
 #endif

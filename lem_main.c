@@ -27,22 +27,7 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	return (new);
 }
 
-void	lst_add_konec(t_list **lst, t_list *newlist)
-{
-	t_list *tmp;
-
-	if((*lst))
-	{
-		tmp = *lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = newlist;
-	}
-	else
-		*lst = newlist;
-}
-
-void	push_v_konec(t_ways **list_ways, t_ways *new, t_calc *calc)
+void	push_v_konec(t_ways **list_ways, t_ways *new)
 {
 	t_ways *tmp;
 
@@ -69,11 +54,6 @@ void				print_path(t_ways *ways, t_calc *calc)
 	current_ways = ways;
 	while (current_ways)
 	{
-		if(current_ways->fake)///hmmmmmm....
-		{
-			current_ways = current_ways->next;
-			continue;
-		}
 		current_list = current_ways->way_t;
 		while (current_list)
 		{
@@ -107,122 +87,29 @@ void			in_array(t_ways *new)
 	}
 }
 
-void obmen(t_ways *list_ways, t_ways *new, t_point *points)
-{
-
-
-}
-
-void		push_v_list(t_ways *w, t_ways *new, t_point *points, t_calc *calc)
-{
-	t_ways	*new_path = NULL;
-	t_list	*list = NULL;
-	t_rooms	*read_n = NULL;
-	int		i;
-	int		a;
-	int 	b;
-	int		result_new;
-
-	i = 0;
-	a = 1;
-	b = 1;
-	while(ft_strcmp(new->in_array[i++]->name, points->second->name))
-		a++;
-	i = w->length - 1;
-	while(ft_strcmp(w->in_array[i--]->name, points->second->name))
-		a++;
-///////////////////////////////////////////////////////////////////
-	i = 0;
-	while(ft_strcmp(w->in_array[i++]->name, points->first->name))
-		b++;
-	i = new->length - 1;
-	while(ft_strcmp(new->in_array[i--]->name, points->first->name))
-		b++;
-	calc->sum_steps_all_ways = calc->sum_steps_all_ways - w->length - 1 + (a + b);
-	calc->number_of_ways = calc->number_of_ways - 1 + 2;
-
-	a = calc->number_of_ants + calc->sum_steps_all_ways;
-	b = calc->number_of_ways;
-	if (a % b == 0)
-		result_new = a / b - 1;
-	else
-		result_new = a / b;
-	///////////////////////////////////////////////////////////
-	if(result_new > calc->result)
-		return;
-	else
-	{
-		calc->result = result_new;
-		w->fake = 1;
-
-		t_ways *new1 = (t_ways *) ft_memalloc(sizeof(t_ways));
-		i = 0;
-		while(ft_strcmp(new->in_array[i]->name, points->second->name))
-		{
-			lst_add_konec(&new1->way_t, ft_lstnew2(new->in_array[i]));
-			new1->length++;
-			i++;
-		}
-		i = 0;
-		while(ft_strcmp(w->in_array[i]->name, points->second->name))
-			i++;
-		while(w->in_array[i])
-		{
-			lst_add_konec(&new1->way_t, ft_lstnew2(w->in_array[i]));
-			new1->length++;
-			i++;
-		}
-		////////////////////////////////////////////////////////////
-
-		t_ways *new2 = (t_ways *) ft_memalloc(sizeof(t_ways));
-		i = 0;
-		while(ft_strcmp(w->in_array[i]->name, points->first->name))
-		{
-			lst_add_konec(&new2->way_t, ft_lstnew2(w->in_array[i]));
-			new2->length++;
-			i++;
-		}
-		i = 0;
-		while(ft_strcmp(new->in_array[i]->name, points->first->name))
-			i++;
-		while(new->in_array[i])
-		{
-			lst_add_konec(&new2->way_t, ft_lstnew2(new->in_array[i]));
-			new2->length++;
-			i++;
-		}
-		in_array(new1);
-		in_array(new2);
-		push_v_konec(&w, new1, calc);
-		push_v_konec(&w, new2, calc);
-	}
-}
-
 void		calculated(t_calc *calc, t_ways *ways)
 {
 	t_ways	*w = NULL;
 	int		a;
 	int		b;
+	int		i;
 
 	calc->sum_steps_all_ways = 0;
 	calc->number_of_ways = 0;
-
-
 	w = ways;
+	i = 1;
+	w->path_no = i;
 	if(ways->way_t)
 	{
 		while (w)
 		{
-			if(w->fake)///hmmmmmm....
-			{
-				w = w->next;
-				continue;
-			}
+
+			w->path_no = i;
 			calc->sum_steps_all_ways += w->length - 1;
 			calc->number_of_ways += 1;
 			w = w->next;
+			i++;
 		}
-
 		a = calc->number_of_ants + calc->sum_steps_all_ways;
 		b = calc->number_of_ways;
 		if (a % b == 0)
@@ -253,17 +140,21 @@ int			main(int argc, char **argv)
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while (bfs(&all))
 	{
-		new = reverse_path(all.que, all.last_room);
+		new = reverse_path(all.last_room);
 		calculated(&calc, list_ways);
 		if(serch_edge(list_ways, new, &calc))
 			;
 		else
-			push_v_konec(&list_ways, new, &calc);
-		//calculated(&calc, list_ways);
+			push_v_konec(&list_ways, new);
 		zero_lvl_que(&all);
 	}
+	calculated(&calc, list_ways);
+	!list_ways->way_t ? ft_putstr("no ways") : 0;
+	ft_printf("\n");
 	print_path(list_ways, &calc);
 	ft_printf("Ходов потребуется - %d", calc.result);
+
+	//print_pathq(&all, list_ways);
 	close(fd);
 	return (0);
 }
