@@ -20,8 +20,8 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new->name = room[0];
 	if (new->name[0] == 'L')
 		ft_error_str("\x1B[31mError, name cannot begin with 'L'\033[0m");
-	new->x = ft_atoi_ants(room[1]);
-	new->y = ft_atoi_ants(room[2]);
+	new->x = ft_atoi(room[1]);
+	new->y = ft_atoi(room[2]);
 	new->lvl = -1;
 	free(room);
 	return (new);
@@ -103,7 +103,6 @@ void		calculated(t_calc *calc, t_ways *ways)
 	{
 		while (w)
 		{
-
 			w->path_no = i;
 			calc->sum_steps_all_ways += w->length - 1;
 			calc->number_of_ways += 1;
@@ -134,6 +133,7 @@ int			main(int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 	else
 		exit(0);
+//	fd = 0;
 	number_of_ants(&all, fd, &calc);
 	all_rooms(&all, fd);
 	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) * (all.number_of_all_rooms + 1));
@@ -151,10 +151,9 @@ int			main(int argc, char **argv)
 	calculated(&calc, list_ways);
 	!list_ways->way_t ? ft_putstr("no ways") : 0;
 	ft_printf("\n");
-	print_path(list_ways, &calc);
-	ft_printf("Ходов потребуется - %d", calc.result);
-
-	//print_pathq(&all, list_ways);
+//	print_path(list_ways, &calc);
+	ft_printf("Ходов потребуется - %d ->жду %d строк\n", calc.result, calc.result);
+	print_pathq(&all, list_ways, &calc);
 	close(fd);
 	return (0);
 }

@@ -194,19 +194,106 @@ int		new_calc(t_calc *calc, t_ways *new)
 	return (success);
 }
 
-void 				print_pathq(t_all *all, t_ways *ways)
+t_ways				**final_map_to_arr(t_ways *ways, t_calc *calc)
 {
+	int i;
 	t_ways *w;
-	unsigned ants = all->number_of_ants;
+	t_ways **new;
 
+	new = (t_ways **)ft_memalloc(sizeof(t_ways *) * (calc->number_of_ways + 1));
 	w = ways;
-	int i = 0;
-	while(all->last_room->ant_n != all->number_of_ants)
+	i = 0;
+	while(w)
 	{
-		while(w)
+		new[i] = w;
+		w = w->next;
+		i++;
+	}
+	return (new);
+}
+
+void				expression(t_ways **arr_p)
+{
+	int i;
+	int j;
+	int current_l = 0;
+	int prev_l = 0;
+	i = 0;
+	j = 1;
+	while(arr_p[j])
+	{
+		while(i != j)
 		{
-			w = w->next;
+			prev_l += arr_p[i]->length - 1;
+			current_l += arr_p[j]->length - 1;
+			i++;
 		}
+		arr_p[j]->expression = current_l - prev_l;
+		current_l = 0;
+		prev_l = 0;
+		j++;
+		i = 0;
+	}
+}
+
+void	for_len_2(t_ways *arr, int *ants_ostatok, int *ants_current)
+{
+	ft_printf("L%d-%s", *ants_current, arr->in_array[1]->name);
+	arr->in_array[1]->itogo++;
+	*ants_ostatok -= 1;
+	*ants_current += 1;
+}
+
+int 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
+{
+	int last = arr->length - 3;
+	if(arr->length == 2 && *ants_ostatok > arr->expression)
+		for_len_2(arr, ants_ostatok, ants_current);
+	else
+	{
+		if(arr->in_array[arr->length - 2]->ant_n)
+		{
+			ft_printf("L%d-%s", arr->in_array[arr->length - 2]->ant_n, arr->in_array[arr->length - 1]->name);
+			arr->in_array[arr->length - 1]->itogo++;
+
+		}
+		while(arr->length - last != 1)
+		{
+			arr->in_array[arr->length - last + 1]->ant_n = arr->in_array[arr->length - last]->ant_n;
+			ft_printf("L%d-%s", arr->in_array[arr->length - last]->ant_n, arr->in_array[arr->length - last + 1]->name);
+			arr->in_array[arr->length - last]->ant_n = 0;
+		}
+		//добавить добавление из А (число остатка > expression))
+	}
+}
+
+void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
+{
+	int ants_ostatok;
+	int ants_current;
+	t_ways **arr_p;
+	int i;
+	int j;
+	int num_ways = calc->number_of_ways;
+
+
+
+	i = 0;
+	j = 0;
+	ants_ostatok = (int)all->number_of_ants;
+	ants_current = 1;
+	arr_p = final_map_to_arr(ways, calc);
+	expression(arr_p);
+	while(all->last_room->itogo != all->number_of_ants)
+	{
+		while(arr_p[i])
+		{
+			walkind_ants(arr_p[i], &ants_ostatok, &ants_current);
+
+			i++;
+		}
+		ft_printf("\n");
+		i++;
 	}
 }
 

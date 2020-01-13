@@ -1,3 +1,35 @@
+//int lastZ;
+//int izA = 1;
+//lastZ = arr->length - 1;
+//if(arr->in_array[lastZ - 1]->ant_n)
+//{
+//ft_printf("L%d-%s", arr->in_array[lastZ - 1]->ant_n, arr->in_array[lastZ]);
+//lastZ--;
+//}
+//while(lastZ != 1)
+//{
+//
+//lastZ--;
+//}
+//if(*ants_ostatok > arr->expression)
+//{
+//arr->in_array[izA]->ant_n = *ants_current;
+//ft_printf("L%d-%s ", *ants_current, arr->in_array[izA]->name);
+//*ants_current += 1;
+//*ants_ostatok -= 1;
+//arr->in_array[arr->length - 1]->itogo++;
+//}
+/////проверка expressiona кстати count в z++;
+
+
+
+
+
+
+
+
+
+
 //	i = 0;
 //	while(ft_strcmp(w->in_array[i]->name, points->second->name))
 //		i++;

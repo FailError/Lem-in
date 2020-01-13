@@ -26,6 +26,7 @@ typedef struct		s_rooms
 	char			*name; ///имя комнаты
 	int 			lvl;
 	int 			ant_n;
+	int 			itogo;
 }					t_rooms;
 
 typedef	struct		s_all
@@ -42,6 +43,7 @@ typedef	struct		s_all
 typedef	struct 		s_way
 {
 	t_list			*way_t;
+	int 			expression;
 	int				length;
 	int 			path_no;
 	t_rooms 		**in_array;
@@ -92,6 +94,6 @@ void				in_array(t_ways *new);
 int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
 void				calculated(t_calc *calc, t_ways *ways);
 int 				new_calc(t_calc *calc, t_ways *new);
-void 				print_pathq(t_all *all, t_ways *ways);
+void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc);
 
 #endif

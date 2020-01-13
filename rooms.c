@@ -130,7 +130,6 @@ void			double_name(t_all *all)
 		{
 			if(all->arr_rooms[i]->x == all->arr_rooms[j]->x && all->arr_rooms[i]->y == all->arr_rooms[j]->y)
 			{
-//				ft_putstr("\x1B[31mdouble coord \033[0m");
 				ft_printf("\x1B[31mdouble coord \033[0m%s[%d;%d] && %s[%d;%d]", all->arr_rooms[i]->name, all->arr_rooms[i]->x, all->arr_rooms[i]->y,   all->arr_rooms[j]->name, all->arr_rooms[j]->x, all->arr_rooms[j]->y);
 				exit(1);
 			}
