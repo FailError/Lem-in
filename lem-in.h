@@ -95,5 +95,7 @@ int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
 void				calculated(t_calc *calc, t_ways *ways);
 int 				new_calc(t_calc *calc, t_ways *new);
 void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc);
+void	freelist(t_ways *listways);
+
 
 #endif

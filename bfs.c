@@ -1,4 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bfs.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 18:01:15 by kbessa            #+#    #+#             */
+/*   Updated: 2020/01/14 18:01:19 by kbessa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem-in.h"
+
+void	ft_error_str(char *str)
+{
+	ft_putstr(str);
+	exit(-1);
+}
+
+t_list	*ft_lstnew2(void const *content)
+{
+	t_list	*newl;
+
+	if (!(newl = (t_list *)ft_memalloc(sizeof(*newl))))
+		return (NULL);
+	if (content == NULL)
+	{
+		newl->content = NULL;
+		newl->content_size = 0;
+	}
+	else
+	{
+		newl->content = (void *)content;
+		newl->content_size = sizeof(void *);
+	}
+	newl->next = NULL;
+	return (newl);
+}
 
 int				bfs(t_all *all)
 {
@@ -238,13 +276,13 @@ void				expression(t_ways **arr_p)
 
 void	for_len_2(t_ways *arr, int *ants_ostatok, int *ants_current)
 {
-	ft_printf("L%d-%s", *ants_current, arr->in_array[1]->name);
+	ft_printf("L%d-%s ", *ants_current, arr->in_array[1]->name);
 	arr->in_array[1]->itogo++;
 	*ants_ostatok -= 1;
 	*ants_current += 1;
 }
 
-int 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
+void 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
 {
 	int last = arr->length - 3;
 	if(arr->length == 2 && *ants_ostatok > arr->expression)
@@ -253,18 +291,44 @@ int 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
 	{
 		if(arr->in_array[arr->length - 2]->ant_n)
 		{
-			ft_printf("L%d-%s", arr->in_array[arr->length - 2]->ant_n, arr->in_array[arr->length - 1]->name);
+			ft_printf("L%d-%s ", arr->in_array[arr->length - 2]->ant_n, arr->in_array[arr->length - 1]->name);
 			arr->in_array[arr->length - 1]->itogo++;
+			arr->in_array[arr->length - 2]->ant_n = 0;
 
 		}
-		while(arr->length - last != 1)
+		while(last != 0)
 		{
-			arr->in_array[arr->length - last + 1]->ant_n = arr->in_array[arr->length - last]->ant_n;
-			ft_printf("L%d-%s", arr->in_array[arr->length - last]->ant_n, arr->in_array[arr->length - last + 1]->name);
-			arr->in_array[arr->length - last]->ant_n = 0;
+			if(arr->in_array[last]->ant_n)
+			{
+				arr->in_array[last + 1]->ant_n = arr->in_array[last]->ant_n;
+				ft_printf("L%d-%s ",arr->in_array[last]->ant_n, arr->in_array[last + 1]->name);
+				arr->in_array[last]->ant_n = 0;
+				last--;
+			}
+			else
+				last--;
 		}
-		//добавить добавление из А (число остатка > expression))
+		if(*ants_ostatok > arr->expression)
+		{
+			arr->in_array[1]->ant_n = *ants_current;
+			ft_printf("L%d-%s ", *ants_current, arr->in_array[1]->name);
+			*ants_ostatok -= 1;
+			*ants_current += 1;
+		}
 	}
+}
+
+void				freearrp(t_ways **arr)
+{
+	int iii;
+
+	iii = 0;
+	while(arr[iii])
+	{
+		free(arr[iii]);
+		iii++;
+	}
+	free(*arr);
 }
 
 void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
@@ -273,13 +337,8 @@ void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
 	int ants_current;
 	t_ways **arr_p;
 	int i;
-	int j;
-	int num_ways = calc->number_of_ways;
-
-
 
 	i = 0;
-	j = 0;
 	ants_ostatok = (int)all->number_of_ants;
 	ants_current = 1;
 	arr_p = final_map_to_arr(ways, calc);
@@ -289,11 +348,13 @@ void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
 		while(arr_p[i])
 		{
 			walkind_ants(arr_p[i], &ants_ostatok, &ants_current);
-
 			i++;
 		}
 		ft_printf("\n");
-		i++;
+		i = 0;
 	}
+	free(arr_p); ///вроде работает
+
 }
+
 

@@ -1,14 +1,15 @@
 /* ************************************************************************** */
-/**/
-/*:::  ::::::::   */
-/*   lem_main.c :+:  :+::+:   */
-/*+:+ +:+ +:+ */
-/*   By: kbessa <kbessa@student.42.fr>  +#+  +:+   +#+*/
-/*+#+#+#+#+#+   +#+   */
-/*   Created: 2019/11/11 15:05:49 by kbessa#+##+# */
-/*   Updated: 2019/12/13 17:26:22 by kbessa   ###   ########.fr   */
-/**/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_main.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
+/*   Updated: 2020/01/14 18:01:58 by kbessa           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
+
 
 #include "lem-in.h"
 
@@ -23,6 +24,7 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new->x = ft_atoi(room[1]);
 	new->y = ft_atoi(room[2]);
 	new->lvl = -1;
+	int a = 0;
 	free(room);
 	return (new);
 }
@@ -40,7 +42,6 @@ void	push_v_konec(t_ways **list_ways, t_ways *new)
 	}
 	else
 		*list_ways = new;
-
 }
 
 void				print_path(t_ways *ways, t_calc *calc)
@@ -118,13 +119,69 @@ void		calculated(t_calc *calc, t_ways *ways)
 	}
 }
 
+void		free_arr_rooms_and_links(t_all *all)
+{
+	t_list	*lol;
+	int		i;
+	unsigned rooms;
+
+	rooms = all->number_of_all_rooms;
+	i = 0;
+	while (rooms > 0)
+	{
+		free(all->arr_rooms[i]->name);
+		while (all->arr_rooms[i]->links)
+		{
+			lol = all->arr_rooms[i]->links->next;
+			free(all->arr_rooms[i]->links);
+			all->arr_rooms[i]->links = lol;
+		}
+		free(all->arr_rooms[i]);
+		all->arr_rooms[i] = NULL;
+		i++;
+		rooms--;
+	}
+	free(all->arr_rooms);
+}
+
+void		free_new(t_ways *new)
+{
+	t_list *lol;
+	int i = 0;
+	if(new)
+	{
+		if (new->way_t)
+		{
+			while (new->way_t)
+			{
+				lol = new->way_t->next;
+				free(new->way_t);
+				new->way_t = lol;
+			}
+			free(new->way_t);
+		}
+	}
+	if(new)
+	{
+		int j = 0;
+		if(new->in_array)
+		{
+			free(new->in_array);
+			new->in_array = NULL;
+		}
+	}
+
+}
+
 int			main(int argc, char **argv)
 {
+
 	int		fd;
 	t_all	all;
 	t_ways	*list_ways;
-	t_ways	*new;
+	t_ways	*new = NULL;
 	t_calc	calc;
+	all.arr_rooms = NULL;
 
 	ft_bzero(&calc, sizeof(t_calc));
 	argc = 0;
@@ -140,6 +197,7 @@ int			main(int argc, char **argv)
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while (bfs(&all))
 	{
+		free_new(new);
 		new = reverse_path(all.last_room);
 		calculated(&calc, list_ways);
 		if(serch_edge(list_ways, new, &calc))
@@ -149,11 +207,27 @@ int			main(int argc, char **argv)
 		zero_lvl_que(&all);
 	}
 	calculated(&calc, list_ways);
-	!list_ways->way_t ? ft_putstr("no ways") : 0;
+	!list_ways->way_t ? error("no ways") : 0;
 	ft_printf("\n");
 //	print_path(list_ways, &calc);
 	ft_printf("Ходов потребуется - %d ->жду %d строк\n", calc.result, calc.result);
 	print_pathq(&all, list_ways, &calc);
+
+
+	free_arr_rooms_and_links(&all); ///работает;
+	free(all.que); ///работает
+
+	t_list *q;
+
+	while(list_ways->way_t) ///вроде нужно
+	{
+		q = list_ways->way_t->next;
+		free(list_ways->way_t);
+		list_ways->way_t = q;
+	}
+	free(list_ways->in_array); ///хз
+	free(list_ways); ///хз
+
 	close(fd);
-	return (0);
+	exit (0); //return (0);;
 }
