@@ -17,7 +17,6 @@ int				comments(char *str, int c)
 	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
 	{
 		free(str);
-		str = NULL;
 		return (1);
 	}
 	else if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && c)
@@ -40,7 +39,6 @@ void			check_name_coord(char **room)
 	i == 2 ? error("only one coordinate or wrong links") : 0;
 	i == 1 ? error("only room") : 0;
 	i == 0 ? error("NO ROOM") : 0;
-//	i != 3 ? ft_error_str("\x1B[31mError\033[0m") : 0;
 }
 
 void		ft_start(t_all *all, int fd)
@@ -51,9 +49,7 @@ void		ft_start(t_all *all, int fd)
 	all->first_room ? error("double start") : 0;
 	get_next_line(fd, &str);
 	while (comments(str, 1))
-	{
 		get_next_line(fd, &str);
-	}
 	ft_putstr(str); // сега если комментарий, была...
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : error("NO ROOM");
@@ -72,10 +68,7 @@ void		ft_end(t_all *all, int fd)
 	all->last_room ? error("double finish") : 0;
 	get_next_line(fd, &str);
 	while (comments(str, 1))
-	{
-//		ft_putstr(str);
 		get_next_line(fd, &str);
-	}
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : error("NO ROOM");
@@ -272,6 +265,16 @@ int 				check_room_on_list(t_list *links, t_rooms *room)
 	return (success);
 }
 
+void				check_name_coord2(char **room)
+{
+	unsigned i;
+
+	i = 0;
+	while (room[i])
+		i++;
+	i != 2 ? error("Error links") : 0;
+}
+
 void				doubleminus(const char *str)
 {
 	int i;
@@ -296,10 +299,10 @@ void				links_add(t_all *all, char *str)
 	t_rooms	*first;
 	t_rooms	*second;
 
-	//doubleminus(str);
+
 	tmp = ft_strsplit(str, '-');
-	//check_name_coord2(tmp);
 	doubleminus(str);
+	check_name_coord2(tmp);
 	if (!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
 		error("Error, room not found");
 	if (!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
@@ -320,11 +323,11 @@ void	all_rooms(t_all *all, int fd)
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
-		if (comments(str, 0)) ///ищем комментарий и пропускаем его
+		if (comments(str, 0))
 			;//do nothing
-		else if (start_end(all, fd, str) && !links_started) ///ищем ##start && ##end
+		else if (start_end(all, fd, str) && !links_started)
 			continue;
-		else if (ft_strchr(str, ' ') && !links_started) ///записываем комнату и ее координаты
+		else if (ft_strchr(str, ' ') && !links_started)
 			room_coord(all, str);
 		else if (ft_strchr(str, '-') && !links_started)
 		{
