@@ -12,11 +12,14 @@
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+void		*ft_memalloc(size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
-	if(!(ptr = (void *)malloc(size)))
-		return (NULL);
+	if (!(ptr = (void *)malloc(size)))
+	{
+		write(2, "Memory Allocation Error\n", 24);
+		exit(-1);
+	}
 	return (ft_memset(ptr, 0, size));
 }

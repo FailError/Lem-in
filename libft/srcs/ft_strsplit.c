@@ -23,8 +23,7 @@ char				**ft_strsplit(char *s, char c)
 		return (NULL);
 	i = 0;
 	p = 0;
-	if (!(tab = (char **)malloc(sizeof(char *) * (ft_word_count(s, c) + 1))))
-		return (NULL);
+	tab = (char **)ft_memalloc(sizeof(char *) * (ft_word_count(s, c) + 1));
 	while (s[i])
 	{
 		while (s[i] == c)
@@ -38,6 +37,5 @@ char				**ft_strsplit(char *s, char c)
 			p++;
 		}
 	}
-	tab[p] = NULL;
 	return (tab);
 }

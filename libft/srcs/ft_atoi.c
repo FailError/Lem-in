@@ -12,31 +12,49 @@
 
 #include "libft.h"
 
-void					ft_error1(void)
+void					error(char *str)
 {
-	ft_putstr("\x1B[31mError\033[0m\n");
+	ft_printf("\x1B[31m%s\033[0m\n", str);
 	exit(-1);
 }
 
-static void				atoi3(long long res, int minus)
+void					check_res_only_int(char *str, int i, int minus,
+						long long res)
 {
-	if (res > INT_MAX && minus == 1)
+	if (i > 11)
 	{
-		ft_putstr("\x1B[31mError\033[0m\n");
-		exit(0);
+		ft_printf("\x1B[31mInvalid coord: [%s is a %s]\033[0m\n",
+			str, "Long number");
+		exit(1);
 	}
-	else if (res >= 0 && minus == -1)
+	if (res > 2147483647l && minus == 1)
 	{
-		ft_putstr("\x1B[31mError\033[0m\n");
-		exit(0);
+		ft_printf("\x1B[31mInvalid coord: [%s %s]\033[0m\n",
+			str, "more than INT_MAX");
+		exit(1);
 	}
-	else if (res == 0)
-		ft_error1();
+	if (res > 2147483648l && minus == -1)
+	{
+		ft_printf("\x1B[31mInvalid coord: [%s %s]\033[0m\n",
+			str, "more than INT_MIN");
+		exit(1);
+	}
 }
 
-int						ft_atoi(const char *str)
+void					result(const char *str, long long *res, size_t *i)
 {
-	long long int	res;
+	if (str[*i] >= '0' && str[*i] <= '9')
+	{
+		*res = (*res * 10) + str[*i] - '0';
+		*i += 1;
+	}
+	else
+		error("Please, enter valid coord [0-9]!");
+}
+
+int						ft_atoi(char *str)
+{
+	long long int		res;
 	int					minus;
 	size_t				i;
 
@@ -50,13 +68,9 @@ int						ft_atoi(const char *str)
 		minus = -1;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
-	while (str[i] && (str[i] >= '0') && (str[i] <= '9'))
-	{
-		res = (res * 10) + (str[i] - '0');
-		i++;
-	}
-	if((i == 20 && res == 0) || (str[i] && !(str[i] >= '0' && str[i] <= '9')))
-		ft_error1();
-	atoi3(res, minus);
+	while (str[i])
+		result(str, &res, &i);
+	check_res_only_int(str, i, minus, res);
+	free(str);
 	return ((int)(res * minus));
 }
