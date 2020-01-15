@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/14 18:01:58 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/15 21:01:47 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,8 @@ int			main(int argc, char **argv)
 	int		fd;
 	t_all	all;
 	t_ways	*list_ways;
-	t_ways	*new = NULL;
+	t_ways	*new;
 	t_calc	calc;
-	all.arr_rooms = NULL;
 
 	ft_bzero(&calc, sizeof(t_calc));
 	argc = 0;

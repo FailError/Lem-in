@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem-in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:03:29 by kbessa            #+#    #+#             */
-/*   Updated: 2019/12/10 14:08:08 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/15 20:53:49 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int					start_end(t_all *all, int fd, char *str);
 //void				ft_error_str(char *str);
 void				number_of_ants(t_all *all, int fd, t_calc *calc);
 void				check_name_coord(char **room);
-void				check_name_coord2(char **room);
 t_list				*ft_lstnew2(void const *content);
 void				room_coord(t_all *all, char *str);
 void				struct_to_array(t_all *all);
