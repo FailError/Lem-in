@@ -12,12 +12,6 @@
 
 #include "lem-in.h"
 
-void	ft_error_str(char *str)
-{
-	ft_putstr(str);
-	exit(-1);
-}
-
 t_list	*ft_lstnew2(void const *content)
 {
 	t_list	*newl;

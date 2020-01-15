@@ -70,7 +70,7 @@ void				all_rooms(t_all *all, int fd);
 int					comments(char *str, int c);
 unsigned			ft_atoi_ants(char *str);
 int					start_end(t_all *all, int fd, char *str);
-void				ft_error_str(char *str);
+//void				ft_error_str(char *str);
 void				number_of_ants(t_all *all, int fd, t_calc *calc);
 void				check_name_coord(char **room);
 void				check_name_coord2(char **room);

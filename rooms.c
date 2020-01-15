@@ -36,10 +36,10 @@ void			check_name_coord(char **room)
 	i = 0;
 	while (room[i])
 		i++;
-	i > 3 ? ft_error_str("\x1B[31mmore than two coordinates\033[0m") : 0;
-	i == 2 ? ft_error_str("\x1B[31monly one coordinate or wrong links\033[0m") : 0;
-	i == 1 ? ft_error_str("\x1B[31monly room\033[0m") : 0;
-	i == 0 ? ft_error_str("\x1B[31mNO ROOM\033[0m") : 0;
+	i > 3 ? error("more than two coordinates") : 0;
+	i == 2 ? error("only one coordinate or wrong links") : 0;
+	i == 1 ? error("only room") : 0;
+	i == 0 ? error("NO ROOM") : 0;
 //	i != 3 ? ft_error_str("\x1B[31mError\033[0m") : 0;
 }
 
@@ -47,7 +47,7 @@ void		ft_start(t_all *all, int fd, char *str)
 {
 	char	**room;
 
-	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
+	all->first_room ? error("double start") : 0;
 	get_next_line(fd, &str);
 	while (comments(str, 1))
 	{
@@ -56,7 +56,7 @@ void		ft_start(t_all *all, int fd, char *str)
 	}
 	ft_putstr(str); // сега если комментарий, была...
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
+	room ? check_name_coord(room) : error("NO ROOM");
 	free(str);
 	all->first_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
@@ -68,7 +68,7 @@ void		ft_end(t_all *all, int fd, char *str)
 {
 	char	**room;
 
-	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
+	all->last_room ? error("double finish") : 0;
 	get_next_line(fd, &str);
 	while (comments(str, 1))
 	{
@@ -77,7 +77,7 @@ void		ft_end(t_all *all, int fd, char *str)
 	}
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
+	room ? check_name_coord(room) : error("NO ROOM");
 	free(str);
 	all->last_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->last_room));
@@ -112,7 +112,7 @@ void		room_coord(t_all *all, char *str)
 	t_rooms	*tmp;
 
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : ft_error_str("\x1B[31mNO ROOM\033[0m");
+	room ? check_name_coord(room) : error("NO ROOM");
 	free(str);
 	tmp = ft_create(room);
 	all->number_of_all_rooms++;
@@ -154,7 +154,7 @@ void			double_name(t_all *all)
 			if (ft_strcmp(all->arr_rooms[i]->name, all->arr_rooms[j]->name))
 				j++;
 			else
-				ft_error_str("\x1B[31mdouble name\033[0m");
+				error("double name");
 		}
 		i++;
 	}
@@ -199,7 +199,7 @@ void			struct_to_array(t_all *all)
 {
 	unsigned	i;
 
-	!all->first_room || !all->last_room ? ft_error_str("\x1B[31mno start/finish\033[0m") : 0;
+	!all->first_room || !all->last_room ? error("no start/finish") : 0;
 	if (!(all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms))) //+1 ????
 		exit(1);
 	i = 0;
@@ -221,7 +221,7 @@ void				check_name_coord2(char **room)
 	i = 0;
 	while (room[i])
 		i++;
-	i != 2 ? ft_error_str("\x1B[31mError links\033[0m") : 0;
+	i != 2 ? error("Error links") : 0;
 }
 
 t_rooms		*binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
@@ -300,9 +300,10 @@ void				links_add(t_all *all, char *str)
 	t_rooms	*first;
 	t_rooms	*second;
 
-	doubleminus(str);
+	//doubleminus(str);
 	tmp = ft_strsplit(str, '-');
 	check_name_coord2(tmp);
+	doubleminus(str);
 	if (!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
 		exit(ft_printf("\x1B[31mError, room not found\033[0m ❌ ---> %s", str));
 	if (!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
@@ -338,7 +339,7 @@ void	all_rooms(t_all *all, int fd)
 		else if (ft_strchr(str, '-'))
 			links_add(all, str);
 		else
-			ft_error_str("\x1B[31mError\033[0m");
+			error("Error");
 	}
-	!all->arr_rooms ? ft_error_str("\x1B[31mlinks not found\033[0m") : 0;
+	!all->arr_rooms ? error("links not found") : 0;
 }

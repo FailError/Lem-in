@@ -20,7 +20,7 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new = ft_memalloc(sizeof(t_rooms));
 	new->name = room[0];
 	if (new->name[0] == 'L')
-		ft_error_str("\x1B[31mError, name cannot begin with 'L'\033[0m");
+		error("Error, name cannot begin with 'L'");
 	new->x = ft_atoi(room[1]);
 	new->y = ft_atoi(room[2]);
 	new->lvl = -1;
