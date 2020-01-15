@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:01:15 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/14 18:01:19 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/15 21:20:00 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_list	*ft_lstnew2(void const *content)
 {

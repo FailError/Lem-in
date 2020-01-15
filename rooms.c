@@ -6,11 +6,11 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:02:18 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 20:56:41 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/15 21:20:41 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 int				comments(char *str, int c)
 {

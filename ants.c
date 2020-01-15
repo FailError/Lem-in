@@ -6,12 +6,12 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:01:05 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 20:58:19 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/15 21:20:36 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 unsigned		ft_atoi_ants(char *str)
 {

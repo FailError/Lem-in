@@ -6,12 +6,12 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:01:47 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/15 21:20:50 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "lem-in.h"
+#include "lem_in.h"
 
 t_rooms	*ft_create(char **room) ///создаем комнату->обнуляем->записываем имя и координаты
 {
@@ -184,9 +184,8 @@ int			main(int argc, char **argv)
 	t_calc	calc;
 
 	ft_bzero(&calc, sizeof(t_calc));
-	argc = 0;
 	ft_bzero(&all, sizeof(t_all));
-	if (argv[1])
+	if (argc > 1 && argv[1])
 		fd = open(argv[1], O_RDONLY);
 	else
 		exit(0);
