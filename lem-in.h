@@ -67,7 +67,7 @@ typedef struct 		s_sum
 
 t_rooms				*ft_create(char **room);
 void				all_rooms(t_all *all, int fd);
-int					comments(char *str);
+int					comments(char *str, int c);
 unsigned			ft_atoi_ants(char *str);
 int					start_end(t_all *all, int fd, char *str);
 void				ft_error_str(char *str);
@@ -96,6 +96,7 @@ void				calculated(t_calc *calc, t_ways *ways);
 int 				new_calc(t_calc *calc, t_ways *new);
 void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc);
 void	freelist(t_ways *listways);
-
+void	freeInarray(t_ways *list_ways);
+void 				doubleminus(const char *str);
 
 #endif

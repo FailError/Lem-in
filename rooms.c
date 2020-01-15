@@ -12,12 +12,18 @@
 
 #include "lem-in.h"
 
-int				comments(char *str)
+int				comments(char *str, int c)
 {
-	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#'))
+	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
 	{
 		free(str);
 		str = NULL;
+		return (1);
+	}
+	else if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && c)
+	{
+		ft_putstr(str);
+		free(str);
 		return (1);
 	}
 	return (0);
@@ -43,9 +49,9 @@ void		ft_start(t_all *all, int fd, char *str)
 
 	all->first_room ? ft_error_str("\x1B[31mdouble start\033[0m") : 0;
 	get_next_line(fd, &str);
-	while (comments(str))
+	while (comments(str, 1))
 	{
-		ft_putstr(str);
+
 		get_next_line(fd, &str);
 	}
 	ft_putstr(str); // сега если комментарий, была...
@@ -64,9 +70,9 @@ void		ft_end(t_all *all, int fd, char *str)
 
 	all->last_room ? ft_error_str("\x1B[31mdouble finish\033[0m") : 0;
 	get_next_line(fd, &str);
-	while (comments(str))
+	while (comments(str, 1))
 	{
-		ft_putstr(str);
+//		ft_putstr(str);
 		get_next_line(fd, &str);
 	}
 	ft_putstr(str);
@@ -143,7 +149,7 @@ void			double_name(t_all *all)
 			if(all->arr_rooms[i]->x == all->arr_rooms[j]->x && all->arr_rooms[i]->y == all->arr_rooms[j]->y)
 			{
 				ft_printf("\x1B[31mdouble coord \033[0m%s[%d;%d] && %s[%d;%d]", all->arr_rooms[i]->name, all->arr_rooms[i]->x, all->arr_rooms[i]->y,   all->arr_rooms[j]->name, all->arr_rooms[j]->x, all->arr_rooms[j]->y);
-				exit(1);
+				exit(0);
 			}
 			if (ft_strcmp(all->arr_rooms[i]->name, all->arr_rooms[j]->name))
 				j++;
@@ -277,12 +283,24 @@ int 				check_room_on_list(t_list *links, t_rooms *room)
 	return (success);
 }
 
+void				doubleminus(const char *str)
+{
+	int i = 0;
+	while(str[i] != '-')
+		i++;
+	if(str[i] == '-' && str[i + 1] && str[i + 1] != '-')
+		i++;
+	else
+		error("double minus");
+}
+
 void				links_add(t_all *all, char *str)
 {
 	char	**tmp;
 	t_rooms	*first;
 	t_rooms	*second;
 
+	doubleminus(str);
 	tmp = ft_strsplit(str, '-');
 	check_name_coord2(tmp);
 	if (!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
@@ -305,7 +323,7 @@ void	all_rooms(t_all *all, int fd)
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
-		if (comments(str)) ///ищем комментарий и пропускаем его
+		if (comments(str, 0)) ///ищем комментарий и пропускаем его
 			;//do nothing
 		else if (start_end(all, fd, str) && !tmp) ///ищем ##start && ##end
 			continue;

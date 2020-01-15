@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= lem_in
+NAME	= lem-in
 
-CFLAGS 	= -Wall -Wextra -Werror
+CFLAGS 	= #-Wall -Wextra -Werror
 
-SRC 	= lem_main.c help.c rooms.c ants.c bfs.c
+SRC 	= lem_main.c rooms.c ants.c bfs.c
 
 RED		=	\033[0;31m
 GREEN	=	\033[0;32m

@@ -41,7 +41,10 @@ void	push_v_konec(t_ways **list_ways, t_ways *new)
 		tmp->next = new;
 	}
 	else
+	{
+		free(*list_ways);
 		*list_ways = new;
+	}
 }
 
 void				print_path(t_ways *ways, t_calc *calc)
@@ -99,12 +102,10 @@ void		calculated(t_calc *calc, t_ways *ways)
 	calc->number_of_ways = 0;
 	w = ways;
 	i = 1;
-	w->path_no = i;
 	if(ways->way_t)
 	{
 		while (w)
 		{
-			w->path_no = i;
 			calc->sum_steps_all_ways += w->length - 1;
 			calc->number_of_ways += 1;
 			w = w->next;
@@ -197,11 +198,13 @@ int			main(int argc, char **argv)
 	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while (bfs(&all))
 	{
-		free_new(new);
 		new = reverse_path(all.last_room);
 		calculated(&calc, list_ways);
 		if(serch_edge(list_ways, new, &calc))
-			;
+		{
+			free_new(new);
+			break;
+		}
 		else
 			push_v_konec(&list_ways, new);
 		zero_lvl_que(&all);
@@ -209,24 +212,12 @@ int			main(int argc, char **argv)
 	calculated(&calc, list_ways);
 	!list_ways->way_t ? error("no ways") : 0;
 	ft_printf("\n");
-//	print_path(list_ways, &calc);
+	//print_path(list_ways, &calc);
 	ft_printf("Ходов потребуется - %d ->жду %d строк\n", calc.result, calc.result);
 	print_pathq(&all, list_ways, &calc);
 
-
 	free_arr_rooms_and_links(&all); ///работает;
 	free(all.que); ///работает
-
-	t_list *q;
-
-	while(list_ways->way_t) ///вроде нужно
-	{
-		q = list_ways->way_t->next;
-		free(list_ways->way_t);
-		list_ways->way_t = q;
-	}
-	free(list_ways->in_array); ///хз
-	free(list_ways); ///хз
 
 	close(fd);
 	exit (0); //return (0);;

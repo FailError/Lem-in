@@ -107,7 +107,6 @@ t_ways		*reverse_path(t_rooms *last)
 	t_list	*cur_list;
 	t_ways *new;
 	int steps;
-	static int num = 1;
 
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
 	steps = last->lvl;
@@ -130,7 +129,6 @@ t_ways		*reverse_path(t_rooms *last)
 		}
 		steps--;
 	}
-	num++;
 	in_array(new);
 	mark_path(new);
 	return (new);
@@ -201,17 +199,23 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 				j++;
 				i = 1;
 			}
-			if(points.first || points.second)
+			if (points.first || points.second)
+			{
+
 				return 1;
+			}
 			{
 				w = w->next;
 				i = 1;
 				j = 1;
 			}
 		}
-		if(new_calc(calc, new))
-			return (1);
+		if (new_calc(calc, new))
+		{
+			return 1;
+		}
 	}
+
 	return (0);
 }
 
@@ -318,19 +322,6 @@ void 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
 	}
 }
 
-void				freearrp(t_ways **arr)
-{
-	int iii;
-
-	iii = 0;
-	while(arr[iii])
-	{
-		free(arr[iii]);
-		iii++;
-	}
-	free(*arr);
-}
-
 void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
 {
 	int ants_ostatok;
@@ -343,9 +334,9 @@ void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
 	ants_current = 1;
 	arr_p = final_map_to_arr(ways, calc);
 	expression(arr_p);
-	while(all->last_room->itogo != all->number_of_ants)
+	while (all->last_room->itogo != all->number_of_ants)
 	{
-		while(arr_p[i])
+		while (arr_p[i])
 		{
 			walkind_ants(arr_p[i], &ants_ostatok, &ants_current);
 			i++;
@@ -353,8 +344,9 @@ void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
 		ft_printf("\n");
 		i = 0;
 	}
-	free(arr_p); ///вроде работает
+	free(arr_p);
 
 }
+
 
 

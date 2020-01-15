@@ -41,7 +41,13 @@ void	number_of_ants(t_all *all, int fd, t_calc *calc)
 	char *str;
 
 	str = NULL;
-	get_next_line(fd, &str) ? ft_putstr(str) : ft_putstr("\x1B[31mError, empty map!!!\033[0m");
+	if(get_next_line(fd, &str))
+		ft_putstr(str);
+	else
+	{
+		ft_putstr("\x1B[31mError, empty map!!!\033[0m");
+		exit(1);
+	}
 	all->number_of_ants = ft_atoi_ants(str);
 	calc->number_of_ants = (int)all->number_of_ants;
 }
