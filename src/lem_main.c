@@ -47,23 +47,22 @@ void	push_v_konec(t_ways **list_ways, t_ways *new)
 	}
 }
 
-void			print_path_length(t_ways *ways)
+void				print_path(t_ways *ways, t_calc *calc)
 {
-	t_list		*current_list;
-	t_rooms		*current_rooms;
-	t_ways		*current_ways;
-	int			i;
+	t_list	*current_list;
+	t_rooms	*current_rooms;
+	t_ways	*current_ways;
+	int i;
 
 	i = 1;
 	current_ways = ways;
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
 	while (current_ways)
 	{
 		current_list = current_ways->way_t;
 		while (current_list)
 		{
 			current_rooms = current_list->content;
-			ft_printf("L%d-%s ", i, current_rooms->name);
+			ft_printf("L%d-%s ",i, current_rooms->name);
 			current_list = current_list->next;
 		}
 		ft_printf("<%d>", current_ways->length - 1);
@@ -71,7 +70,7 @@ void			print_path_length(t_ways *ways)
 		current_ways = current_ways->next;
 		i++;
 	}
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
+
 }
 
 void			in_array(t_ways *new)
@@ -92,18 +91,18 @@ void			in_array(t_ways *new)
 	}
 }
 
-void			calculated(t_calc *calc, t_ways *ways)
+void		calculated(t_calc *calc, t_ways *ways)
 {
-	t_ways		*w;
-	int			a;
-	int			b;
-	int			i;
+	t_ways	*w = NULL;
+	int		a;
+	int		b;
+	int		i;
 
 	calc->sum_steps_all_ways = 0;
 	calc->number_of_ways = 0;
 	w = ways;
 	i = 1;
-	if (ways->way_t)
+	if(ways->way_t)
 	{
 		while (w)
 		{
@@ -121,11 +120,11 @@ void			calculated(t_calc *calc, t_ways *ways)
 	}
 }
 
-void			free_arr_rooms_and_links(t_all *all)
+void		free_arr_rooms_and_links(t_all *all)
 {
-	t_list		*lol;
-	int			i;
-	unsigned	rooms;
+	t_list	*lol;
+	int		i;
+	unsigned rooms;
 
 	rooms = all->number_of_all_rooms;
 	i = 0;
@@ -146,11 +145,11 @@ void			free_arr_rooms_and_links(t_all *all)
 	free(all->arr_rooms);
 }
 
-void			free_new(t_ways *new)
+void		free_new(t_ways *new)
 {
-	t_list		*lol;
-
-	if (new)
+	t_list *lol;
+	int i = 0;
+	if(new)
 	{
 		if (new->way_t)
 		{
@@ -163,68 +162,61 @@ void			free_new(t_ways *new)
 			free(new->way_t);
 		}
 	}
-	if (new)
+	if(new)
 	{
-		if (new->in_array)
+		int j = 0;
+		if(new->in_array)
+		{
 			free(new->in_array);
+			new->in_array = NULL;
+		}
 	}
+
 }
 
-void			printflags(t_calc *calc, char **argv, t_ways *list_ways)
+int			main(int argc, char **argv)
 {
-	if (argv[1] && ft_strcmp(argv[1], "-s") == 0)
-		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
-	else if (argv[1] && ft_strcmp(argv[1], "-p") == 0)
-		print_path_length(list_ways);
-	if (argv[2] && ft_strcmp(argv[2], "-p") == 0)
-		print_path_length(list_ways);
-	else if (argv[2] && ft_strcmp(argv[2], "-s") == 0)
-		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
-}
 
-static void		init(t_calc *calc, t_ways **list_ways, t_all *all)
-{
-	ft_bzero(calc, sizeof(t_calc));
-	ft_bzero(all, sizeof(t_all));
-	*list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
-}
+	int		fd;
+	t_all	all;
+	t_ways	*list_ways;
+	t_ways	*new;
+	t_calc	calc;
 
-static void		output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
-							char **argv)
-{
-	calculated(calc, list_ways);
-	!list_ways->way_t ? error("no ways") : ft_printf("\n");
-	print_path(all, list_ways, calc);
-	printflags(calc, argv, list_ways);
-	free_arr_rooms_and_links(all);
-	free(all->que);
-}
-
-int				main(int argc, char **argv)
-{
-	t_all		all;
-	t_ways		*list_ways;
-	t_ways		*new;
-	t_calc		calc;
-
-	init(&calc, &list_ways, &all);
-	number_of_ants(&all, 0, &calc);
-	all_rooms(&all, 0);
-	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) *
-	(all.number_of_all_rooms + 1));
+	ft_bzero(&calc, sizeof(t_calc));
+	ft_bzero(&all, sizeof(t_all));
+	if (argc > 1 && argv[1])
+		fd = open(argv[1], O_RDONLY);
+	else
+		exit(0);
+//	fd = 0;
+	number_of_ants(&all, fd, &calc);
+	all_rooms(&all, fd);
+	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) * (all.number_of_all_rooms + 1));
+	list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 	while (bfs(&all))
 	{
 		new = reverse_path(all.last_room);
 		calculated(&calc, list_ways);
-		if (serch_edge(list_ways, new, &calc))
+		if(serch_edge(list_ways, new, &calc))
 		{
 			free_new(new);
-			break ;
+			break;
 		}
 		else
 			push_v_konec(&list_ways, new);
 		zero_lvl_que(&all);
 	}
-	output_and_free(&all, list_ways, &calc, argv);
-	exit(0);
+	calculated(&calc, list_ways);
+	!list_ways->way_t ? error("no ways") : 0;
+	ft_printf("\n");
+	//print_path(list_ways, &calc);
+	ft_printf("Ходов потребуется - %d ->жду %d строк\n", calc.result, calc.result);
+	print_pathq(&all, list_ways, &calc);
+
+	free_arr_rooms_and_links(&all); ///работает;
+	free(all.que); ///работает
+
+	close(fd);
+	exit (0); //return (0);;
 }

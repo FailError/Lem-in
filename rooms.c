@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-int				comments(char *str, int c)
+int				comments_or_commands(char *str, int c)
 {
 	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
 	{
@@ -20,6 +20,12 @@ int				comments(char *str, int c)
 		return (1);
 	}
 	else if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && c)
+	{
+		ft_putstr(str);
+		free(str);
+		return (1);
+	}
+	else if (str[0] == '#' && str[1] &&  str[1] == '#' && ft_strcmp(str, "##start") && ft_strcmp(str, "##end"))
 	{
 		ft_putstr(str);
 		free(str);
@@ -48,9 +54,9 @@ void		ft_start(t_all *all, int fd)
 	
 	all->first_room ? error("double start") : 0;
 	get_next_line(fd, &str);
-	while (comments(str, 1))
+	while (comments_or_commands(str, 1))
 		get_next_line(fd, &str);
-	ft_putstr(str); // сега если комментарий, была...
+	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : error("NO ROOM");
 	free(str);
@@ -67,7 +73,7 @@ void		ft_end(t_all *all, int fd)
 
 	all->last_room ? error("double finish") : 0;
 	get_next_line(fd, &str);
-	while (comments(str, 1))
+	while (comments_or_commands(str, 1))
 		get_next_line(fd, &str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
@@ -93,8 +99,6 @@ int		start_end(t_all *all, int fd, char *str)
 		ft_end(all, fd);
 		return (1);
 	}
-	else if(str[0] == '#' && str[1] == '#')
-		return(1);
 	return (0);
 }
 
@@ -192,8 +196,7 @@ void			struct_to_array(t_all *all)
 	unsigned	i;
 
 	!all->first_room || !all->last_room ? error("no start/finish") : 0;
-	all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms); //+1 ????
-
+	all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms);
 	i = 0;
 	while (all->list_of_rooms)
 	{
@@ -201,9 +204,9 @@ void			struct_to_array(t_all *all)
 		all->list_of_rooms = next(all->list_of_rooms);
 		i++;
 	}
-	all->list_of_rooms = NULL; ///список с комнатами уже не нужен, есть массив, так-что обнуляем и не храним, фришить кто будет??
-	double_name(all); //проверка на дубликат имен комнат
-	quick_sort(all->arr_rooms, 0, (int)all->number_of_all_rooms - 1); ///сортируем комнаты в массиве arr_rooms по алфавиту
+	all->list_of_rooms = NULL;
+	double_name(all);
+	quick_sort(all->arr_rooms, 0, (int)all->number_of_all_rooms - 1);
 }
 
 t_rooms		*binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
@@ -299,7 +302,6 @@ void				links_add(t_all *all, char *str)
 	t_rooms	*first;
 	t_rooms	*second;
 
-
 	tmp = ft_strsplit(str, '-');
 	doubleminus(str);
 	check_name_coord2(tmp);
@@ -323,8 +325,8 @@ void	all_rooms(t_all *all, int fd)
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
-		if (comments(str, 0))
-			;//do nothing
+		if (comments_or_commands(str, 0))
+			;
 		else if (start_end(all, fd, str) && !links_started)
 			continue;
 		else if (ft_strchr(str, ' ') && !links_started)

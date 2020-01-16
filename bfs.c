@@ -194,22 +194,14 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 				i = 1;
 			}
 			if (points.first || points.second)
-			{
-
 				return 1;
-			}
-			{
-				w = w->next;
-				i = 1;
-				j = 1;
-			}
+			w = w->next;
+			i = 1;
+			j = 1;
 		}
 		if (new_calc(calc, new))
-		{
 			return 1;
-		}
 	}
-
 	return (0);
 }
 
@@ -316,7 +308,7 @@ void 	walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
 	}
 }
 
-void 				print_pathq(t_all *all, t_ways *ways, t_calc *calc)
+void 				print_path(t_all *all, t_ways *ways, t_calc *calc)
 {
 	int ants_ostatok;
 	int ants_current;

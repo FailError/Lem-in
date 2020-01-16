@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lem_in.h"
 
 unsigned		ft_atoi_ants(char *str)
@@ -36,9 +35,9 @@ unsigned		ft_atoi_ants(char *str)
 	return (ants);
 }
 
-void	number_of_ants(t_all *all, int fd, t_calc *calc)
+void			number_of_ants(t_all *all, int fd, t_calc *calc)
 {
-	char *str;
+	char		*str;
 
 	str = NULL;
 	if (get_next_line(fd, &str))
