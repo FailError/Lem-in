@@ -211,15 +211,15 @@ int				main(int argc, char **argv)
 	number_of_ants(&all, fd, &calc);
 	all_rooms(&all, fd);
 	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) *
-	(all.num_all_rooms + 1));
+		(all.num_all_rooms + 1));
 	while (bfs(&all))
 	{
 		new = reverse_path(all.last_room, all.first_room);
 		calculated(&calc, list_ways);
-		if (serch_edge(list_ways, new, &calc))
+		if (serch_edge(list_ways, new, &calc, all.first_room))
 		{
 			free_new(new);
-			break ;
+			continue;//break ;
 		}
 		else
 			push_v_konec(&list_ways, new);

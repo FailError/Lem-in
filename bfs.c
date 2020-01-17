@@ -169,7 +169,7 @@ void				mark_path(t_ways  *new)
 	}
 }
 
-int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
+int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc, t_rooms *first)
 {
 	t_ways		*w = NULL;
 	int 		i;
@@ -186,6 +186,8 @@ int kek = 0;
 	w = ways;
 	new_arr = new->in_array;
 	kek = w->length - 2;
+	if(ft_strcmp(new->in_array[0]->name, first->name) == 0)
+		return (0);
 	if (ways->way_t)
 	{
 		while (w)

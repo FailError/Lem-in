@@ -92,7 +92,7 @@ void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways *new);
 int					check_double_room_in_list(t_list *links, t_rooms *room);
 void				in_array(t_ways *new);
-int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
+int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc, t_rooms *first);
 void				calculated(t_calc *calc, t_ways *ways);
 int					new_calc(t_calc *calc, t_ways *new);
 void				print_path(t_all *all, t_ways *ways, t_calc *calc);
