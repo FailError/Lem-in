@@ -12,9 +12,9 @@
 
 #include "lem_in.h"
 
-t_list	*ft_lstnew2(void const *content)
+t_list			*ft_lstnew2(void const *content)
 {
-	t_list	*newl;
+	t_list		*newl;
 
 	if (!(newl = (t_list *)ft_memalloc(sizeof(*newl))))
 		return (NULL);
@@ -32,46 +32,53 @@ t_list	*ft_lstnew2(void const *content)
 	return (newl);
 }
 
+static void		bfs_lvlup(t_all *all, t_rooms **read_trooms,
+				t_list **read_tlist, const int *start)
+{
+	*read_trooms = (*read_tlist)->content;
+//	if((*read_trooms)->wputi)
+//		*read_tlist = (*read_tlist)->next;
+	if ((*read_trooms)->lvl == -1 || (*read_trooms)->lvl == INT_MAX)
+	{
+		if ((*read_trooms)->lvl == INT_MAX)
+			all->success = 1;
+		all->que[all->end] = (*read_tlist)->content;
+		all->que[all->end]->lvl = all->que[*start]->lvl + 1;
+		*read_tlist = (*read_tlist)->next;
+		all->end++;
+	}
+	else
+		*read_tlist = (*read_tlist)->next;
+}
+
 int				bfs(t_all *all)
 {
-	int			i = 0;
-	int			end = 1;
-	t_rooms		*read_trooms = NULL;
-	t_list		*read_tlist = NULL;
-	int			success = 0;
+	int			start;
+	t_rooms		*read_trooms;
+	t_list		*read_tlist;
 
-	all->que[i] = all->first_room;
-	while (i < all->number_of_all_rooms)
+	start = 0;
+	all->que[start] = all->first_room;
+	all->success = 0;
+	all->end = 1;
+	while (start < all->num_all_rooms)
 	{
-		if (all->que[i])
+		if (all->que[start])
 		{
-			read_tlist = all->que[i]->links;
+			read_tlist = all->que[start]->links;
 			while (read_tlist != NULL)
 			{
 				if (read_tlist->content_size == 1)
 					read_tlist = read_tlist->next;
 				else
-				{
-					read_trooms = read_tlist->content;
-					if (read_trooms->lvl == -1 || read_trooms->lvl == INT_MAX)
-					{
-						if (read_trooms->lvl == INT_MAX)
-							success = 1;
-						all->que[end] = read_tlist->content;
-						all->que[end]->lvl = all->que[i]->lvl + 1;
-						read_tlist = read_tlist->next;
-						end++;
-					}
-					else
-						read_tlist = read_tlist->next;
-				}
+					bfs_lvlup(all, &read_trooms, &read_tlist, &start);
 			}
-			i++;
+			start++;
 		}
 		else
-			return (success);
+			return (all->success);
 	}
-	return (success);
+	return (all->success);
 }
 
 void	zero_lvl_que(t_all *all)
@@ -94,35 +101,42 @@ void	zero_lvl_que(t_all *all)
 	all->last_room->lvl = INT_MAX;
 }
 
-t_ways		*reverse_path(t_rooms *last)
+t_ways *initial(t_ways *new, t_rooms *last)
 {
-	t_rooms *t_reader = NULL;
-	t_rooms *t_reader2 = NULL;
-	t_list	*cur_list;
-	t_ways *new;
-	int steps;
-
 	new = (t_ways *) ft_memalloc(sizeof(t_ways));
-	steps = last->lvl;
 	ft_lstadd(&new->way_t, ft_lstnew2(last));
+	new->steps = last->lvl;
 	new->length++;
-	while (steps > 0)
+	return (new);
+}
+
+t_ways			*reverse_path(t_rooms *last, t_rooms *first)
+{
+	t_rooms		*t_reader;
+	t_rooms		*t_reader2;
+	t_list		*cur_list;
+	t_ways		*new;
+
+	new = initial(new, last);
+	while (new->steps > 0)
 	{
 		t_reader = new->way_t->content;
 		cur_list = t_reader->links;
 		while (cur_list != NULL)
 		{
 			t_reader2 = cur_list->content;
-			if (t_reader2->lvl == t_reader->lvl - 1)
+			if ((t_reader2->lvl == t_reader->lvl - 1 && !t_reader2->wputi) || ft_strcmp(first->name, t_reader2->name) == 0)
 			{
+				t_reader2->wputi = 1;
 				ft_lstadd(&new->way_t, ft_lstnew2(t_reader2));
 				new->length++;
 				break;
 			}
 			cur_list = cur_list->next;
 		}
-		steps--;
+		new->steps--;
 	}
+
 	in_array(new);
 	mark_path(new);
 	return (new);
@@ -161,37 +175,39 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc)
 	int 		i;
 	int			j;
 	int 		tmp;
+	int 		tmp2;
 	t_rooms 	**old_arr = NULL;
 	t_rooms 	**new_arr = NULL;
 	t_point		points;
 	ft_bzero(&points, sizeof(t_point));
-
+int kek = 0;
 	i = 1;
 	j = 1;
 	w = ways;
 	new_arr = new->in_array;
-
+	kek = w->length - 2;
 	if (ways->way_t)
 	{
 		while (w)
 		{
 			old_arr = w->in_array;
-			points.number_of_list++;
-			tmp = w->length - 1 ;
-			while (old_arr[i] && new_arr[j])
+			tmp = w->length - 2 ;
+			tmp2 = new->length - 2;
+			while (tmp2 > 0)
 			{
-				while (old_arr[i] && new_arr[j] && tmp != 1)
+				while (tmp > 0)
 				{
 					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !points.second)
 						points.second = new_arr[j];
-					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && points.second)
+					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
 						points.first = new_arr[j];
 					i++;
 					tmp--;
 				}
-				tmp = w->length - 1;
-				j++;
+				tmp = w->length - 2;
+				tmp2--;
 				i = 1;
+				j += 1;
 			}
 			if (points.first || points.second)
 				return 1;

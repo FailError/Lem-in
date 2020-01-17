@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rooms.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 18:02:18 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:20:41 by bgilwood         ###   ########.fr       */
+/*   Created: 2020/01/17 12:50:26 by kbessa            #+#    #+#             */
+/*   Updated: 2020/01/17 12:50:32 by kbessa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				comments_or_commands(char *str, int c)
+int					comments_or_commands(char *str, int c)
 {
 	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
 	{
@@ -25,7 +25,8 @@ int				comments_or_commands(char *str, int c)
 		free(str);
 		return (1);
 	}
-	else if (str[0] == '#' && str[1] &&  str[1] == '#' && ft_strcmp(str, "##start") && ft_strcmp(str, "##end"))
+	else if (str[0] == '#' && str[1] && str[1] == '#' &&
+	ft_strcmp(str, "##start") && ft_strcmp(str, "##end"))
 	{
 		ft_putstr(str);
 		free(str);
@@ -34,9 +35,9 @@ int				comments_or_commands(char *str, int c)
 	return (0);
 }
 
-void			check_name_coord(char **room)
+void				check_name_coord(char **room)
 {
-	unsigned	i;
+	unsigned		i;
 
 	i = 0;
 	while (room[i])
@@ -47,11 +48,11 @@ void			check_name_coord(char **room)
 	i == 0 ? error("NO ROOM") : 0;
 }
 
-void		ft_start(t_all *all, int fd)
+void				ft_start(t_all *all, int fd)
 {
-	char	**room;
- 	char	*str;
-	
+	char			**room;
+	char			*str;
+
 	all->first_room ? error("double start") : 0;
 	get_next_line(fd, &str);
 	while (comments_or_commands(str, 1))
@@ -62,14 +63,14 @@ void		ft_start(t_all *all, int fd)
 	free(str);
 	all->first_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
-	all->number_of_all_rooms++;
+	all->num_all_rooms++;
 	all->first_room->lvl = 0;
 }
 
-void		ft_end(t_all *all, int fd)
+void				ft_end(t_all *all, int fd)
 {
-	char	**room;
-	char	*str;
+	char			**room;
+	char			*str;
 
 	all->last_room ? error("double finish") : 0;
 	get_next_line(fd, &str);
@@ -81,11 +82,11 @@ void		ft_end(t_all *all, int fd)
 	free(str);
 	all->last_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->last_room));
-	all->number_of_all_rooms++;
+	all->num_all_rooms++;
 	all->last_room->lvl = INT_MAX;
 }
 
-int		start_end(t_all *all, int fd, char *str)
+int					start_end(t_all *all, int fd, char *str)
 {
 	if (!ft_strcmp(str, "##start"))
 	{
@@ -102,51 +103,52 @@ int		start_end(t_all *all, int fd, char *str)
 	return (0);
 }
 
-void		room_coord(t_all *all, char *str)
+void				room_coord(t_all *all, char *str)
 {
-	char	**room;
-	t_rooms	*tmp;
+	char			**room;
+	t_rooms			*tmp;
 
 	room = ft_strsplit(str, ' ');
 	room ? check_name_coord(room) : error("NO ROOM");
 	free(str);
 	tmp = ft_create(room);
-	all->number_of_all_rooms++;
+	all->num_all_rooms++;
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(tmp));
 }
 
-t_list		*next(t_list *tmp)
+t_list				*next(t_list *tmp)
 {
-	t_list	*next;
+	t_list			*next;
 
 	next = NULL;
 	if (tmp)
 	{
 		next = tmp->next;
 		free(tmp);
-		tmp = NULL;
 	}
 	return (next);
-
 }
 
-void			double_name(t_all *all)
+void				double_name(t_all *all)
 {
-	unsigned	i;
-	unsigned 	j;
+	unsigned		i;
+	unsigned		j;
 
 	i = 0;
-	while (i < all->number_of_all_rooms)
+	while (i < all->num_all_rooms)
 	{
 		j = i + 1;
-		while (j < all->number_of_all_rooms)
+		while (j < all->num_all_rooms)
 		{
-			if(all->arr_rooms[i]->x == all->arr_rooms[j]->x && all->arr_rooms[i]->y == all->arr_rooms[j]->y)
+			if (all->ar_room[i]->x == all->ar_room[j]->x &&
+			all->ar_room[i]->y == all->ar_room[j]->y)
 			{
-				ft_printf("\x1B[31mdouble coord \033[0m%s[%d;%d] && %s[%d;%d]", all->arr_rooms[i]->name, all->arr_rooms[i]->x, all->arr_rooms[i]->y,   all->arr_rooms[j]->name, all->arr_rooms[j]->x, all->arr_rooms[j]->y);
+				ft_printf("\x1B[31mdouble coord \033[0m%s[%d;%d] && %s[%d;%d]",
+				all->ar_room[i]->name, all->ar_room[i]->x, all->ar_room[i]->y,
+				all->ar_room[j]->name, all->ar_room[j]->x, all->ar_room[j]->y);
 				exit(0);
 			}
-			if (ft_strcmp(all->arr_rooms[i]->name, all->arr_rooms[j]->name))
+			if (ft_strcmp(all->ar_room[i]->name, all->ar_room[j]->name))
 				j++;
 			else
 				error("double name");
@@ -155,21 +157,22 @@ void			double_name(t_all *all)
 	}
 }
 
-void	qs_swap(t_rooms **arr_rooms, t_rooms *tmp, int *left, int *right)
+void				qs_swap(t_rooms **arr_rooms, t_rooms *tmp,
+					int *left, int *right)
 {
 	tmp = arr_rooms[*left];
 	arr_rooms[*left] = arr_rooms[*right];
 	arr_rooms[*right] = tmp;
 	*left += 1;
-	*right -=1;
+	*right -= 1;
 }
 
-void		quick_sort(t_rooms **arr_rooms, int first, int last)
+void				quick_sort(t_rooms **arr_rooms, int first, int last)
 {
-	t_rooms	*tmp;
-	int		left;
-	int		right;
-	char	*middle;
+	t_rooms			*tmp;
+	int				left;
+	int				right;
+	char			*middle;
 
 	tmp = NULL;
 	if (first < last)
@@ -191,34 +194,34 @@ void		quick_sort(t_rooms **arr_rooms, int first, int last)
 	}
 }
 
-void			struct_to_array(t_all *all)
+void				struct_to_array(t_all *all)
 {
-	unsigned	i;
+	unsigned		i;
 
 	!all->first_room || !all->last_room ? error("no start/finish") : 0;
-	all->arr_rooms = ft_memalloc(sizeof(t_rooms *) * all->number_of_all_rooms);
+	all->ar_room = ft_memalloc(sizeof(t_rooms *) * all->num_all_rooms);
 	i = 0;
 	while (all->list_of_rooms)
 	{
-		all->arr_rooms[i] = all->list_of_rooms->content;
+		all->ar_room[i] = all->list_of_rooms->content;
 		all->list_of_rooms = next(all->list_of_rooms);
 		i++;
 	}
 	all->list_of_rooms = NULL;
 	double_name(all);
-	quick_sort(all->arr_rooms, 0, (int)all->number_of_all_rooms - 1);
+	quick_sort(all->ar_room, 0, (int)all->num_all_rooms - 1);
 }
 
-t_rooms		*binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
+t_rooms				*binary_search(char *current, unsigned all_rooms,
+					t_rooms **rooms)
 {
-	int		low;
-	int		high;
-	int		mid;
-	char	*guess;
+	int				low;
+	int				high;
+	int				mid;
+	char			*guess;
 
 	low = 0;
 	high = (int)all_rooms - 1;
-
 	while (low <= high)
 	{
 		mid = (low + high) / 2;
@@ -235,10 +238,10 @@ t_rooms		*binary_search(char *current, unsigned all_rooms, t_rooms **rooms)
 
 void				free_str_double_star(char **str)
 {
-	int i;
+	int				i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		free(str[i]);
 		str[i] = 0;
@@ -247,18 +250,18 @@ void				free_str_double_star(char **str)
 	free(str);
 }
 
-int 				check_room_on_list(t_list *links, t_rooms *room)
+int					check_double_room_in_list(t_list *links, t_rooms *room)
 {
-	t_list	*current_list;
-	t_rooms	*current_room;
-	int 	success;
+	t_list			*current_list;
+	t_rooms			*current_room;
+	int				success;
 
 	current_list = links;
 	success = 0;
 	while (current_list != NULL)
 	{
 		current_room = current_list->content;
-		if(ft_strcmp(current_room->name, room->name) == 0)
+		if (ft_strcmp(current_room->name, room->name) == 0)
 		{
 			success = 1;
 			return (success);
@@ -270,7 +273,7 @@ int 				check_room_on_list(t_list *links, t_rooms *room)
 
 void				check_name_coord2(char **room)
 {
-	unsigned i;
+	unsigned		i;
 
 	i = 0;
 	while (room[i])
@@ -280,13 +283,12 @@ void				check_name_coord2(char **room)
 
 void				doubleminus(const char *str)
 {
-	int i;
-	int j;
+	int				i;
+	int				j;
 
 	i = 0;
 	j = 0;
-	
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == '-')
 			j++;
@@ -298,30 +300,37 @@ void				doubleminus(const char *str)
 
 void				links_add(t_all *all, char *str)
 {
-	char	**tmp;
-	t_rooms	*first;
-	t_rooms	*second;
+	char			**tmp;
+	t_rooms			*first;
+	t_rooms			*second;
 
 	tmp = ft_strsplit(str, '-');
 	doubleminus(str);
 	check_name_coord2(tmp);
-	if (!(first = binary_search(tmp[0], all->number_of_all_rooms, all->arr_rooms)))
+	if (!(first = binary_search(tmp[0], all->num_all_rooms, all->ar_room)))
+	{
+		free(str);
 		error("Error, room not found");
-	if (!(second = binary_search(tmp[1], all->number_of_all_rooms, all->arr_rooms)))
+	}
+	if (!(second = binary_search(tmp[1], all->num_all_rooms, all->ar_room)))
+	{
+		free(str);
 		error("Error, room not found");
-	check_room_on_list(first->links, second) ? 0 : ft_lstadd(&first->links, ft_lstnew2(second));
-	check_room_on_list(second->links, first) ? 0 : ft_lstadd(&second->links, ft_lstnew2(first));
+	}
+	if (!(check_double_room_in_list(first->links, second)))
+		ft_lstadd(&first->links, ft_lstnew2(second));
+	if (!(check_double_room_in_list(second->links, first)))
+		ft_lstadd(&second->links, ft_lstnew2(first));
 	free(str);
 	free_str_double_star(tmp);
 }
 
-void	all_rooms(t_all *all, int fd)
+void				all_rooms(t_all *all, int fd)
 {
-	char 			*str;
+	char			*str;
 	unsigned char	links_started;
 
 	links_started = 0;
-	str = NULL;
 	while (get_next_line(fd, &str))
 	{
 		ft_putstr(str);
@@ -342,5 +351,5 @@ void	all_rooms(t_all *all, int fd)
 		else
 			error("Error");
 	}
-	!all->arr_rooms ? error("links not found") : 0;
+	!all->ar_room ? error("links not found") : 0;
 }

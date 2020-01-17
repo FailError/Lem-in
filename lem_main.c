@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "lem_in.h"
 
-t_rooms	*ft_create(char **room) ///создаем комнату->обнуляем->записываем имя и координаты
+t_rooms			*ft_create(char **room)
 {
-	t_rooms *new;
+	t_rooms		*new;
 
 	new = ft_memalloc(sizeof(t_rooms));
 	new->name = room[0];
@@ -24,14 +23,13 @@ t_rooms	*ft_create(char **room) ///создаем комнату->обнуляе
 	new->x = ft_atoi(room[1]);
 	new->y = ft_atoi(room[2]);
 	new->lvl = -1;
-	int a = 0;
 	free(room);
 	return (new);
 }
 
-void	push_v_konec(t_ways **list_ways, t_ways *new)
+void			push_v_konec(t_ways **list_ways, t_ways *new)
 {
-	t_ways *tmp;
+	t_ways		*tmp;
 
 	if ((*list_ways)->way_t)
 	{
@@ -45,33 +43,6 @@ void	push_v_konec(t_ways **list_ways, t_ways *new)
 		free(*list_ways);
 		*list_ways = new;
 	}
-}
-
-void			print_path_length(t_ways *ways)
-{
-	t_list		*current_list;
-	t_rooms		*current_rooms;
-	t_ways		*current_ways;
-	int			i;
-
-	i = 1;
-	current_ways = ways;
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
-	while (current_ways)
-	{
-		current_list = current_ways->way_t;
-		while (current_list)
-		{
-			current_rooms = current_list->content;
-			ft_printf("L%d-%s ", i, current_rooms->name);
-			current_list = current_list->next;
-		}
-		ft_printf("<%d>", current_ways->length - 1);
-		ft_printf("\n");
-		current_ways = current_ways->next;
-		i++;
-	}
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
 }
 
 void			in_array(t_ways *new)
@@ -127,23 +98,23 @@ void			free_arr_rooms_and_links(t_all *all)
 	int			i;
 	unsigned	rooms;
 
-	rooms = all->number_of_all_rooms;
+	rooms = all->num_all_rooms;
 	i = 0;
 	while (rooms > 0)
 	{
-		free(all->arr_rooms[i]->name);
-		while (all->arr_rooms[i]->links)
+		free(all->ar_room[i]->name);
+		while (all->ar_room[i]->links)
 		{
-			lol = all->arr_rooms[i]->links->next;
-			free(all->arr_rooms[i]->links);
-			all->arr_rooms[i]->links = lol;
+			lol = all->ar_room[i]->links->next;
+			free(all->ar_room[i]->links);
+			all->ar_room[i]->links = lol;
 		}
-		free(all->arr_rooms[i]);
-		all->arr_rooms[i] = NULL;
+		free(all->ar_room[i]);
+		all->ar_room[i] = NULL;
 		i++;
 		rooms--;
 	}
-	free(all->arr_rooms);
+	free(all->ar_room);
 }
 
 void			free_new(t_ways *new)
@@ -170,7 +141,34 @@ void			free_new(t_ways *new)
 	}
 }
 
-void			printflags(t_calc *calc, char **argv, t_ways *list_ways)
+static void		print_path_length(t_ways *ways)
+{
+	t_list		*current_list;
+	t_rooms		*current_rooms;
+	t_ways		*current_ways;
+	int			i;
+
+	i = 1;
+	current_ways = ways;
+	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
+	while (current_ways)
+	{
+		current_list = current_ways->way_t;
+		while (current_list)
+		{
+			current_rooms = current_list->content;
+			ft_printf("L%d-%s ", i, current_rooms->name);
+			current_list = current_list->next;
+		}
+		ft_printf("<%d>", current_ways->length - 1);
+		ft_printf("\n");
+		current_ways = current_ways->next;
+		i++;
+	}
+	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
+}
+
+static void		printflags(t_calc *calc, char **argv, t_ways *list_ways)
 {
 	if (argv[1] && ft_strcmp(argv[1], "-s") == 0)
 		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
@@ -194,6 +192,7 @@ static void		output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
 {
 	calculated(calc, list_ways);
 	!list_ways->way_t ? error("no ways") : ft_printf("\n");
+	printflags(calc, argv, list_ways);
 	print_path(all, list_ways, calc);
 	printflags(calc, argv, list_ways);
 	free_arr_rooms_and_links(all);
@@ -208,13 +207,14 @@ int				main(int argc, char **argv)
 	t_calc		calc;
 
 	init(&calc, &list_ways, &all);
-	number_of_ants(&all, 0, &calc);
-	all_rooms(&all, 0);
+	int fd = open(argv[1], O_RDONLY);
+	number_of_ants(&all, fd, &calc);
+	all_rooms(&all, fd);
 	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) *
-	(all.number_of_all_rooms + 1));
+	(all.num_all_rooms + 1));
 	while (bfs(&all))
 	{
-		new = reverse_path(all.last_room);
+		new = reverse_path(all.last_room, all.first_room);
 		calculated(&calc, list_ways);
 		if (serch_edge(list_ways, new, &calc))
 		{

@@ -27,14 +27,17 @@ typedef struct		s_rooms
 	int				lvl;
 	int				ant_n;
 	int				itogo;
+	int 			wputi;
 }					t_rooms;
 
 typedef	struct		s_all
 {
+	int 			end;
+	int				success;
 	unsigned		number_of_ants;
-	unsigned		number_of_all_rooms;
+	unsigned		num_all_rooms;
 	t_list			*list_of_rooms;
-	t_rooms			**arr_rooms;
+	t_rooms			**ar_room;
 	t_rooms			*first_room;
 	t_rooms			*last_room;
 	t_rooms			**que;
@@ -42,6 +45,7 @@ typedef	struct		s_all
 
 typedef	struct		s_way
 {
+	int				steps;
 	t_list			*way_t;
 	int				expression;
 	int				length;
@@ -53,7 +57,6 @@ typedef	struct		s_arr
 {
 	t_rooms			*first;
 	t_rooms			*second;
-	int				number_of_list;
 }					t_point;
 
 typedef struct		s_sum
@@ -83,18 +86,16 @@ t_rooms				*binary_search(char *current, unsigned all_rooms,
 					t_rooms **rooms);
 void				free_str_double_star(char **str);
 int					bfs(t_all *all);
-t_ways				*reverse_path(t_rooms *last);
+t_ways				*reverse_path(t_rooms *last, t_rooms *first);
 void				zero_lvl_que(t_all *all);
 void				push_v_konec(t_ways **list_ways, t_ways *new);
 void				mark_path(t_ways *new);
-int					check_room_on_list(t_list *links, t_rooms *room);
-void				print_path_length(t_ways *ways);
+int					check_double_room_in_list(t_list *links, t_rooms *room);
 void				in_array(t_ways *new);
 int					serch_edge(t_ways *ways, t_ways *new, t_calc *calc);
 void				calculated(t_calc *calc, t_ways *ways);
 int					new_calc(t_calc *calc, t_ways *new);
 void				print_path(t_all *all, t_ways *ways, t_calc *calc);
 void				doubleminus(const char *str);
-void				printflags(t_calc *calc, char **argv, t_ways *list_ways);
 
 #endif
