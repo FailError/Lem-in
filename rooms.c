@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rooms.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:50:26 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/17 12:50:32 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/17 22:22:31 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int					comments_or_commands(char *str, int c)
 {
-	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
+	if (str[0] && str[0] == '#' && str[1] != '#' && !c)
 	{
 		free(str);
 		return (1);
 	}
-	else if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && c)
+	else if (str[0] && str[0] == '#' && str[1] != '#' && c)
 	{
 		ft_putstr(str);
 		free(str);
 		return (1);
 	}
-	else if (str[0] == '#' && str[1] && str[1] == '#' &&
-	ft_strcmp(str, "##start") && ft_strcmp(str, "##end"))
+	else if (str[0] == '#' && str[1] == '#' &&
+				ft_strcmp(str, "##start") && ft_strcmp(str, "##end"))
 	{
 		ft_putstr(str);
 		free(str);
@@ -148,10 +148,9 @@ void				double_name(t_all *all)
 				all->ar_room[j]->name, all->ar_room[j]->x, all->ar_room[j]->y);
 				exit(0);
 			}
-			if (ft_strcmp(all->ar_room[i]->name, all->ar_room[j]->name))
-				j++;
-			else
+			if (!ft_strcmp(all->ar_room[i]->name, all->ar_room[j]->name))
 				error("double name");
+			j++;		
 		}
 		i++;
 	}
@@ -254,21 +253,16 @@ int					check_double_room_in_list(t_list *links, t_rooms *room)
 {
 	t_list			*current_list;
 	t_rooms			*current_room;
-	int				success;
 
 	current_list = links;
-	success = 0;
 	while (current_list != NULL)
 	{
 		current_room = current_list->content;
-		if (ft_strcmp(current_room->name, room->name) == 0)
-		{
-			success = 1;
-			return (success);
-		}
+		if (!ft_strcmp(current_room->name, room->name))
+			return (1);
 		current_list = current_list->next;
 	}
-	return (success);
+	return (0);
 }
 
 void				check_name_coord2(char **room)

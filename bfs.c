@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:01:15 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:20:00 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 00:26:51 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,13 @@ t_ways			*reverse_path(t_rooms *last, t_rooms *first)
 	new = initial(new, last);
 	while (new->steps > 0)
 	{
-		t_reader = new->way_t->content;
-		cur_list = t_reader->links;
+		t_reader = (t_rooms*) new->way_t->content;
+		cur_list = (t_list*) t_reader->links;
 		while (cur_list != NULL)
 		{
-			t_reader2 = cur_list->content;
-			if ((t_reader2->lvl == t_reader->lvl - 1 && !t_reader2->wputi) || ft_strcmp(first->name, t_reader2->name) == 0)
+			t_reader2 = (t_rooms*) cur_list->content;
+			if ((t_reader2->lvl == t_reader->lvl - 1 && !t_reader2->wputi)
+							|| ft_strcmp(first->name, t_reader2->name) == 0)
 			{
 				t_reader2->wputi = 1;
 				ft_lstadd(&new->way_t, ft_lstnew2(t_reader2));
@@ -154,8 +155,8 @@ void				mark_path(t_ways  *new)
 	cur_list = new->way_t;
 	while (i > 1)
 	{
-		t_readerFirst = cur_list->content;
-		t_readerSecond = cur_list->next->content;
+		t_readerFirst = (t_rooms*) cur_list->content;
+		t_readerSecond = (t_rooms*) cur_list->next->content;
 		linki = t_readerFirst->links;
 		while (linki != NULL)
 		{
@@ -180,12 +181,10 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc, t_rooms *first)
 	t_rooms 	**new_arr = NULL;
 	t_point		points;
 	ft_bzero(&points, sizeof(t_point));
-int kek = 0;
 	i = 1;
 	j = 1;
 	w = ways;
 	new_arr = new->in_array;
-	kek = w->length - 2;
 	if(ft_strcmp(new->in_array[0]->name, first->name) == 0)
 		return (0);
 	if (ways->way_t)
