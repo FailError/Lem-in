@@ -150,7 +150,7 @@ static void		print_path_length(t_ways *ways)
 
 	i = 1;
 	current_ways = ways;
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
+	ft_putstr("\033[01;38;05;97m***************************\033[0m");
 	while (current_ways)
 	{
 		current_list = current_ways->way_t;
@@ -165,7 +165,7 @@ static void		print_path_length(t_ways *ways)
 		current_ways = current_ways->next;
 		i++;
 	}
-	ft_putstr("\033[01;38;05;97m❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄❐▄\033[0m");
+	ft_putstr("\033[01;38;05;97m***************************\033[0m");
 }
 
 static void		printflags(t_calc *calc, char **argv, t_ways *list_ways)
@@ -236,9 +236,8 @@ int				main(int argc, char **argv)
 	t_calc		calc;
 
 	init(&calc, &list_ways, &all);
-	int fd = open(argv[1], O_RDONLY);
-	number_of_ants(&all, fd, &calc);
-	all_rooms(&all, fd);
+	number_of_ants(&all, 0, &calc);
+	all_rooms(&all, 0);
 	all.que = (t_rooms **)ft_memalloc(sizeof(t_rooms *) *
 		(all.num_all_rooms + 1));
 	while (bfs(&all))
@@ -248,7 +247,7 @@ int				main(int argc, char **argv)
 		if (serch_edge(list_ways, new, &calc, all.first_room))
 		{
 			free_new(new);
-			continue;//break ;
+			continue;
 		}
 		else
 			push_v_konec(&list_ways, new);
