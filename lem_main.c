@@ -187,26 +187,21 @@ static void		init(t_calc *calc, t_ways **list_ways, t_all *all)
 	*list_ways = (t_ways *)ft_memalloc(sizeof(t_ways));
 }
 
-void			next_list(t_ways **list_ways, t_rooms *first)
+void			next_list(t_ways **list_ways)
 {
 	t_ways *w;
-	t_ways *end;
 
 	w = *list_ways;
 	while (w && (*w).next)
 	{
 		if (ft_strcmp(w->in_array[0]->name, w->next->in_array[0]->name) == 0)
-		{
 			w = w->next;
-		}
 		else
 		{
 			if ((*w).next->next && ft_strcmp((*w).next->in_array[0]->name, (*w).next->next->in_array[0]->name))
 				w->next = w->next->next;
-			else if ((*w).next->length <  (*w).length && (*w).next->next == NULL)
-			{
+			else if (ft_strcmp((*w).next->in_array[0]->name, (*w).in_array[0]->name) && (*w).next->next == NULL)
 				(w)->next = NULL;
-			}
 		}
 	}
 }
@@ -215,8 +210,7 @@ static void		output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
 							char **argv)
 {
 	!list_ways->way_t ? error("no ways") : ft_printf("\n");
-//	printflags(calc, argv, list_ways);
-	next_list(&list_ways, all->first_room);
+	next_list(&list_ways);
 	calculated(calc, list_ways);
 	print_path(all, list_ways, calc);
 	printflags(calc, argv, list_ways);

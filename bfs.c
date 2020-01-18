@@ -36,8 +36,6 @@ static void		bfs_lvlup(t_all *all, t_rooms **read_trooms,
 				t_list **read_tlist, const int *start)
 {
 	*read_trooms = (*read_tlist)->content;
-//	if((*read_trooms)->wputi)
-//		*read_tlist = (*read_tlist)->next;
 	if ((*read_trooms)->lvl == -1 || (*read_trooms)->lvl == INT_MAX)
 	{
 		if ((*read_trooms)->lvl == INT_MAX)
@@ -180,12 +178,11 @@ int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc, t_rooms *first)
 	t_rooms 	**new_arr = NULL;
 	t_point		points;
 	ft_bzero(&points, sizeof(t_point));
-int kek = 0;
+
 	i = 1;
 	j = 1;
 	w = ways;
 	new_arr = new->in_array;
-	kek = w->length - 2;
 	if(ft_strcmp(new->in_array[0]->name, first->name) == 0)
 		return (0);
 	if (ways->way_t)
