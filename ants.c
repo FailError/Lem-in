@@ -12,6 +12,79 @@
 
 #include "lem_in.h"
 
+void			zero_lvl_que(t_all *all)
+{
+	int			i;
+	int			j;
+
+	j = 0;
+	i = 1;
+	while (all->que[i])
+	{
+		all->que[i]->lvl = -1;
+		i++;
+	}
+	while (all->que[j])
+	{
+		all->que[j] = NULL;
+		j++;
+	}
+	all->last_room->lvl = INT_MAX;
+}
+
+void			push_v_konec(t_ways **list_ways, t_ways *new)
+{
+	t_ways		*tmp;
+
+	if ((*list_ways)->way_t)
+	{
+		tmp = *list_ways;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+	{
+		free(*list_ways);
+		*list_ways = new;
+	}
+}
+
+t_rooms			*ft_create(char **room)
+{
+	t_rooms		*new;
+
+	new = ft_memalloc(sizeof(t_rooms));
+	new->name = room[0];
+	if (new->name[0] == 'L')
+		error("Error, name cannot begin with 'L'");
+	new->x = ft_atoi(room[1]);
+	new->y = ft_atoi(room[2]);
+	new->lvl = -1;
+	free(room);
+	return (new);
+}
+
+t_list			*ft_lstnew2(void const *content)
+{
+	t_list		*newl;
+
+	if (!(newl = (t_list *)ft_memalloc(sizeof(*newl))))
+		return (NULL);
+	if (content == NULL)
+	{
+		newl->content = NULL;
+		newl->content_size = 0;
+	}
+	else
+	{
+		newl->content = (void *)content;
+		newl->content_size = sizeof(void *);
+	}
+	newl->next = NULL;
+	return (newl);
+}
+
 unsigned		ft_atoi_ants(char *str)
 {
 	unsigned	ants;
