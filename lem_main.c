@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/18 17:34:06 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 19:44:54 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void			next_list(t_ways **list_ways)
 			to_delete = w->next;
 			w->next = w->next->next;
 			free_new(to_delete);
+			free(to_delete);
 		}
 	}
 }
@@ -209,12 +210,21 @@ void			next_list(t_ways **list_ways)
 static void		output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
 							char **argv)
 {
+	t_ways *tmp;
+
 	!list_ways->way_t ? error("no ways") : ft_printf("\n");
 	next_list(&list_ways);
 	calculated(calc, list_ways);
 	print_path(all, list_ways, calc);
 	printflags(calc, argv, list_ways);
 	free_arr_rooms_and_links(all);
+	while (list_ways)
+	{
+		tmp = list_ways->next;
+		free_new(list_ways);
+		free(list_ways);
+		list_ways = tmp;
+	}
 	free(all->que);
 }
 

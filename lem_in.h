@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:03:29 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:20:35 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 21:10:54 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ typedef	struct		s_way
 	struct s_way	*next;
 }					t_ways;
 
-typedef	struct		s_arr
-{
-	t_rooms			*first;
-	t_rooms			*second;
-}					t_point;
-
 typedef struct		s_sum
 {
 	int				number_of_ants;
@@ -97,5 +91,6 @@ void				calculated(t_calc *calc, t_ways *ways);
 int					new_calc(t_calc *calc, t_ways *new);
 void				print_path(t_all *all, t_ways *ways, t_calc *calc);
 void				doubleminus(const char *str);
+void				walking_ants(t_ways *ways, int *ants_ostatok, int *ants_current);
 
 #endif

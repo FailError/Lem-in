@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+         #
+#    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/03 15:08:28 by kbessa            #+#    #+#              #
-#    Updated: 2019/12/13 16:57:13 by kbessa           ###   ########.fr        #
+#    Updated: 2020/01/18 21:07:14 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= lem-in
 
-CFLAGS 	= #-Wall -Wextra -Werror
+CFLAGS 	= -g #-Wall -Wextra -Werror
 
-SRC 	= lem_main.c rooms.c ants.c bfs.c
+SRC 	= lem_main.c rooms.c ants.c bfs.c print_path.c walking.c
 
 RED		=	\033[0;31m
 GREEN	=	\033[0;32m
