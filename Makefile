@@ -6,15 +6,17 @@
 #    By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/03 15:08:28 by kbessa            #+#    #+#              #
-#    Updated: 2020/01/18 21:07:14 by bgilwood         ###   ########.fr        #
+#    Updated: 2020/01/18 22:20:30 by bgilwood         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= lem-in
 
-CFLAGS 	= -g #-Wall -Wextra -Werror
+CFLAGS 	= -g -Wall -Wextra -Werror
 
-SRC 	= lem_main.c rooms.c ants.c bfs.c print_path.c walking.c
+SRC 	= lem_main.c rooms.c ants.c bfs.c print_path.c walking.c \
+			validate.c array_functions.c comments_commands.c \
+			output_and_free.c reverse_path.c
 
 RED		=	\033[0;31m
 GREEN	=	\033[0;32m
