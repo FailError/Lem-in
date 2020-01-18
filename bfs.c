@@ -108,7 +108,7 @@ t_ways			*initial(t_ways *new, t_rooms *last)
 	return (new);
 }
 
-int			search_room(t_rooms *t_reader, t_rooms *t_reader2, t_ways *new,
+int				search_room(t_rooms *t_reader, t_rooms *t_reader2, t_ways *new,
 				t_rooms *first)
 {
 	if ((t_reader2->lvl == t_reader->lvl - 1 && !t_reader2->wputi) ||
@@ -175,55 +175,48 @@ void			mark_path(t_ways *new)
 	}
 }
 
-int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc, t_rooms *first)
+int				room_doublicate(t_ways *w, t_ways *new, t_rooms **new_arr)
 {
-	t_ways		*w = NULL;
-	int 		i;
+	int			i;
 	int			j;
-	int 		tmp;
-	int 		tmp2;
-	t_rooms 	**old_arr = NULL;
-	t_rooms 	**new_arr = NULL;
-	t_point		points;
+	t_rooms		**old_arr;
 
-	ft_bzero(&points, sizeof(t_point));
-	i = 1;
 	j = 1;
+	old_arr = w->in_array;
+	while (j < new->length - 1)
+	{
+		i = 1;
+		while (i < w->length - 1)
+		{
+			if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
+				return (1);
+			i++;
+		}
+		j += 1;
+	}
+	return (0);
+}
+
+int				serch_edge(t_ways *ways, t_ways *new, t_calc *calc,
+					t_rooms *first)
+{
+	t_ways		*w;
+	t_rooms		**new_arr;
+
 	w = ways;
 	new_arr = new->in_array;
-	if(ft_strcmp(new->in_array[0]->name, first->name) == 0)
+	if (ft_strcmp(new->in_array[0]->name, first->name) == 0)
 		return (0);
 	if (ways->way_t)
 	{
 		while (w)
 		{
-			old_arr = w->in_array;
-			tmp = w->length - 2 ;
-			tmp2 = new->length - 2;
-			while (tmp2 > 0)
-			{
-				while (tmp > 0)
-				{
-					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0 && !points.second)
-						points.second = new_arr[j];
-					if (ft_strcmp(old_arr[i]->name, new_arr[j]->name) == 0)
-						points.first = new_arr[j];
-					i++;
-					tmp--;
-				}
-				tmp = w->length - 2;
-				tmp2--;
-				i = 1;
-				j += 1;
-			}
-			if (points.first || points.second)
-				return 1;
+			if (room_doublicate(w, new, new_arr))
+				return (1);
 			w = w->next;
-			i = 1;
-			j = 1;
 		}
 		if (new_calc(calc, new))
-			return 1;
+			return (1);
 	}
 	return (0);
 }
@@ -317,7 +310,7 @@ void			going_to_next_room(t_ways *arr, int *last)
 
 void			walkind_ants(t_ways *arr, int *ants_ostatok, int *ants_current)
 {
-	int last;
+	int			last;
 
 	last = arr->length - 3;
 	if (arr->length == 2 && *ants_ostatok > arr->expression)
