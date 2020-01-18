@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:08:43 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/18 22:08:45 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/18 22:31:28 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ways			*initial(t_rooms *last)
 }
 
 int				search_room(t_rooms *t_reader, t_rooms *t_reader2, t_ways *new,
-							   t_rooms *first)
+									t_rooms *first)
 {
 	if ((t_reader2->lvl == t_reader->lvl - 1 && !t_reader2->wputi) ||
 		ft_strcmp(first->name, t_reader2->name) == 0)

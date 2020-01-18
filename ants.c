@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:01:05 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:20:36 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 22:29:57 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,6 @@ void			zero_lvl_que(t_all *all)
 		j++;
 	}
 	all->last_room->lvl = INT_MAX;
-}
-
-void			push_v_konec(t_ways **list_ways, t_ways *new)
-{
-	t_ways		*tmp;
-
-	if ((*list_ways)->way_t)
-	{
-		tmp = *list_ways;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-	else
-	{
-		free(*list_ways);
-		*list_ways = new;
-	}
 }
 
 t_rooms			*ft_create(char **room)

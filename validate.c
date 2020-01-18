@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 21:36:42 by bgilwood          #+#    #+#             */
-/*   Updated: 2020/01/18 22:17:27 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 22:28:34 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void				double_name(t_all *all)
 			}
 			if (!ft_strcmp(all->ar_room[i]->name, all->ar_room[j]->name))
 				error("double name");
-			j++;		
+			j++;
 		}
 		i++;
 	}

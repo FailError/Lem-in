@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/18 19:44:54 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 22:29:47 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,24 @@ void			print_path_length(t_ways *ways)
 		i++;
 	}
 	ft_putstr("\033[01;38;05;97m***************************\033[0m");
+}
+
+void			push_v_konec(t_ways **list_ways, t_ways *new)
+{
+	t_ways		*tmp;
+
+	if ((*list_ways)->way_t)
+	{
+		tmp = *list_ways;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+	{
+		free(*list_ways);
+		*list_ways = new;
+	}
 }
 
 static void		init(t_calc *calc, t_ways **list_ways, t_all *all)

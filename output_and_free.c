@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_and_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 21:43:25 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/18 21:43:32 by kbessa           ###   ########.fr       */
+/*   Updated: 2020/01/18 22:28:31 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ static void		printflags(t_calc *calc, char **argv, t_ways *list_ways)
 		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
 }
 
-void		output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
-								   char **argv)
+void			output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
+									char **argv)
 {
 	t_ways *tmp;
 
