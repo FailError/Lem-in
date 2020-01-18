@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:50:26 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/17 22:22:31 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 15:38:47 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int					comments_or_commands(char *str, int c)
 {
-	if (str[0] && str[0] == '#' && str[1] != '#' && !c)
+	if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && !c)
 	{
 		free(str);
 		return (1);
 	}
-	else if (str[0] && str[0] == '#' && str[1] != '#' && c)
+	else if (str[0] && str[0] == '#' && (!str[1] || str[1] != '#') && c)
 	{
 		ft_putstr(str);
 		free(str);
