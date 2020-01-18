@@ -6,7 +6,7 @@
 /*   By: bgilwood <bgilwood@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:05:49 by kbessa            #+#    #+#             */
-/*   Updated: 2020/01/15 21:20:50 by bgilwood         ###   ########.fr       */
+/*   Updated: 2020/01/18 17:34:06 by bgilwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,18 +190,18 @@ static void		init(t_calc *calc, t_ways **list_ways, t_all *all)
 void			next_list(t_ways **list_ways)
 {
 	t_ways *w;
+	t_ways *to_delete;
 
 	w = *list_ways;
-	while (w && (*w).next)
+	while (w && w->next)
 	{
 		if (ft_strcmp(w->in_array[0]->name, w->next->in_array[0]->name) == 0)
 			w = w->next;
 		else
 		{
-			if ((*w).next->next && ft_strcmp((*w).next->in_array[0]->name, (*w).next->next->in_array[0]->name))
-				w->next = w->next->next;
-			else if (ft_strcmp((*w).next->in_array[0]->name, (*w).in_array[0]->name) && (*w).next->next == NULL)
-				(w)->next = NULL;
+			to_delete = w->next;
+			w->next = w->next->next;
+			free_new(to_delete);
 		}
 	}
 }
