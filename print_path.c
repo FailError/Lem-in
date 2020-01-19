@@ -74,6 +74,7 @@ void			print_path(t_all *all, t_ways *ways, t_calc *calc)
 			i++;
 		}
 		ft_printf("\n");
+		calc->str_sum++;
 		i = 0;
 	}
 	free(arr_paths);

@@ -84,13 +84,13 @@ void			next_list(t_ways **list_ways)
 static void		printflags(t_calc *calc, char **argv, t_ways *list_ways)
 {
 	if (argv[1] && ft_strcmp(argv[1], "-s") == 0)
-		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
+		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->str_sum);
 	else if (argv[1] && ft_strcmp(argv[1], "-p") == 0)
 		print_path_length(list_ways);
 	if (argv[2] && ft_strcmp(argv[2], "-p") == 0)
 		print_path_length(list_ways);
 	else if (argv[2] && ft_strcmp(argv[2], "-s") == 0)
-		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->result);
+		ft_printf("\x1B[34mВсего строк: %d\033[0m\n", calc->str_sum);
 }
 
 void			output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,

@@ -59,6 +59,7 @@ typedef struct		s_sum
 	int				sum_steps_all_ways;
 	int				number_of_ways;
 	int				result;
+	int				str_sum;
 }					t_calc;
 
 t_rooms				*ft_create(char **room);
@@ -98,6 +99,5 @@ void				output_and_free(t_all *all, t_ways *list_ways, t_calc *calc,
 						char **argv);
 void				print_path_length(t_ways *ways);
 void				free_new(t_ways *new);
-
 
 #endif

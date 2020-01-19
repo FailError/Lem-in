@@ -95,10 +95,18 @@ void			number_of_ants(t_all *all, int fd, t_calc *calc)
 	char		*str;
 
 	str = NULL;
-	if (get_next_line(fd, &str))
-		ft_putstr(str);
-	else
+	while(get_next_line(fd, &str))
+	{
+		if (ft_strcmp(str, "##start") == 0 || ft_strcmp(str, "##end") == 0)
+			error("start/end before ants");
+		else if (comments_or_commands(str, 1))
+			continue;
+		else
+			break;
+	}
+	if(str == NULL)
 		error("Error, empty map!!!");
+	ft_putstr(str);
 	all->number_of_ants = ft_atoi_ants(str);
 	calc->number_of_ants = (int)all->number_of_ants;
 }
