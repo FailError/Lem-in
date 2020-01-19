@@ -46,7 +46,7 @@ void	ft_start(t_all *all, int fd)
 		get_next_line(fd, &str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : error("NO ROOM");
+	room ? check_name_coord(room) : error("no room!");
 	free(str);
 	all->first_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->first_room));
@@ -65,7 +65,7 @@ void	ft_end(t_all *all, int fd)
 		get_next_line(fd, &str);
 	ft_putstr(str);
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : error("NO ROOM");
+	room ? check_name_coord(room) : error("no room!");
 	free(str);
 	all->last_room = ft_create(room);
 	ft_lstadd(&all->list_of_rooms, ft_lstnew2(all->last_room));

@@ -39,7 +39,7 @@ t_rooms			*ft_create(char **room)
 	new = ft_memalloc(sizeof(t_rooms));
 	new->name = room[0];
 	if (new->name[0] == 'L')
-		error("Error, name cannot begin with 'L'");
+		error("name cannot begin with 'L'");
 	new->x = ft_atoi(room[1]);
 	new->y = ft_atoi(room[2]);
 	new->lvl = -1;
@@ -82,10 +82,10 @@ unsigned		ft_atoi_ants(char *str)
 			i++;
 		}
 		else
-			error("Error, no ants or invalid number-> [1 - INT_MAX]");
+			error("no ants or invalid number-> [1 - INT_MAX]");
 	}
 	if (ants == 0x0 || i == 0x0 || i > 0xA || ants > 0x7FFFFFFF)
-		error("Error, valid number -> [1 - INT_MAX]");
+		error("valid number -> [1 - INT_MAX]");
 	free(str);
 	return (ants);
 }
@@ -105,7 +105,7 @@ void			number_of_ants(t_all *all, int fd, t_calc *calc)
 			break;
 	}
 	if(str == NULL)
-		error("Error, empty map!!!");
+		error("empty map!!!");
 	ft_putstr(str);
 	all->number_of_ants = ft_atoi_ants(str);
 	calc->number_of_ants = (int)all->number_of_ants;

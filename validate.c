@@ -49,7 +49,7 @@ void				check_name_coord(char **room)
 	i > 3 ? error("more than two coordinates") : 0;
 	i == 2 ? error("only one coordinate or wrong links") : 0;
 	i == 1 ? error("only room") : 0;
-	i == 0 ? error("NO ROOM") : 0;
+	i == 0 ? error("no room") : 0;
 }
 
 void				check_links(char **room)
@@ -59,7 +59,7 @@ void				check_links(char **room)
 	i = 0;
 	while (room[i])
 		i++;
-	i != 2 ? error("Error links") : 0;
+	i != 2 ? error("error links") : 0;
 }
 
 void				doubleminus(const char *str)

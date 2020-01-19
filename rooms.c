@@ -18,7 +18,7 @@ void				room_coord(t_all *all, char *str)
 	t_rooms			*tmp;
 
 	room = ft_strsplit(str, ' ');
-	room ? check_name_coord(room) : error("NO ROOM");
+	room ? check_name_coord(room) : error("no room");
 	free(str);
 	tmp = ft_create(room);
 	all->n_rooms++;
@@ -66,12 +66,12 @@ void				links_add(t_all *all, char *str)
 	if (!(first = binary_search(tmp[0], all->n_rooms, all->ar_room)))
 	{
 		free(str);
-		error("Error, room not found");
+		error("room not found");
 	}
 	if (!(second = binary_search(tmp[1], all->n_rooms, all->ar_room)))
 	{
 		free(str);
-		error("Error, room not found");
+		error("room not found");
 	}
 	if (!(check_double_room_in_list(first->links, second)))
 		ft_lstadd(&first->links, ft_lstnew2(second));
@@ -105,7 +105,7 @@ void				all_rooms(t_all *all, int fd)
 		else if (ft_strchr(str, '-'))
 			links_add(all, str);
 		else
-			error("Error");
+			error("!");
 	}
 	!all->ar_room ? error("links not found") : 0;
 }
