@@ -6,7 +6,7 @@
 #    By: kbessa <kbessa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/11 15:35:58 by kbessa            #+#    #+#              #
-#    Updated: 2019/12/12 20:46:34 by kbessa           ###   ########.fr        #
+#    Updated: 2019/12/13 17:06:01 by kbessa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,12 @@ YELLOW		=	\x1B[93m
 GREEN		=	\033[0;32m
 NC			=	\033[0m
 NC1			=	\033[5m
-COOL		=	\033[38;5;206;48;5;57m
+COOL		=	\033[38;5;206;48;5;57m
 ANTS		=	\033[38;05;107m
+COOL2		=	\033[01;38;05;97m
+LAGUNA		=	\033[01;38;05;51m
+ORANGE		=	\x1B[38;5;208m
+PURPLE		= 	\033[01;38;05;129m
 
 OBJSFD = objects
 
@@ -61,34 +65,41 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 
-	@echo	"❐▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄"
-	@echo	"									       ❐"
-	@echo  "			  $(ANTS)█   ███ █   █     ███ █  █$(NC)		               ❐"
-	@echo  "			  $(ANTS)█   █   ██ ██      █  ██ █$(NC)		               ❐"
-	@echo  "			  $(ANTS)█   ███ █ █ █ ███  █  █ ██$(NC)		               ❒"
-	@echo  "			  $(ANTS)█   █   █   █      █  █  █$(NC)		               ❒"
-	@echo  "			  $(ANTS)███ ███ █   █     ███ █  █$(NC)		               ❒"
-	@echo	"									       ❒"
-	@echo  "				  $(ANTS)████  ██ ██$(NC)				       ❒"
-	@echo  "				  $(ANTS)█  ██  ███$(NC)				       ❒"
-	@echo  "				  $(ANTS)████    █$(NC)				       ❒"
-	@echo  "				  $(ANTS)█  ██   █$(NC)				       ❒"
-	@echo  "				  $(ANTS)████    █$(NC)				       ❒"
-	@echo  "				  $(ANTS)        █$(NC)				       ❒"
-	@echo	"									       ❒"
-	@echo	"			  $(ANTS)█  █ ████  ███ ███ ███ ████$(NC)			       ❒"
-	@echo	"			  $(ANTS)█ █  █  ██ █   █   █   █  █$(NC)			       ❒"
-	@echo	"			  $(ANTS)██   ████  ███ ███ ███ ████$(NC)			       ❒"
-	@echo	"			  $(ANTS)█ █  █  ██ █     █   █ █  █$(NC)			       ❒"
-	@echo	"			  $(ANTS)█  █ ████  ███ ███ ███ █  █$(NC)			       ❒"
-	@echo	"									       ❒"
-	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       ❒"
-	@echo "$(YELLOW)▀ Making archive... ▀$(NC)							       ❒"
-	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       ❒"
+	@echo	"$(COOL2)❐▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄❒▄$(NC)"
+	@echo	"									       $(COOL2)❐$(NC)"
+	@echo  "			  █   ███ █   █     ███ █  █		               $(COOL2)❐$(NC)"
+	@echo  "			  █   █   ██ ██      █  ██ █		               $(COOL2)❐$(NC)"
+	@echo  "			  █   ███ █ █ █ ███  █  █ ██		               $(COOL2)❒$(NC)"
+	@echo  "			  █   █   █   █      █  █  █		               $(COOL2)❒$(NC)"
+	@echo  "			  ███ ███ █   █     ███ █  █		               $(COOL2)❒$(NC)"
+	@echo	"									       $(COOL2)❒$(NC)"
+	@echo  "				  ████  ██ ██				       $(COOL2)❒$(NC)"
+	@echo  "				  █  ██  ███				       $(COOL2)❒$(NC)"
+	@echo  "				  ████    █				       $(COOL2)❒$(NC)"
+	@echo  "				  █  ██   █				       $(COOL2)❒$(NC)"
+	@echo  "				  ████    █				       $(COOL2)❒$(NC)"
+	@echo  "				          █				       $(COOL2)❒$(NC)"
+	@echo	"									       $(COOL2)❒$(NC)"
+	@echo	"			  $(ORANGE)█  █ ████  ███ ███ ███ ████$(NC)			       $(COOL2)❒$(NC)"
+	@echo	"			  $(ORANGE)█ █  █  ██ █   █   █   █  █$(NC)			       $(COOL2)❒$(NC)"
+	@echo	"			  $(ORANGE)██   ████  ███ ███ ███ ████$(NC)			       $(COOL2)❒$(NC)"
+	@echo	"			  $(ORANGE)█ █  █  ██ █     █   █ █  █$(NC)			       $(COOL2)❒$(NC)"
+	@echo	"			  $(ORANGE)█  █ ████  ███ ███ ███ █  █$(NC)			       $(COOL2)❒$(NC)"
+	@echo	"									       $(COOL2)❒$(NC)"
+	@echo	"		    $(PURPLE)████  ████ ███ █   █   █ ████ ████ ████$(NC)		       $(COOL2)❒$(NC)"
+	@echo	"		    $(PURPLE)█  ██ █     █  █   █   █ █  █ █  █ █  ██$(NC)		       $(COOL2)❒$(NC)"
+	@echo	"		    $(PURPLE)████  █ ██  █  █   █ █ █ █  █ █  █ █  ██$(NC)		       $(COOL2)❒$(NC)"
+	@echo	"		    $(PURPLE)█  ██ █  █  █  █   █████ █  █ █  █ █  ██$(NC)		       $(COOL2)❒$(NC)"
+	@echo	"		    $(PURPLE)████  ████ ███ ███  █ █  ████ ████ ████$(NC)		       $(COOL2)❒$(NC)"
+	@echo	"									       $(COOL2)❒$(NC)"
+	@echo	"									       $(COOL2)❒$(NC)"
+	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       $(COOL2)❒$(NC)"
+	@echo "$(YELLOW)▀ Making archive... ▀$(NC)							       $(COOL2)❒$(NC)"
+	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       $(COOL2)❒$(NC)"
 	@ar rc $@ $(OBJS)
 	@ranlib $@
-	@echo "✅  $(GREEN)libft.a Created!$(NC) ✅							       ❒"
-	@echo "									       ❒"
+	@echo "✅  $(GREEN)libft.a Created!$(NC) ✅							       $(COOL2)❒$(NC)"
+	@echo "									       $(COOL2)❒$(NC)"
 
 $(OBJSFD):
 	@mkdir $@

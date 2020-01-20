@@ -36,6 +36,7 @@ HDR 		= -I./includes
 LIBFT_HDR 	= -I./libft/includes
 LIB_BINARY	= -L./libft -lft
 LIBFT		= libft/libft.a
+HEADER		= lem_in.h
 
 all: $(LIBFT) $(NAME)
 
@@ -44,8 +45,6 @@ $(LIBFT):
 
 $(OBJSFD):
 	@mkdir $@
-
-HEADER = lem_in.h
 
 $(OBJSFD)/%.o: %.c | $(OBJSFD)
 	@$(CC) $(CFLAGS) $(HDR) $(LIBFT_HDR) -c $< -o $@
