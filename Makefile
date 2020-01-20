@@ -45,10 +45,12 @@ $(LIBFT):
 $(OBJSFD):
 	@mkdir $@
 
+HEADER = lem_in.h
+
 $(OBJSFD)/%.o: %.c | $(OBJSFD)
 	@$(CC) $(CFLAGS) $(HDR) $(LIBFT_HDR) -c $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(HEADER)
 	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       $(COOL2)❒$(NC)"
 	@echo "$(YELLOW)▀ Compiling $@... ▀$(NC)							       $(COOL2)❒$(NC)"
 	@echo "$(YELLOW)▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀ ▀$(NC)							       $(COOL2)❒$(NC)"
