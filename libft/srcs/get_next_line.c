@@ -60,7 +60,7 @@ int				get_next_line(const int fd, char **line)
 			break ;
 	}
 	if (iread < 0)
-		error("Error, not a valid file");
+		error("not a valid file");
 	else if (iread == 0 && (str[fd] == NULL || str[fd][0] == '\0'))
 		return (0);
 	return (ft_new_line(str, line, fd, iread));

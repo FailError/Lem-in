@@ -71,6 +71,8 @@ int						ft_atoi(char *str)
 		i++;
 	while (str[i])
 		result(str, &res, &i);
+	if(res == 0 && minus == - 1)
+		error("not a valid number");
 	check_res_only_int(str, i, minus, res);
 	free(str);
 	return ((int)(res * minus));
