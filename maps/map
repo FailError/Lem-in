@@ -1,0 +1,35 @@
+#!/bin/bash
+if [ -n "$1" ]
+then
+  case "$1" in
+    1) ./generator --flow-one > --flow-one 2> /dev/null
+      echo "maps/--flow-one Complete!" 2> /dev/null
+			  ;;
+    2) ./generator --flow-ten > --flow-ten 2> /dev/null
+     echo "maps/--flow-ten Complete!" 2> /dev/null
+			  ;;
+    3) ./generator --flow-thousand > --flow-thousand 2> /dev/null
+     echo "maps/--flow-thousand Complete!" 2> /dev/null
+		  	;;
+    4) ./generator --big > --big 2> /dev/null
+      echo "maps/--big Complete!" 2> /dev/null
+			  ;;
+    5) ./generator --big-superposition > --big-superposition 2> /dev/null
+      echo "maps/--big-superposition Complete!" 2> /dev/null
+			  ;;
+		-help|help|-h|h|--help|Помогити)
+		    echo "1 : generates an ant farm with distinctive path and [1] ant in it"
+        echo "2 : generates an ant farm with distinctive path and approximately [10] ants in it"
+        echo "3 : generates an ant farm with distinctive path and approximately [100] ants in it"
+        echo "4 : generates a big map (approximately [1000] rooms) to test the time complexity"
+        echo "5 : generates a big map with overlapping paths"
+        ;;
+    *)
+      echo "WTF!? Use flag -> -help"
+        ;;
+  esac
+else
+echo "usage: ./map [option]"
+echo "options:"
+echo "          -help: to read the manual"
+fi
